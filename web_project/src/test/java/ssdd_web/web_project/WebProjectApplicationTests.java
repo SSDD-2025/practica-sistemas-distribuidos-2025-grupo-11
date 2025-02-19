@@ -1,10 +1,10 @@
-package ssdd_web.web_proyect;
+package ssdd_web.web_project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebProyectApplicationTests {
+class WebProjectApplicationTests {
 
 	@Test
 	void contextLoads() {

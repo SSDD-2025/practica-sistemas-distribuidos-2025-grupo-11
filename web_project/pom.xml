@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ssdd_web</groupId>
-	<artifactId>web_proyect</artifactId>
+	<artifactId>web_project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>web_proyect</name>
+	<name>web_project</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

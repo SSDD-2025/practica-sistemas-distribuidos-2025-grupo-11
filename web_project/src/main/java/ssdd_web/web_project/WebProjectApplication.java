@@ -1,13 +1,13 @@
-package ssdd_web.web_proyect;
+package ssdd_web.web_project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebProyectApplication {
+public class WebProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebProyectApplication.class, args);
+		SpringApplication.run(WebProjectApplication.class, args);
 	}
 
 }
