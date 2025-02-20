@@ -1,9 +1,9 @@
 package ssdd_web.web_project;
 
 @Entity
-@Table(name = "player")
+@Table(name = "Player")
 public class Player {
-    public enum Hand {
+    private enum Hand {
         LEFT,
         RIGHT,
         BOTH

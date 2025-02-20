@@ -1,4 +1,7 @@
+package ssdd_web.web_project;
+
 import java.util.ArrayList;
+
 
 public class Team {
     private Player player1;

@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "tournament")
+@Table(name = "Tournament")
 public class Tournament {
     private ArrayList<Match> matches;
     private SimpleDateFormat dateT;
