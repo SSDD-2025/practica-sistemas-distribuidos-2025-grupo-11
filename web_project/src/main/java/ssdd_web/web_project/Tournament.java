@@ -3,14 +3,37 @@ package ssdd_web.web_project;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 @Entity
-@Table(name = "Tournament")
 public class Tournament {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
     private ArrayList<Match> matches;
     private SimpleDateFormat dateT;
     private ArrayList<Team> ranking;
     private double prizeMoney;
     private int givenPoints;
+    private Surface surface;
+    private String location;
+
+    public Tournament(SimpleDateFormat dateT, int givenPoints, String location, ArrayList<Match> matches, double prizeMoney, Surface surface) {
+        this.dateT = dateT;
+        this.givenPoints = givenPoints;
+        this.location = location;
+        this.matches = matches;
+        this.prizeMoney = prizeMoney;
+        this.surface = surface;
+        this.ranking = new ArrayList<Team>();
+    }
+
+    public Tournament() {}
 
     public ArrayList<Match> getMatches() {
         return matches;
@@ -50,6 +73,22 @@ public class Tournament {
 
     public void setGivenPoints(int givenPoints) {
         this.givenPoints = givenPoints;
+    }
+
+    public Surface getSurface() {
+        return surface;
+    }
+
+    public void setSurface(Surface surface) {
+        this.surface = surface;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     
