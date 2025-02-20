@@ -1,7 +1,16 @@
-package ssdd_web.web_project;
+package ssdd_web.web_project.model;
 import java.util.ArrayList;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class User {
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
     private String name;
     private Team team;
     private ArrayList<Team> formerTeams;

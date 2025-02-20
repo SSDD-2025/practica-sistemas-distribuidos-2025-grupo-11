@@ -1,35 +1,31 @@
-package ssdd_web.web_project;
+package ssdd_web.web_project.model;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "Player")
 public class Player {
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
     private enum Hand {
         LEFT,
         RIGHT,
         BOTH
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     private int winsPlayer;
     private int lossesPlayer;
     private double winratePlayer;
-
-    @Column(nullable = false)
     private String namePlayer;
-
-    @Column(nullable = false)
     private String citizenship;
-
-    @Column(nullable = false)
     private int height;
-
-    @Column(nullable = false)
     private double weight;
-
-    @Column(nullable = false)
     private int age;
 
     private double aces; // total number of aces of the player in one match
@@ -37,12 +33,8 @@ public class Player {
     private double acespm; // average value of aces per match of the player
     private double doubleFaultspm; // average value of double falts per match of the player
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private Hand bestHand;
-
-    @Column(nullable = false)
-    private surface bestSurface;
+    private Surface bestSurface;
 
     public long getId() {
         return id;
@@ -156,11 +148,11 @@ public class Player {
         this.bestHand = bestHand;
     }
 
-    public surface getBestSurface() {
+    public Surface getBestSurface() {
         return bestSurface;
     }
 
-    public void setBestSurface(surface bestSurface) {
+    public void setBestSurface(Surface bestSurface) {
         this.bestSurface = bestSurface;
     }
 

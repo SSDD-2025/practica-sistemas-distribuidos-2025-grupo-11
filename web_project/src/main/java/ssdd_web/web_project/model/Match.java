@@ -1,4 +1,4 @@
-package ssdd_web.web_project;
+package ssdd_web.web_project.model;
 
 import java.text.SimpleDateFormat;
 

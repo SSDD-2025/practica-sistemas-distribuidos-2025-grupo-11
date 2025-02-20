@@ -1,9 +1,19 @@
-package ssdd_web.web_project;
+package ssdd_web.web_project.model;
 
 import java.util.ArrayList;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Team {
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
     private Player player1;
     private Player player2;
     private int winsTeam;
