@@ -1,3 +1,5 @@
+package ssdd_web.web_project;
+
 @Entity
 @Table(name = "player")
 public class Player {
