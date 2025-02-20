@@ -30,7 +30,7 @@ public class Tournament {
         this.matches = matches;
         this.prizeMoney = prizeMoney;
         this.surface = surface;
-        this.ranking = new ArrayList<Team>();
+        this.ranking = new ArrayList<>();
     }
 
     public Tournament() {}

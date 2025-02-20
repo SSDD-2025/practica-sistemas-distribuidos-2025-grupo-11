@@ -2,10 +2,17 @@ package ssdd_web.web_project;
 
 import java.text.SimpleDateFormat;
 
-@Entity
-@Table(name = "Match")
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Match {
+
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
     private enum STATUS {
         ACCEPTED,
