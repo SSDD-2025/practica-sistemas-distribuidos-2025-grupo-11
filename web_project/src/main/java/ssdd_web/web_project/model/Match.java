@@ -14,7 +14,9 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-    private enum STATUS {
+    public Match() {}
+
+    public enum STATUS {
         ACCEPTED,
         REJECTED,
         PENDING
@@ -29,6 +31,15 @@ public class Match {
     private Team winnerTeam;
 
     
+    public Match(Team homeTeam, Team awayTeam, SimpleDateFormat dateM, Surface surface) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.dateM = dateM;
+        this.surface = surface;
+        this.status = null;
+        this.score = "0-0";
+    }
+
     public Team getHomeTeam() {
         return homeTeam;
     }

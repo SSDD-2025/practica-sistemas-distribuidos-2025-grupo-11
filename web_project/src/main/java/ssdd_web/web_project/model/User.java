@@ -11,12 +11,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+    public User() {};
+
     private String name;
     private Team team;
     private ArrayList<Team> formerTeams;
     private double winrate;
     private int winsUser;
     private int lossesUser;
+
+    public User(String name) {
+        this.name = name;
+        this.formerTeams = new ArrayList<>();
+        this.winrate = 0;
+        this.winsUser = 0;
+        this.lossesUser = 0;
+    }
 
     public String getName() {
         return name;

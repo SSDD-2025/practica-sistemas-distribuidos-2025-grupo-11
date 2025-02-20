@@ -13,7 +13,9 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-    private enum Hand {
+    public Player() {}
+
+    public enum Hand {
         LEFT,
         RIGHT,
         BOTH
@@ -35,6 +37,24 @@ public class Player {
 
     private Hand bestHand;
     private Surface bestSurface;
+
+    public Player(String namePlayer, String citizenship, int height, double weight, int age, Hand bestHand,
+            Surface bestSurface) {
+        this.namePlayer = namePlayer;
+        this.citizenship = citizenship;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.bestHand = bestHand;
+        this.bestSurface = bestSurface;
+        this.winsPlayer = 0;
+        this.lossesPlayer = 0;
+        this.winratePlayer = 0;
+        this.aces = 0;
+        this.doubleFaults = 0;
+        this.acespm = 0;
+        this.doubleFaultspm = 0;
+    }
 
     public long getId() {
         return id;
@@ -64,7 +84,7 @@ public class Player {
         return winratePlayer;
     }
 
-    public void setWinratePlayer(double winrate) {
+    public void setWinratePlayer(double winratePlayer) {
         this.winratePlayer = winratePlayer;
     }
 

@@ -15,6 +15,8 @@ public class Tournament {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+    public Tournament() {}
+
     private ArrayList<Match> matches;
     private SimpleDateFormat dateT;
     private ArrayList<Team> ranking;
@@ -33,7 +35,6 @@ public class Tournament {
         this.ranking = new ArrayList<>();
     }
 
-    public Tournament() {}
 
     public ArrayList<Match> getMatches() {
         return matches;

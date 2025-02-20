@@ -14,6 +14,8 @@ public class Team {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+    public Team() {}
+
     private Player player1;
     private Player player2;
     private int winsTeam;
@@ -22,7 +24,21 @@ public class Team {
     private User manager;
     private int ranking;
     private ArrayList<Tournament> titles;
-    
+    private int points;
+
+
+    public Team(Player player1, Player player2, User manager) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.manager = manager;
+        this.winsTeam = 0;
+        this.lossesTeam = 0;
+        this.winrateTeam = 0;
+        this.ranking = 0;
+        this.titles = new ArrayList<>();
+        this.points = 0;
+    }
+
     public Player getPlayer1() {
         return player1;
     }
@@ -72,6 +88,15 @@ public class Team {
         this.titles = titles;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    
     
 
 }
