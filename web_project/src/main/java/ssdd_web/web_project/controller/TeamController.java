@@ -27,7 +27,7 @@ public class TeamController {
     public String showCreateTeamForm(Model model) {
         List<Player> players = teamService.getAllPlayers();
         model.addAttribute("players", players);
-        return "create_team"; // html para elegir jugadores
+        return "CreateTeam"; // html para elegir jugadores
     }
 
     @PostMapping("/create")
@@ -41,7 +41,7 @@ public class TeamController {
     public String showTeamStats(@PathVariable Long id, Model model) {
         Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
         model.addAttribute("team", team);
-        return "teamStats";
+        return "TeamStats";
     }
 
 }

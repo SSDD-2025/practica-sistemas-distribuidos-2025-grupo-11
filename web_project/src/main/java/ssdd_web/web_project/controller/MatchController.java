@@ -31,7 +31,7 @@ public class MatchController {
     @GetMapping("/createMatch")
     public String showMatchCreate(Model model) {
         model.addAttribute("teams", teamService.getAllTeams());
-        return "createMatch"; // html where we create a match
+        return "CreateMatch"; // html where we create a match
     }
 
     @PostMapping("/createMatch")
@@ -46,14 +46,14 @@ public class MatchController {
     @GetMapping
     public String listMatches(Model model) {
         model.addAttribute("matches", matchService.getAllMatches());
-        return "listMatches"; // html with all matches
+        return "ListMatches"; // html with all matches
     }
 
     // match details
     @GetMapping("/{id}")
     public String showMatchDetails(@PathVariable Long id, Model model) {
         Match match = matchService.getMatchById(id).orElseThrow(() -> new RuntimeException("Partido no encontrado"));
-        return "matchDetails"; // html with match details
+        return "MatchDetails"; // html with match details
     }
 
 }

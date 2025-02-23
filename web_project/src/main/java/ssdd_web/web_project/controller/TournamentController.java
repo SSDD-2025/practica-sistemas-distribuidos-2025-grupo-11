@@ -29,7 +29,7 @@ public class TournamentController {
     @GetMapping("/tournCreate")
     public String showTournCreateForm(Model model) {
         model.addAttribute("teams", tournamentService.getAllTeams());
-        return "createTournament"; // html where user picks tournament data
+        return "CreateTournament"; // html where user picks tournament data
     }
 
     @PostMapping("/tournCreate")
@@ -47,7 +47,7 @@ public class TournamentController {
     @GetMapping
     public String listTournaments(Model model) {
         model.addAttribute("tournaments", tournamentService.getAllTournaments());
-        return "listTournaments"; // html with all tournaments
+        return "ListTournaments"; // html with all tournaments
     }
 
     // tournament details
@@ -55,7 +55,7 @@ public class TournamentController {
     public String showTournamentDetails(@PathVariable Long id, Model model) {
         Optional<Tournament> tournament = tournamentService.getTournamentById(id);
         model.addAttribute("tournament", tournament);
-        return "tournamentDetails"; // html with tournament details
+        return "TournamentDetails"; // html with tournament details
     }
 
 }

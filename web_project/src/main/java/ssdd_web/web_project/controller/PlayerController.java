@@ -20,7 +20,7 @@ public class PlayerController {
     @GetMapping("/players/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("player", new Player());
-        return "PlayerRegistration"; // Thymeleaf buscara "PlayerRegistration.html"
+        return "playerRegistration"; // "PlayerRegistration.html"
     }
 
     // save player in database
