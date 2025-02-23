@@ -1,20 +1,23 @@
 package ssdd_web.web_project.model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Match {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Match() {}
+    public Match() {
+    }
 
     public enum STATUS {
         ACCEPTED,
@@ -22,22 +25,36 @@ public class Match {
         PENDING
     };
 
+    @ManyToOne
     private Team homeTeam;
+
+    @ManyToOne
     private Team awayTeam;
+
     private STATUS status;
-    private SimpleDateFormat dateM;
+    private LocalDate dateM;
     private Surface surface;
     private String score;
+
+    @ManyToOne
     private Team winnerTeam;
 
-    
-    public Match(Team homeTeam, Team awayTeam, SimpleDateFormat dateM, Surface surface) {
+    public Match(Team homeTeam, Team awayTeam, LocalDate dateM, Surface surface) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.dateM = dateM;
         this.surface = surface;
-        this.status = null;
+        this.status = STATUS.PENDING;
         this.score = "0-0";
+        this.winnerTeam = null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Team getHomeTeam() {
@@ -64,11 +81,11 @@ public class Match {
         this.status = status;
     }
 
-    public SimpleDateFormat getDateM() {
+    public LocalDate getDateM() {
         return dateM;
     }
 
-    public void setDateM(SimpleDateFormat dateM) {
+    public void setDateM(LocalDate dateM) {
         this.dateM = dateM;
     }
 
@@ -95,8 +112,5 @@ public class Match {
     public void setWinnerTeam(Team winnerTeam) {
         this.winnerTeam = winnerTeam;
     }
-
-    
-    
 
 }

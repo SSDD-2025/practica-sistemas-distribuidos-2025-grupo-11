@@ -25,6 +25,11 @@ public class TeamService {
         return playerRepository.findAll();
     }
 
+    // all teams list
+    public List<Team> getAllTeams() {
+        return teamRepository.findAll();
+    }
+
     public Team createTeam(Long player1Id, Long player2Id) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
