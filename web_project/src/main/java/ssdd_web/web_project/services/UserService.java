@@ -1,4 +1,4 @@
-package ssdd_web.services;
+package ssdd_web.web_project.services;
 
 import org.springframework.stereotype.Service;
 
