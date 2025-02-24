@@ -1,7 +1,11 @@
 package ssdd_web.web_project.model;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.annotations.ManyToAny;
+import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,52 +17,64 @@ import jakarta.persistence.Table;
 @Table(name = "tournament")
 public class Tournament {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Tournament() {}
+    public Tournament() {
+    }
 
-    private ArrayList<Match> matches;
-    private SimpleDateFormat dateT;
-    private ArrayList<Team> ranking;
+    @OneToMany
+    private List<Match> matches;
+
+    @ManyToAny
+    private List<Team> ranking;
+
+    private LocalDate dateT;
     private double prizeMoney;
     private int givenPoints;
     private Surface surface;
     private String location;
 
-    public Tournament(SimpleDateFormat dateT, int givenPoints, String location, ArrayList<Match> matches, double prizeMoney, Surface surface) {
+    public Tournament(LocalDate dateT, int givenPoints, String location, List<Match> matches, double prizeMoney,
+            Surface surface) {
         this.dateT = dateT;
         this.givenPoints = givenPoints;
         this.location = location;
         this.matches = matches;
         this.prizeMoney = prizeMoney;
         this.surface = surface;
-        this.ranking = new ArrayList<>();
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    public ArrayList<Match> getMatches() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(ArrayList<Match> matches) {
+    public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
 
-    public SimpleDateFormat getDateT() {
+    public LocalDate getDateT() {
         return dateT;
     }
 
-    public void setDateT(SimpleDateFormat dateT) {
+    public void setDateT(LocalDate dateT) {
         this.dateT = dateT;
     }
 
-    public ArrayList<Team> getRanking() {
+    public List<Team> getRanking() {
         return ranking;
     }
 
-    public void setRanking(ArrayList<Team> ranking) {
+    public void setRanking(List<Team> ranking) {
         this.ranking = ranking;
     }
 
@@ -94,6 +110,4 @@ public class Tournament {
         this.location = location;
     }
 
-    
-    
 }

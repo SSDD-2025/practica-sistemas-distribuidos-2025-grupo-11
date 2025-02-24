@@ -8,9 +8,7 @@ import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.services.PlayerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class PlayerController {
@@ -22,7 +20,7 @@ public class PlayerController {
     @GetMapping("/players/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("player", new Player());
-        return "PlayerRegistration"; // Thymeleaf buscara "PlayerRegistration.html"
+        return "playerRegistration"; // "PlayerRegistration.html"
     }
 
     // save player in database

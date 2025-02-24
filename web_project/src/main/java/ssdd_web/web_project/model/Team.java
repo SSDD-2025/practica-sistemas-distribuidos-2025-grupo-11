@@ -8,34 +8,44 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name = "team")
 public class Team {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     public Team() {}
     @ManyToOne
+    public Team() {
+    }
+
+    @ManyToOne
     private Player player1;
     @ManyToOne
+
+    @ManyToOne
     private Player player2;
+
     private int winsTeam;
     private int lossesTeam;
     private double winrateTeam;
     @ManyToOne
+
+    @ManyToOne
     private User manager;
+
     private int ranking;
     //private ArrayList<Tournament> titles;
     private int points;
 
-
-    public Team(Player player1, Player player2, User manager) {
+    public Team(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        this.manager = manager;
         this.winsTeam = 0;
         this.lossesTeam = 0;
         this.winrateTeam = 0;
@@ -44,51 +54,73 @@ public class Team {
         this.points = 0;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Player getPlayer1() {
         return player1;
     }
+
     public void setPlayer1(Player player1) {
         this.player1 = player1;
     }
+
     public Player getPlayer2() {
         return player2;
     }
+
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
     public int getWinsTeam() {
         return winsTeam;
     }
+
     public void setWinsTeam(int winsTeam) {
         this.winsTeam = winsTeam;
     }
+
     public int getLossesTeam() {
         return lossesTeam;
     }
+
     public void setLossesTeam(int lossesTeam) {
         this.lossesTeam = lossesTeam;
     }
+
     public double getWinrateTeam() {
         return winrateTeam;
     }
+
     public void setWinrateTeam(double winrateTeam) {
         this.winrateTeam = winrateTeam;
     }
+
     public User getManager() {
         return manager;
     }
+
     public void setManager(User manager) {
         this.manager = manager;
     }
+
     public int getRanking() {
         return ranking;
     }
+
     public void setRanking(int ranking) {
         this.ranking = ranking;
     }
     /*public ArrayList<Tournament> getTitles() {
         return titles;
     }
+
     public void setTitles(ArrayList<Tournament> titles) {
         this.titles = titles;
     }*/
@@ -100,8 +132,5 @@ public class Team {
     public void setPoints(int points) {
         this.points = points;
     }
-
-    
-    
 
 }
