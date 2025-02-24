@@ -1,13 +1,16 @@
 package ssdd_web.web_project.model;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "team")
 public class Team {
 
     @Id
@@ -15,15 +18,17 @@ public class Team {
 	private Long id;
 
     public Team() {}
-
+    @ManyToOne
     private Player player1;
+    @ManyToOne
     private Player player2;
     private int winsTeam;
     private int lossesTeam;
     private double winrateTeam;
+    @ManyToOne
     private User manager;
     private int ranking;
-    private ArrayList<Tournament> titles;
+    //private ArrayList<Tournament> titles;
     private int points;
 
 
@@ -35,7 +40,7 @@ public class Team {
         this.lossesTeam = 0;
         this.winrateTeam = 0;
         this.ranking = 0;
-        this.titles = new ArrayList<>();
+        //this.titles = new ArrayList<>();
         this.points = 0;
     }
 
@@ -81,12 +86,12 @@ public class Team {
     public void setRanking(int ranking) {
         this.ranking = ranking;
     }
-    public ArrayList<Tournament> getTitles() {
+    /*public ArrayList<Tournament> getTitles() {
         return titles;
     }
     public void setTitles(ArrayList<Tournament> titles) {
         this.titles = titles;
-    }
+    }*/
 
     public int getPoints() {
         return points;
