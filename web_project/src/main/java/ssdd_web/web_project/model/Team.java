@@ -7,9 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 @Table(name = "team")
@@ -20,13 +19,9 @@ public class Team {
     private Long id;
 
     public Team() {}
-    @ManyToOne
-    public Team() {
-    }
 
     @ManyToOne
     private Player player1;
-    @ManyToOne
 
     @ManyToOne
     private Player player2;
@@ -34,13 +29,11 @@ public class Team {
     private int winsTeam;
     private int lossesTeam;
     private double winrateTeam;
-    @ManyToOne
 
-    @ManyToOne
+    @OneToOne
     private User manager;
 
     private int ranking;
-    //private ArrayList<Tournament> titles;
     private int points;
 
     public Team(Player player1, Player player2) {
@@ -50,7 +43,6 @@ public class Team {
         this.lossesTeam = 0;
         this.winrateTeam = 0;
         this.ranking = 0;
-        //this.titles = new ArrayList<>();
         this.points = 0;
     }
 
@@ -117,13 +109,6 @@ public class Team {
     public void setRanking(int ranking) {
         this.ranking = ranking;
     }
-    /*public ArrayList<Tournament> getTitles() {
-        return titles;
-    }
-
-    public void setTitles(ArrayList<Tournament> titles) {
-        this.titles = titles;
-    }*/
 
     public int getPoints() {
         return points;

@@ -1,10 +1,9 @@
 package ssdd_web.web_project.model;
-import java.util.ArrayList;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "user")
@@ -17,15 +16,14 @@ public class User {
     public User() {};
 
     private String name;
+    @OneToOne
     private Team team;
-    private ArrayList<Team> formerTeams;
     private double winrate;
     private int winsUser;
     private int lossesUser;
 
     public User(String name) {
         this.name = name;
-        this.formerTeams = new ArrayList<>();
         this.winrate = 0;
         this.winsUser = 0;
         this.lossesUser = 0;
@@ -45,14 +43,6 @@ public class User {
     
     public void setTeam(Team team) {
         this.team = team;
-    }
-    
-    public ArrayList<Team> getFormerTeams() {
-        return formerTeams;
-    }
-    
-    public void setFormerTeams(ArrayList<Team> formerTeams) {
-        this.formerTeams = formerTeams;
     }
     
     public double getWinrate() {

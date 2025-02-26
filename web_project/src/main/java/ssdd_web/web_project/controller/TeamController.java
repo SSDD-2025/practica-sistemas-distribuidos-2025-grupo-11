@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.TeamService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("/teams")
@@ -27,7 +27,7 @@ public class TeamController {
     public String showCreateTeamForm(Model model) {
         List<Player> players = teamService.getAllPlayers();
         model.addAttribute("players", players);
-        return "CreateTeam"; // html para elegir jugadores
+        return "CreateTeam"; // html to pick players
     }
 
     @PostMapping("/create")

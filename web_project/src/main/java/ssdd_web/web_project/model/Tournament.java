@@ -1,16 +1,13 @@
 package ssdd_web.web_project.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,9 +23,6 @@ public class Tournament {
 
     @OneToMany
     private List<Match> matches;
-
-    @ManyToAny
-    private List<Team> ranking;
 
     private LocalDate dateT;
     private double prizeMoney;
@@ -68,14 +62,6 @@ public class Tournament {
 
     public void setDateT(LocalDate dateT) {
         this.dateT = dateT;
-    }
-
-    public List<Team> getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(List<Team> ranking) {
-        this.ranking = ranking;
     }
 
     public double getPrizeMoney() {

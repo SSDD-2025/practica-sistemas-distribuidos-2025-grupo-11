@@ -1,12 +1,12 @@
 package ssdd_web.web_project.model;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,10 +26,10 @@ public class Match {
         PENDING
     };
 
-    @ManyToOne
+    @OneToOne
     private Team homeTeam;
 
-    @ManyToOne
+    @OneToOne
     private Team awayTeam;
 
     private STATUS status;
@@ -37,7 +37,7 @@ public class Match {
     private Surface surface;
     private String score;
 
-    @ManyToOne
+    @OneToOne
     private Team winnerTeam;
 
     public Match(Team homeTeam, Team awayTeam, LocalDate dateM, Surface surface) {
