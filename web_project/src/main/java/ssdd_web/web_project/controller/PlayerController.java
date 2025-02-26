@@ -27,7 +27,7 @@ public class PlayerController {
     @PostMapping("/players/add")
     public String savePlayerDatabase(@ModelAttribute Player player) {
         playerService.savePlayer(player);
-        return "redirect:/players/" + player.getId() + "/stats";
+        return "redirect:/ValidRegistration.html";
     }
 
 }
