@@ -25,7 +25,7 @@ public class PlayerController {
 
     // save player in database
     @PostMapping("/players/add")
-    public String postMethodName(@ModelAttribute Player player) {
+    public String savePlayerDatabase(@ModelAttribute Player player) {
         playerService.savePlayer(player);
         return "redirect:/players/" + player.getId() + "/stats";
     }
