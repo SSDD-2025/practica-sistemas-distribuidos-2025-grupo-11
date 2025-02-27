@@ -1,5 +1,6 @@
 package ssdd_web.web_project.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class PlayerService {
     // get player by id
     public Optional<Player> getPlayerById(Long id) {
         return playerRepository.findById(id);
+    }
+
+    //get all players
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
     }
 }
