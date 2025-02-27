@@ -2,7 +2,7 @@
 <head>
     <title>Sign up</title>
 </head>
-
+{{> header}}
 <body>
     <form action="ValidUserRegistration.html">
         <p>Enter the following data: </p>
@@ -16,6 +16,10 @@
         <p>E-mail</p>
         <input type="text" name="email"/>
         <br> <br>
+        <p>Foto de perfil (opcional): </p>
+        <input type="file" name="profilePicture"/>
+        <img src="profilePicture" alt="Profile picture" width="100" height="100">
+        <br><br>
         <input type="submit" value="Register"/>
 </body>
 </html>
