@@ -1,14 +1,17 @@
 package ssdd_web.web_project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import ssdd_web.web_project.model.Player;
-import ssdd_web.web_project.services.PlayerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import ssdd_web.web_project.model.Player;
+import ssdd_web.web_project.services.PlayerService;
+
 
 @Controller
 public class PlayerController {
@@ -25,9 +28,17 @@ public class PlayerController {
 
     // save player in database
     @PostMapping("/players/add")
-    public String postMethodName(@ModelAttribute Player player) {
+    public String savePlayerDatabase(@ModelAttribute Player player) {
         playerService.savePlayer(player);
-        return "redirect:/players/" + player.getId() + "/stats";
+        return "redirect:/ValidRegistration.html";
     }
+
+    @GetMapping("/players/list")
+    public String getAllPlayers(Model model) {
+        List<Player> players = playerService.getAllPlayers();
+        model.addAttribute("players", players);
+        return "PlayerList";
+    }
+    
 
 }

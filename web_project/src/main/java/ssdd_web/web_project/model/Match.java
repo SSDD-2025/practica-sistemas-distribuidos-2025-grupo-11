@@ -17,9 +17,6 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Match() {
-    }
-
     public enum STATUS {
         ACCEPTED,
         REJECTED,
@@ -114,4 +111,14 @@ public class Match {
         this.winnerTeam = winnerTeam;
     }
 
+    public double ChanceOfWining () { //Temporary implementation, think of a formula to calculate the chance of winning
+        double chance = 0.5;
+        return chance;
+    }
+
+    public Team SimulateMatch () { //Temporary implementation, think of a formula to simulate a match
+        this.setStatus(status.ACCEPTED);
+        
+        return getWinnerTeam();
+    }
 }

@@ -18,7 +18,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Team() {}
+    public Team() {
+    }
 
     @ManyToOne
     private Player player1;

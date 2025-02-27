@@ -1,7 +1,8 @@
 package ssdd_web.web_project.model;
 
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,10 +13,11 @@ import jakarta.persistence.Table;
 public class Player {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Player() {}
+    public Player() {
+    }
 
     public enum Hand {
         LEFT,
@@ -26,7 +28,8 @@ public class Player {
     private int winsPlayer;
     private int lossesPlayer;
     private double winratePlayer;
-    private String namePlayer;
+    private String name;
+    private String surname;
     private String citizenship;
     private int height;
     private double weight;
@@ -37,12 +40,16 @@ public class Player {
     private double acespm; // average value of aces per match of the player
     private double doubleFaultspm; // average value of double falts per match of the player
 
+    @Enumerated(EnumType.STRING)
     private Hand bestHand;
+    @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
-    public Player(String namePlayer, String citizenship, int height, double weight, int age, Hand bestHand,
+    public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
+            Hand bestHand,
             Surface bestSurface) {
-        this.namePlayer = namePlayer;
+        this.name = namePlayer;
+        this.surname = surname;
         this.citizenship = citizenship;
         this.height = height;
         this.weight = weight;
@@ -90,12 +97,24 @@ public class Player {
         this.winratePlayer = winratePlayer;
     }
 
-    public String getNamePlayer() {
-        return namePlayer;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setNamePlayer(String namePlayer) {
-        this.namePlayer = namePlayer;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getCitizenship() {

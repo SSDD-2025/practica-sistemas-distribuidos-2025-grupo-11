@@ -8,6 +8,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD:web_project/src/main/resources/templates/PlayerRegistration.html
     <form action="ValidRegistration.html">
 
         <p>Enter the following data: </p>
@@ -18,7 +19,7 @@
         <br><br>
         <label for "country">Country</label>
         <br><br>
-        <input list="countries" id="country" name="country">
+        <input list="countries" id="country" name="citizenship" required>
         <datalist id="countries">
             <option value="Spain">
             <option value="France">
@@ -70,6 +71,7 @@
             <option value="Greenland">
             <option value="New Zealand">
         </datalist>
+<<<<<<< HEAD:web_project/src/main/resources/templates/PlayerRegistration.html
         <p>Age</p>
         <input type='text' name='age' />
         <p>Height</p>
@@ -95,6 +97,33 @@
         </select>
         <br><br>
         <input type='submit' value='Register' />
+=======
+     <p>Age</p>
+     <input type='text' name='age' required/>
+     <p>Height (cm)</p>
+     <input type='text' name='height' required/>
+     <p>Weight (kg)</p>
+     <input type='text' name='weight' required/>
+     <br> <br>
+     <label for "hand"> Skilled hand</label>
+     <br><br>
+     <select name="bestHand" id="hand">
+        <option value="RIGHT">Right</option>
+        <option value="LEFT">Left</option>
+        <option value="BOTH">Ambidextrous</option>
+    </select>
+     <br><br>
+     <label for "bestSurface">Best surface</label>
+     <br><br>
+     <select name="bestSurface" id="surface" required>
+        <option value="CLAY">Clay</option>
+        <option value="HARD">Hard</option>
+        <option value="GRASS">Grass</option>
+        <option value="INDOOR">Indoor</option>
+    </select>
+    <br><br>
+     <input type='submit' value='Register'/>
+>>>>>>> e00a188feefcc21f76e1f3ccb3d5c85271501aae:web_project/src/main/resources/static/PlayerRegistration.html
     </form>
 
 </body>
