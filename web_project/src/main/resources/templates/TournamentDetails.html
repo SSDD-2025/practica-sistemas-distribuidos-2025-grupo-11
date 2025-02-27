@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .bracket {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+        }
+        .round {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .match {
+            background: white;
+            padding: 10px;
+            border: 1px solid #000;
+            text-align: center;
+            width: 150px;
+        }
+        .bracket.left {
+            align-items: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <h1>ATP "location"</h1>
+    <h3>Date:</h3>
+    <h3>Prize</h3>
+    <div class="bracket left">
+        <div class="round">
+            <div class="match">Team 1 vs Team 2</div>
+            <div class="match">Team 3 vs Team 4</div>
+            <div class="match">Team 5 vs Team 6</div>
+            <div class="match">Team 7 vs Team 8</div>
+        </div>
+        <div class="round">
+            <div class="match">Semifinal 1</div>
+            <div class="match">Semifinal 2</div>
+        </div>
+        <div class="round">
+            <div class="match">Final</div>
+    </div>
+
+    </div>
+</body>
+</html>
