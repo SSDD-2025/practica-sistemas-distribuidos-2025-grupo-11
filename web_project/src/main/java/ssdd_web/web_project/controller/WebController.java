@@ -4,9 +4,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MustacheController {
-    @GetMapping("/")
-    public String mustache(Model model) {
+public class WebController {
+    @GetMapping("/home")
+    public String webString(Model model) {
         model.addAttribute("name", "Home");
         return "index";
     }
@@ -15,6 +15,12 @@ public class MustacheController {
     public String signup(Model model) {
         model.addAttribute("name", "Signup");
         return "UserRegistration";
+    }
+
+    @GetMapping("/players/create")
+    public String createPlayer(Model model) {
+        model.addAttribute("name", "Create Player");
+        return "PlayerRegistration";
     }
 
 }
