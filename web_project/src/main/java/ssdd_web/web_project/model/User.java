@@ -69,6 +69,23 @@ public class User {
         this.lossesUser = lossesUser;
     }
     
-    
+    public void CreateTeam(Player p1, Player p2) { 
+        this.team = new Team(p1, p2);
+    }
+
+    public void UpdateWinrate() { //sets new winrate after a match
+        this.winrate = (double) this.winsUser / (this.winsUser + this.lossesUser);
+    }
+
+    public void StartMatch(Team RivalTeam, java.time.LocalDate dateM, Surface surface) { //starts a match and updates user's winrate
+        Match match = new Match(this.team, RivalTeam , dateM, surface);
+        if (this.team.equals(match.SimulateMatch())) {
+            this.setWinsUser(winsUser++);
+        }
+        else {
+            this.setLossesPlayer(lossesUser++);
+        }
+        UpdateWinrate();
+    }
 }
 

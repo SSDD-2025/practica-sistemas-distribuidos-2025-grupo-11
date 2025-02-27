@@ -61,7 +61,13 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-	</dependencies>
+	
+   <dependency>
+     <groupId>com.google.appengine</groupId>
+     <artifactId>appengine-api-1.0-sdk</artifactId>
+     <version>1.9.76</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
