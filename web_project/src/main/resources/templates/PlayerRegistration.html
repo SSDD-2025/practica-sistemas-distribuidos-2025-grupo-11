@@ -5,18 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
+    <style>
+        label, p{
+            margin: 10px 0 0 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input[type="text"], input[list], select {
+            width: 15%;
+            padding: 2px;
+            margin: 8px 0 0 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 {{> header}}
 <body>
     <form action="/players/add" method="post">
+        <div style="margin-left: 10px">
         <p>Enter the following data: </p>
         <p>Name</p>
         <input type='text' name='name' />
         <p>Surnames</p>
         <input type='text' name='surname' />
-        <br><br>
+        <br>
         <label for "country">Country</label>
-        <br><br>
+        <br>
         <input list="countries" id="country" name="citizenship" required>
         <datalist id="countries">
             <option value="Spain">
@@ -75,17 +103,17 @@
         <input type='text' name='height' required />
         <p>Weight (kg)</p>
         <input type='text' name='weight' required />
-        <br> <br>
+        <br> 
         <label for "hand"> Skilled hand</label>
-        <br><br>
+        <br>
         <select name="bestHand" id="hand">
             <option value="RIGHT">Right</option>
             <option value="LEFT">Left</option>
             <option value="BOTH">Ambidextrous</option>
         </select>
-        <br><br>
+        <br>
         <label for "bestSurface">Best surface</label>
-        <br><br>
+        <br>
         <select name="bestSurface" id="surface" required>
             <option value="CLAY">Clay</option>
             <option value="HARD">Hard</option>
@@ -95,7 +123,7 @@
         <br><br>
         <input type='submit' value='Register' />
         </form>
-
+    </div>
 
 
 </body>
