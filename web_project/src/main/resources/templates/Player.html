@@ -37,19 +37,41 @@
         }
     </style>
 </head>
+{{> header}}
 <body>
     <div class="container">
         <div class="photo">
             <img src="placeholder.jpg" alt="Player Photo">
         </div>
         <div class="info">
-            <h2 id="playerName">Player Name</h2>
-            <p><strong>Age:</strong> <span id="age">--</span></p>
-            <p><strong>Height:</strong> <span id="height">--</span> cm</p>
-            <p><strong>Weight:</strong> <span id="weight">--</span> kg</p>
-            <p><strong>Country:</strong> <span id="country">--</span></p>
-            <p><strong>Best surface</strong> <span id="surface">--</span></p>
+            <h2 style="font-size: 32px">{{player.name}} {{player.surname}}</h2>
+            <p><strong>Country:</strong> {{player.citizenship}}</p>
+            <p><strong>Age:</strong> {{player.age}}</p>
+            <p><strong>Height:</strong> {{player.height}} cm</p>
+            <p><strong>Weight:</strong> {{player.weight}} kg</p>
+            <p><strong>Best Hand:</strong> {{player.bestHand}}</p>
+            <p><strong>Best surface:</strong> {{player.bestSurface}} </p>
+            <p><strong>Wins:</strong> {{player.winsPlayer}} </p>
+            <p><strong>Losses:</strong> {{player.lossesPlayer}} </p>
+            <p><strong>Winrate:</strong> {{player.winratePlayer}} </p>
+            <p><strong>Aces:</strong> {{player.aces}} </p>
+            <p><strong>Aces per match:</strong> {{player.acespm}} </p>
+            <p><strong>Double faults:</strong> {{player.doubleFaults}} </p>
+            <p><strong>Double faults per match:</strong> {{player.doubleFaultspm}} </p>
+            <form id="deleteForm" action="/players/list" method="post">
+                <button type="button" onclick="confirmDelete()" style="background-color: red; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+                    Delete Player
+                </button>
+            </form>
         </div>
+    
+        <script>
+            function confirmDelete() {
+                if (confirm("Are you sure you want to delete this player?")) {
+                    document.getElementById("deleteForm").submit();
+                }
+            }
+        </script>
     </div>
 </body>
 </html>

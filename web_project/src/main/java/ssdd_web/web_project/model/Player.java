@@ -35,8 +35,8 @@ public class Player {
     private double weight;
     private int age;
 
-    private double aces; // total number of aces of the player in one match
-    private double doubleFaults; // total number of double faults of this player in one match
+    private int aces; // total number of aces of the player in one match
+    private int doubleFaults; // total number of double faults of this player in one match
     private double acespm; // average value of aces per match of the player
     private double doubleFaultspm; // average value of double falts per match of the player
 
@@ -149,19 +149,19 @@ public class Player {
         this.age = age;
     }
 
-    public double getAces() {
+    public int getAces() {
         return aces;
     }
 
-    public void setAces(double aces) {
+    public void setAces(int aces) {
         this.aces = aces;
     }
 
-    public double getDoubleFaults() {
+    public int getDoubleFaults() {
         return doubleFaults;
     }
 
-    public void setDoubleFaults(double doubleFaults) {
+    public void setDoubleFaults(int doubleFaults) {
         this.doubleFaults = doubleFaults;
     }
 
