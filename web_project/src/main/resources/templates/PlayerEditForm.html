@@ -35,17 +35,18 @@
 </head>
 {{> header}}
 <body>
-     <form action="/players/add" method="post">
+     <form action="/players/update" method="post">
+        <input type="hidden" name="id" value="{{player.id}}">
         <div style="margin-left: 10px">
         <p>Enter the following data: </p>
         <p>Name</p>
-        <input type='text' name='name' />
+        <input type='text' name='name' value="{{player.name}}" required/>
         <p>Surnames</p>
-        <input type='text' name='surname' />
+        <input type='text' name='surname' value="{{player.surname}}"/>
         <br>
         <label for "country">Country</label>
         <br>
-        <input list="countries" id="country" name="citizenship" required>
+        <input list="countries" id="country" name="citizenship" value="{{player.citizenship}}"required>
         <datalist id="countries">
             <option value="Spain">
             <option value="France">
@@ -98,15 +99,15 @@
             <option value="New Zealand">
         </datalist>
         <p>Age</p>
-        <input type='text' name='age' required />
+        <input type='text' name='age' value="{{player.age}}"required />
         <p>Height (cm)</p>
-        <input type='text' name='height' required />
+        <input type='text' name='height' value="{{player.height}}" required />
         <p>Weight (kg)</p>
-        <input type='text' name='weight' required />
+        <input type='text' name='weight' value="{{player.weight}}" required />
         <br> 
         <label for "hand"> Skilled hand</label>
         <br>
-        <select name="bestHand" id="hand">
+        <select name="bestHand" id="hand" value="{{player.bestHand}}">
             <option value="RIGHT">Right</option>
             <option value="LEFT">Left</option>
             <option value="BOTH">Ambidextrous</option>
@@ -114,14 +115,14 @@
         <br>
         <label for "bestSurface">Best surface</label>
         <br>
-        <select name="bestSurface" id="surface" required>
+        <select name="bestSurface" id="surface" value="{{player.bestSurface}}" required>
             <option value="CLAY">Clay</option>
             <option value="HARD">Hard</option>
             <option value="GRASS">Grass</option>
             <option value="INDOOR">Indoor</option>
         </select>
         <br><br>
-        <input type='submit' value='Register' />
+        <input type='submit' value='Update' />
         </form>
     </div>
 
