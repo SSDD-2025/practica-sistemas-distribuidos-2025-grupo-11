@@ -50,7 +50,8 @@ public class MatchController {
     // match details
     @GetMapping("/{id}")
     public String showMatchDetails(@PathVariable Long id, Model model) {
-        Match match = matchService.getMatchById(id).orElseThrow(() -> new RuntimeException("Partido no encontrado"));
+        // Match match = matchService.getMatchById(id).orElseThrow(() -> new
+        // RuntimeException("Partido no encontrado"));
         return "MatchDetails"; // html with match details
     }
 

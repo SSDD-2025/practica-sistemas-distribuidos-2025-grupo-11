@@ -23,21 +23,21 @@ public class TeamController {
     private TeamService teamService;
 
     // see all players and select 2
-    @GetMapping("/create")
+    @GetMapping("/teams/create")
     public String showCreateTeamForm(Model model) {
         List<Player> players = teamService.getAllPlayers();
         model.addAttribute("players", players);
         return "CreateTeam"; // html to pick players
     }
 
-    @PostMapping("/create")
+    @PostMapping("/teams/create")
     public String createTeam(@RequestParam Long player1Id, @RequestParam Long player2Id) {
         Team team = teamService.createTeam(player1Id, player2Id);
         return "redirect:/teams" + team.getId();
     }
 
     // team stats show
-    @GetMapping("/{id}")
+    @GetMapping("/teams/{id}")
     public String showTeamStats(@PathVariable Long id, Model model) {
         Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
         model.addAttribute("team", team);
