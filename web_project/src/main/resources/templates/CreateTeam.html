@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seleccionar Jugadores</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.2.0/mustache.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+      select {
+        margin: 10px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Selecciona dos jugadores</h2>
+
+    <form action="/teams/add" method="post">
+      <label for="player1">Jugador 1:</label>
+      <select name="player1Id" id="player1" onchange="updateSelection()">
+        {{#players}}
+        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        {{/players}}
+      </select>
+
+      <label for="player2">Jugador 2:</label>
+      <select name="player2Id" id="player2" onchange="updateSelection()">
+        {{#players}}
+        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        {{/players}}
+      </select>
+
+      <h3>Jugadores seleccionados:</h3>
+      <p id="selectedPlayers">Ninguno</p>
+
+      <button type="submit">Crear Equipo</button>
+    </form>
+
+    <script>
+      function updateSelection() {
+        const selected1 = document.getElementById("player1").value;
+        const selected2 = document.getElementById("player2").value;
+        document.getElementById("selectedPlayers").textContent =
+          selected1 && selected2 ? `${selected1} vs ${selected2}` : "Ninguno";
+      }
+    </script>
+  </body>
+</html>
