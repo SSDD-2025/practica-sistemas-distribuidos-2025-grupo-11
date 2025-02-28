@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.services.PlayerService;
+
+
 
 
 @Controller
@@ -39,6 +42,25 @@ public class PlayerController {
         model.addAttribute("players", players);
         return "PlayerList";
     }
+
+    //show player
+    @GetMapping("/players/{id}")
+    public String getPlayerStats(@PathVariable Long id, Model model) {
+        Player player = playerService.getPlayerById(id);
+        model.addAttribute("player", player);
+        return "Player";
+    }
+
+    //delete player by id
+    @PostMapping("/players/{id}/delete")
+    public String deletePlayerById(@PathVariable Long id) {
+        playerService.deletePlayerById(id);
+        return "redirect:/players/list";
+    }
+    
+
+
+    
     
 
 }
