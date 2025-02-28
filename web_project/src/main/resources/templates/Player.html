@@ -58,7 +58,7 @@
             <p><strong>Aces per match:</strong> {{player.acespm}} </p>
             <p><strong>Double faults:</strong> {{player.doubleFaults}} </p>
             <p><strong>Double faults per match:</strong> {{player.doubleFaultspm}} </p>
-            <form id="deleteForm" action="/players/list" method="post">
+            <form id="deleteForm" action="/players/delete/{{player.id}} " method="post">
                 <button type="button" onclick="confirmDelete()" style="background-color: red; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
                     Delete Player
                 </button>

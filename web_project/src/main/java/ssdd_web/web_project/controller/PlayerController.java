@@ -52,8 +52,8 @@ public class PlayerController {
     }
 
     //delete player by id
-    @PostMapping("/players/{id}")
-    public String deletePlayerById(@PathVariable Long id) {
+    @PostMapping("/players/delete/{id}")
+    public String deletePlayerById(@PathVariable("id") Long id) {
         playerService.deletePlayerById(id);
         return "redirect:/players/list";
     }
