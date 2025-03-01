@@ -45,4 +45,9 @@ public class TeamService {
     public Optional<Team> getTeamById(Long id) {
         return teamRepository.findById(id);
     }
+
+    // delete team by id
+    public void deleteTeamById(Long id) {
+        teamRepository.deleteById(id);
+    }
 }
