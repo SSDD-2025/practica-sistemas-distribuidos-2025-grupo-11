@@ -2,6 +2,9 @@ package ssdd_web.web_project.model;
 
 import java.sql.Blob;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Lob;
 
 @Entity
@@ -40,7 +44,8 @@ public class Player {
     private int age;
 
     @Lob
-    private Blob playerImage;
+    @Column(columnDefinition = "BLOB")
+    private byte[] playerImage;
 
     private int aces; // total number of aces of the player in one match
     private int doubleFaults; // total number of double faults of this player in one match
@@ -81,7 +86,7 @@ public class Player {
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
             Hand bestHand,
             Surface bestSurface, 
-            Blob playerImage) {
+            byte[] playerImage) {
         this.name = namePlayer;
         this.surname = surname;
         this.citizenship = citizenship;
@@ -184,11 +189,11 @@ public class Player {
         this.age = age;
     }
 
-    public Blob getPlayerImage() {
+    public byte[] getPlayerImage() {
         return playerImage;
     }
 
-    public void setPlayerImage(Blob playerImage) {
+    public void setPlayerImage(byte[] playerImage) {
         this.playerImage = playerImage;
     }
 

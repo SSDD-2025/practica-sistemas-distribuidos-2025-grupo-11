@@ -1,6 +1,12 @@
 package ssdd_web.web_project.controller;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/players")
@@ -31,9 +38,18 @@ public class PlayerController {
 
     // save player in database
     @PostMapping("/add")
-    public String savePlayerDatabase(@ModelAttribute Player player) {
-        playerService.savePlayer(player);
-        return "redirect:/ValidRegistration.html";
+    public String savePlayerDatabase(@ModelAttribute Player player) throws IOException, SQLException {
+    
+        /* 
+    if (!file.isEmpty()) {
+        byte[] imageBytes = file.getBytes(); // Convert MultipartFile to byte[]
+        Blob imageBlob = new SerialBlob(imageBytes); // Convert byte[] to Blob
+        player.setPlayerImage(imageBlob); // Set image in Player object
+    }
+    */
+
+    playerService.savePlayer(player); // Save player to database
+    return "redirect:/ValidRegistration.html";
     }
 
     @GetMapping("/list")

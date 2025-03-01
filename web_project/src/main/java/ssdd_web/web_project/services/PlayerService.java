@@ -24,7 +24,7 @@ public class PlayerService {
     // save player in database
     public Player savePlayer(Player player, MultipartFile playerImage) throws IOException {
         if(!playerImage.isEmpty()) {
-            player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
+            //player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
         }
         return playerRepository.save(player);
     }
@@ -43,7 +43,7 @@ public class PlayerService {
     public void deletePlayerById(Long Id) {
         playerRepository.deleteById(Id);
     }
-    
+
     public Optional<Player> findById(long id) {
 		return playerRepository.findById(id);
 	}
