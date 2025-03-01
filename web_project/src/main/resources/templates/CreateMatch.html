@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create match</title>
-    <link rel="stylesheet" href="/css/CreateMatch.css" />
+    <link rel="stylesheet" href="/css/FormsStyle.css" />
   </head>
   {{> header}}
   <body>
@@ -47,7 +47,7 @@
       <h3>Selected teams:</h3>
       <p id="selectedTeams">None</p>
 
-      <button type="submit">Create match</button>
+      <input type="submit" value="Create match" />
     </form>
 
     <script>
@@ -72,12 +72,11 @@
         const homeTeam = document.getElementById("homeTeam");
         const awayTeam = document.getElementById("awayTeam");
 
-        // Comparar los IDs de los equipos seleccionados
         if (homeTeam.value === awayTeam.value) {
           alert("Choose two different teams.");
-          return false; // Evita que se envíe el formulario
+          return false;
         }
-        return true; // Permite el envío del formulario si son diferentes
+        return true;
       }
     </script>
   </body>
