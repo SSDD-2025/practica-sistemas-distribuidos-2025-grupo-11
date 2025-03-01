@@ -1,19 +1,22 @@
 package ssdd_web.web_project.model;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "user")
 public class User {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public User() {};
+    public User() {
+    };
 
     private String name;
     @OneToOne
@@ -32,60 +35,62 @@ public class User {
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
-    }   
-    
+    }
+
     public Team getTeam() {
         return team;
     }
-    
+
     public void setTeam(Team team) {
         this.team = team;
     }
-    
+
     public double getWinrate() {
         return winrate;
     }
-    
+
     public void setWinrate(double winrate) {
         this.winrate = winrate;
     }
-    
+
     public int getWinsUser() {
         return winsUser;
     }
-    
+
     public void setWinsUser(int winsUser) {
         this.winsUser = winsUser;
     }
-    
+
     public int getLossesPlayer() {
         return lossesUser;
     }
-    
+
     public void setLossesPlayer(int lossesUser) {
         this.lossesUser = lossesUser;
     }
-    
-    public void CreateTeam(Player p1, Player p2) { 
+
+    public void CreateTeam(Player p1, Player p2) {
         this.team = new Team(p1, p2);
     }
 
-    public void UpdateWinrate() { //sets new winrate after a match
+    public void UpdateWinrate() { // sets new winrate after a match
         this.winrate = (double) this.winsUser / (this.winsUser + this.lossesUser);
     }
 
-    public void StartMatch(Team RivalTeam, java.time.LocalDate dateM, Surface surface) { //starts a match and updates user's winrate
-        Match match = new Match(this.team, RivalTeam , dateM, surface);
-        if (this.team.equals(match.SimulateMatch())) {
-            this.setWinsUser(winsUser++);
-        }
-        else {
-            this.setLossesPlayer(lossesUser++);
-        }
-        UpdateWinrate();
-    }
+    /*
+     * public void StartMatch(Team RivalTeam, java.time.LocalDate dateM, Surface
+     * surface) { //starts a match and updates user's winrate
+     * Match match = new Match(this.team, RivalTeam , dateM, surface);
+     * if (this.team.equals(match.SimulateMatch())) {
+     * this.setWinsUser(winsUser++);
+     * }
+     * else {
+     * this.setLossesPlayer(lossesUser++);
+     * }
+     * UpdateWinrate();
+     * }
+     */
 }
-

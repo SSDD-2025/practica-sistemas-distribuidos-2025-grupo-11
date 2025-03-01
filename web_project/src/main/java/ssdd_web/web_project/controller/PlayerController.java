@@ -3,8 +3,6 @@ package ssdd_web.web_project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -14,30 +12,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
+@RequestMapping("/players")
 public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
 
     // new player
-    @GetMapping("/players/register")
+    @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("player", new Player());
         return "playerRegistration"; // "PlayerRegistration.html"
     }
 
     // save player in database
-    @PostMapping("/players/add")
+    @PostMapping("/add")
     public String savePlayerDatabase(@ModelAttribute Player player) {
         playerService.savePlayer(player);
         return "redirect:/ValidRegistration.html";
     }
 
-    @GetMapping("/players/list")
+    @GetMapping("/list")
     public String listPlayers(Model model, @RequestParam(required = false) Player player) {
         List<Player> players = playerService.getAllPlayers();
         model.addAttribute("players", players);
@@ -45,7 +44,7 @@ public class PlayerController {
     }
 
     // show player
-    @GetMapping("/players/{id}")
+    @GetMapping("/{id}")
     public String getPlayerStats(@PathVariable Long id, Model model) {
         Player player = playerService.getPlayerById(id);
         model.addAttribute("player", player);
@@ -53,14 +52,14 @@ public class PlayerController {
     }
 
     // delete player by id
-    @PostMapping("/players/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deletePlayerById(@PathVariable Long id) {
         playerService.deletePlayerById(id);
         return "redirect:/players/list";
     }
 
     // edit player
-    @GetMapping("/players/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editPlayer(@PathVariable Long id, Model model) {
         Player player = playerService.getPlayerById(id);
         model.addAttribute("player", player);
@@ -68,7 +67,7 @@ public class PlayerController {
     }
 
     // update player
-    @PostMapping("/players/update")
+    @PostMapping("/update")
     public String updatePlayer(@ModelAttribute Player player) {
         playerService.savePlayer(player);
         return "redirect:/players/" + player.getId();

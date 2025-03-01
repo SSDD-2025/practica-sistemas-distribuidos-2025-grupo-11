@@ -17,19 +17,12 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public enum STATUS {
-        ACCEPTED,
-        REJECTED,
-        PENDING
-    };
-
     @OneToOne
     private Team homeTeam;
 
     @OneToOne
     private Team awayTeam;
 
-    private STATUS status;
     private LocalDate dateM;
     private Surface surface;
     private String score;
@@ -42,7 +35,6 @@ public class Match {
         this.awayTeam = awayTeam;
         this.dateM = dateM;
         this.surface = surface;
-        this.status = STATUS.PENDING;
         this.score = "0-0";
         this.winnerTeam = null;
     }
@@ -69,14 +61,6 @@ public class Match {
 
     public void setAwayTeam(Team awayTeam) {
         this.awayTeam = awayTeam;
-    }
-
-    public STATUS getStatus() {
-        return status;
-    }
-
-    public void setStatus(STATUS status) {
-        this.status = status;
     }
 
     public LocalDate getDateM() {
@@ -111,14 +95,9 @@ public class Match {
         this.winnerTeam = winnerTeam;
     }
 
-    public double ChanceOfWining () { //Temporary implementation, think of a formula to calculate the chance of winning
+    public double ChanceOfWining() { // Temporary implementation, think of a formula to calculate the chance of
+                                     // winning
         double chance = 0.5;
         return chance;
-    }
-
-    public Team SimulateMatch () { //Temporary implementation, think of a formula to simulate a match
-        this.setStatus(status.ACCEPTED);
-        
-        return getWinnerTeam();
     }
 }
