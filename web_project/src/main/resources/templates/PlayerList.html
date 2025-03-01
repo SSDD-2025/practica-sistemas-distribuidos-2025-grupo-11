@@ -1,14 +1,43 @@
-<html>
-    {{> header}}
-    <body>
-    <p>Player list</p>
-    <ul>
-    {{#players}}
-    <li><a href="/players/{{id}}">{{name}} {{surname}}</a></li>
-    {{/players}}
-    </ul>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/ListsStyle.css" />
+  </head>
+  <style>
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 10%;
+    }
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 20%;
+    }
+  </style>
+
+  {{> header}}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Citizenship</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#players}}
+        <tr>
+          <td><a href="/players/{{id}}">{{id}}</a></td>
+          <td>{{name}}</td>
+          <td>{{surname}}</td>
+          <td>{{citizenship}}</td>
+        </tr>
+        {{/players}}
+      </tbody>
+    </table>
+  </div>
 </html>
-
-    
-

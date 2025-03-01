@@ -3,24 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seleccionar Jugadores</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
-      }
-      select {
-        margin: 10px;
-        padding: 5px;
-      }
-    </style>
+    <title>Create match</title>
+    <link rel="stylesheet" href="/css/FormsStyle.css" />
   </head>
   {{> header}}
   <body>
-    <h2>Selecciona dos equipos</h2>
-
-    <form action="/matches/add" method="post">
+    <form action="/matches/add" method="post" onsubmit="return validateTeams()">
       <label for="homeTeam">Team 1:</label>
       <select
         name="homeTeamId"
@@ -29,7 +17,7 @@
         required
       >
         {{#teams}}
-        <option value="{{id}}">{{id}}</option>
+        <option value="{{id}}" data-name="{{name}}">{{id}} - {{name}}</option>
         {{/teams}}
       </select>
 
@@ -41,14 +29,14 @@
         required
       >
         {{#teams}}
-        <option value="{{id}}">{{id}}</option>
+        <option value="{{id}}" data-name="{{name}}">{{id}} - {{name}}</option>
         {{/teams}}
       </select>
 
-      <label for="dateM">Fecha del Partido:</label>
+      <label for="dateM">Match date:</label>
       <input type="date" name="dateM" id="dateM" required />
 
-      <label for="surface">Superficie:</label>
+      <label for="surface">Surface:</label>
       <select name="surface" id="surface" required>
         <option value="CLAY">Clay</option>
         <option value="GRASS">Grass</option>
@@ -56,18 +44,39 @@
         <option value="INDOOR">Indoor</option>
       </select>
 
-      <h3>Teams seleccionados:</h3>
-      <p id="selectedTeams">Ninguno</p>
+      <h3>Selected teams:</h3>
+      <p id="selectedTeams">None</p>
 
-      <button type="submit">Crear Partido</button>
+      <input type="submit" value="Create match" />
     </form>
 
     <script>
       function updateSelection() {
-        const selected1 = document.getElementById("homeTeam").value;
-        const selected2 = document.getElementById("awayTeam").value;
-        document.getElementById("selectedTeams").textContent =
-          selected1 && selected2 ? `${selected1} vs ${selected2}` : "Ninguno";
+        const homeTeam = document.getElementById("homeTeam");
+        const awayTeam = document.getElementById("awayTeam");
+
+        const homeTeamName =
+          homeTeam.options[homeTeam.selectedIndex].getAttribute("data-name");
+        const awayTeamName =
+          awayTeam.options[awayTeam.selectedIndex].getAttribute("data-name");
+
+        const selectedTeams =
+          homeTeamName && awayTeamName
+            ? `${homeTeamName} vs ${awayTeamName}`
+            : "None";
+
+        document.getElementById("selectedTeams").textContent = selectedTeams;
+      }
+
+      function validateTeams() {
+        const homeTeam = document.getElementById("homeTeam");
+        const awayTeam = document.getElementById("awayTeam");
+
+        if (homeTeam.value === awayTeam.value) {
+          alert("Choose two different teams.");
+          return false;
+        }
+        return true;
       }
     </script>
   </body>

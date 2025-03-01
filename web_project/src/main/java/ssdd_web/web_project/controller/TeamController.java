@@ -39,15 +39,16 @@ public class TeamController {
 
     // save team in database
     @PostMapping("/add")
-    public String createTeam(@RequestParam("player1Id") Long player1Id, @RequestParam("player2Id") Long player2Id) {
-        Team team = teamService.createTeam(player1Id, player2Id);
+    public String createTeam(@RequestParam String name, @RequestParam("player1Id") Long player1Id,
+            @RequestParam("player2Id") Long player2Id) {
+        Team team = teamService.createTeam(name, player1Id, player2Id);
         return "redirect:/home";
     }
 
     // list all teams
     @GetMapping("/list")
     public String listTeams(Model model, @RequestParam(required = false) Team team) {
-        List<Team> teams = teamService.getAllTeams();
+        List<Team> teams = teamService.getAllTeamsByRanking();
         model.addAttribute("teams", teams);
         return "TeamsList";
     }

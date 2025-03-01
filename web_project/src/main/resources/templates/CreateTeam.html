@@ -3,25 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seleccionar Jugadores</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
-      }
-      select {
-        margin: 10px;
-        padding: 5px;
-      }
-    </style>
+    <title>Players select</title>
+    <link rel="stylesheet" href="/css/FormsStyle.css" />
   </head>
   {{> header}}
   <body>
-    <h2>Selecciona dos jugadores</h2>
-
     <form action="/teams/add" method="post">
-      <label for="player1">Jugador 1:</label>
+      <label for="teamName">Name</label>
+      <input type="text" name="name" id="teamName" required />
+
+      <label for="player1">Player 1</label>
       <select
         name="player1Id"
         id="player1"
@@ -29,11 +20,13 @@
         required
       >
         {{#players}}
-        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        <option value="{{id}}" data-name="{{name}}" data-surname="{{surname}}">
+          {{id}} - {{name}} {{surname}}
+        </option>
         {{/players}}
       </select>
 
-      <label for="player2">Jugador 2:</label>
+      <label for="player2">Player 2</label>
       <select
         name="player2Id"
         id="player2"
@@ -41,22 +34,40 @@
         required
       >
         {{#players}}
-        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        <option value="{{id}}" data-name="{{name}}" data-surname="{{surname}}">
+          {{id}} - {{name}} {{surname}}
+        </option>
         {{/players}}
       </select>
 
-      <h3>Jugadores seleccionados:</h3>
-      <p id="selectedPlayers">Ninguno</p>
+      <h3>Selected players:</h3>
+      <p id="selectedPlayers">None</p>
 
-      <button type="submit">Crear Equipo</button>
+      <input type="submit" value="Create team" />
     </form>
 
     <script>
       function updateSelection() {
-        const selected1 = document.getElementById("player1").value;
-        const selected2 = document.getElementById("player2").value;
+        const player1 = document.getElementById("player1");
+        const player2 = document.getElementById("player2");
+
+        const player1Name =
+          player1.options[player1.selectedIndex].getAttribute("data-name");
+        const player1Surname =
+          player1.options[player1.selectedIndex].getAttribute("data-surname");
+
+        const player2Name =
+          player2.options[player2.selectedIndex].getAttribute("data-name");
+        const player2Surname =
+          player2.options[player2.selectedIndex].getAttribute("data-surname");
+
+        const selectedPlayers =
+          player1Name && player1Surname && player2Name && player2Surname
+            ? `${player1Name} ${player1Surname} and ${player2Name} ${player2Surname}`
+            : "None";
+
         document.getElementById("selectedPlayers").textContent =
-          selected1 && selected2 ? `${selected1} & ${selected2}` : "Ninguno";
+          selectedPlayers;
       }
     </script>
   </body>

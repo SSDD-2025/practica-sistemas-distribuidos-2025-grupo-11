@@ -1,25 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matches List</title>
+    <title>Matches list</title>
+    <link rel="stylesheet" href="/css/ListsStyle.css" />
   </head>
+  <style>
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 10%;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 20%;
+    }
+  </style>
+
   {{> header}}
-  <body>
-    <h2>Lista de Partidos</h2>
-    <ul>
-      {{#matches}}
-      <li>
-        <a href="/matches/{{id}}"><strong>Partido {{id}}:</strong></a>
-        <br />
-        <strong>Equipos:</strong> {{homeTeam.id}} vs {{awayTeam.id}}
-        <br />
-        <strong>Fecha:</strong> {{dateM}}
-        <br />
-        <strong>Superficie:</strong> {{surface}}
-      </li>
-      {{/matches}}
-    </ul>
-  </body>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Home team</th>
+          <th>Away Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#matches}}
+        <tr>
+          <td><a href="/matches/{{id}}">{{id}}</a></td>
+          <td>{{dateM}}</td>
+          <td><a href="/teams/{{homeTeam.id}}">{{homeTeam.name}}</a></td>
+          <td><a href="/teams/{{awayTeam.id}}">{{awayTeam.name}}</a></td>
+        </tr>
+        {{/matches}}
+      </tbody>
+    </table>
+  </div>
 </html>

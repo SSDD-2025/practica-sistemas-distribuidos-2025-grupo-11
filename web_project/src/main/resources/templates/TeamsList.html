@@ -1,26 +1,51 @@
-{{> header}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teams list</title>
+    <link rel="stylesheet" href="/css/ListsStyle.css" />
+  </head>
+  <style>
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 10%;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 20%;
+    }
+  </style>
 
-<h1>Lista de Equipos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Jugador 1</th>
-      <th>Jugador 2</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#teams}}
-    <tr>
-      <td>{{id}}</td>
-      <td>{{player1.name}} {{player1.surname}}</td>
-      <td>{{player2.name}} {{player2.surname}}</td>
-      <td>
-        <a href="/teams/{{id}}">Ver estadísticas</a>
-      </td>
-    </tr>
-    {{/teams}}
-  </tbody>
-</table>
+  {{> header}}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Ranking</th>
+          <th>Team</th>
+          <th>Player 1</th>
+          <th>Player 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#teams}}
+        <tr>
+          <td>{{ranking}}</td>
+          <td><a href="/teams/{{id}}">{{name}}</a></td>
+          <td>
+            <a href="/players/{{player1.id}}"
+              >{{player1.name}} {{player1.surname}}</a
+            >
+          </td>
+          <td>
+            <a href="/players/{{player2.id}}"
+              >{{player2.name}} {{player2.surname}}</a
+            >
+          </td>
+        </tr>
+        {{/teams}}
+      </tbody>
+    </table>
+  </div>
+</html>
