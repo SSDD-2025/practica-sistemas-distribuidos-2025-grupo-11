@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
+import ssdd_web.web_project.repository.PlayerRepository;
+import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.services.TeamService;
 
 @Controller
@@ -20,17 +22,21 @@ import ssdd_web.web_project.services.TeamService;
 public class TeamController {
 
     @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private PlayerService playerService;
+    @Autowired
     private TeamService teamService;
 
     // see all players and select 2
-    @GetMapping("/create")
+    @GetMapping("/team/select")
     public String showCreateTeamForm(Model model) {
         List<Player> players = teamService.getAllPlayers();
         model.addAttribute("players", players);
         return "CreateTeam"; // html to pick players
     }
 
-    @PostMapping("/create")
+    @PostMapping("/team/create")
     public String createTeam(@RequestParam Long player1Id, @RequestParam Long player2Id) {
         Team team = teamService.createTeam(player1Id, player2Id);
         return "redirect:/teams" + team.getId();

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Team</title>
+</head>
+{{> header}}
+<body>
+<p>Player list</p>
+<ul>
+{{#players}}
+<li><a href="/team/select">{{name}} {{surname}}</a></li>
+{{/players}}
+</ul>
+</body>
+</html>
