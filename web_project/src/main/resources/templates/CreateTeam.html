@@ -17,19 +17,30 @@
       }
     </style>
   </head>
+  {{> header}}
   <body>
     <h2>Selecciona dos jugadores</h2>
 
     <form action="/teams/add" method="post">
       <label for="player1">Jugador 1:</label>
-      <select name="player1Id" id="player1" onchange="updateSelection()">
+      <select
+        name="player1Id"
+        id="player1"
+        onchange="updateSelection()"
+        required
+      >
         {{#players}}
         <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
         {{/players}}
       </select>
 
       <label for="player2">Jugador 2:</label>
-      <select name="player2Id" id="player2" onchange="updateSelection()">
+      <select
+        name="player2Id"
+        id="player2"
+        onchange="updateSelection()"
+        required
+      >
         {{#players}}
         <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
         {{/players}}
@@ -46,7 +57,7 @@
         const selected1 = document.getElementById("player1").value;
         const selected2 = document.getElementById("player2").value;
         document.getElementById("selectedPlayers").textContent =
-          selected1 && selected2 ? `${selected1} vs ${selected2}` : "Ninguno";
+          selected1 && selected2 ? `${selected1} & ${selected2}` : "Ninguno";
       }
     </script>
   </body>

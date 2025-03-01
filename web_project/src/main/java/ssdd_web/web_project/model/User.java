@@ -19,8 +19,10 @@ public class User {
     };
 
     private String name;
-    @OneToOne
-    private Team team;
+    /*
+     * @OneToOne
+     * private Team team;
+     */
     private double winrate;
     private int winsUser;
     private int lossesUser;
@@ -40,13 +42,15 @@ public class User {
         this.name = name;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
+    /*
+     * public Team getTeam() {
+     * return team;
+     * }
+     * 
+     * public void setTeam(Team team) {
+     * this.team = team;
+     * }
+     */
 
     public double getWinrate() {
         return winrate;
@@ -72,9 +76,11 @@ public class User {
         this.lossesUser = lossesUser;
     }
 
-    public void CreateTeam(Player p1, Player p2) {
-        this.team = new Team(p1, p2);
-    }
+    /*
+     * public void CreateTeam(Player p1, Player p2) {
+     * this.team = new Team(p1, p2);
+     * }
+     */
 
     public void UpdateWinrate() { // sets new winrate after a match
         this.winrate = (double) this.winsUser / (this.winsUser + this.lossesUser);

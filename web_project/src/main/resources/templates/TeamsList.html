@@ -1,0 +1,26 @@
+{{> header}}
+
+<h1>Lista de Equipos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Jugador 1</th>
+      <th>Jugador 2</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#teams}}
+    <tr>
+      <td>{{id}}</td>
+      <td>{{player1.name}} {{player1.surname}}</td>
+      <td>{{player2.name}} {{player2.surname}}</td>
+      <td>
+        <a href="/teams/{{id}}">Ver estadísticas</a>
+      </td>
+    </tr>
+    {{/teams}}
+  </tbody>
+</table>
