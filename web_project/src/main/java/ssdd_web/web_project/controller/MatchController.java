@@ -15,7 +15,6 @@ import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/matches")
@@ -36,8 +35,7 @@ public class MatchController {
     @PostMapping("/add")
     public String createMatch(@RequestParam Long homeTeamId, @RequestParam Long awayTeamId,
             @RequestParam LocalDate dateM, @RequestParam Surface surface) {
-
-        Match match = matchService.createMatch(homeTeamId, awayTeamId, dateM, surface);
+        matchService.createMatch(homeTeamId, awayTeamId, dateM, surface);
         return "redirect:/home";
     }
 
