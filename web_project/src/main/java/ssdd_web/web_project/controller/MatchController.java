@@ -26,25 +26,25 @@ public class MatchController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/createMatch")
+    @GetMapping("/register")
     public String showMatchCreate(Model model) {
         model.addAttribute("teams", teamService.getAllTeams());
         return "CreateMatch"; // html where we create a match
     }
 
-    @PostMapping("/createMatch")
-    public String postMethodName(@RequestParam Long homeTeamID, @RequestParam Long awayTeamId,
+    @PostMapping("/add")
+    public String createMatch(@RequestParam Long homeTeamId, @RequestParam Long awayTeamId,
             @RequestParam LocalDate dateM, @RequestParam Surface surface) {
 
-        Match match = matchService.createMatch(homeTeamID, awayTeamId, dateM, surface);
-        return "redirect:/matches/" + match.getId();
+        Match match = matchService.createMatch(homeTeamId, awayTeamId, dateM, surface);
+        return "redirect:/home";
     }
 
     // all matches
-    @GetMapping
+    @GetMapping("/list")
     public String listMatches(Model model) {
-        model.addAttribute("matches", matchService.getAllMatches());
-        return "ListMatches"; // html with all matches
+        model.addAttribute("matches", matchService.getAllMatchesDateOrder());
+        return "MatchesList"; // html with all matches
     }
 
     // match details

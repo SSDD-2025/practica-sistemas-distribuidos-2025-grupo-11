@@ -1,20 +1,74 @@
-<html>
-<head>
-    <title>Create Match</title>
-</head>
-<body>
-    <h1>Choose 2 teams to create a match</h1>
-    <form action="TournamentDetails.html" method="post">
-        <label>First team:</label>
-        <select name="team1Id">
-            <option th:each="team : ${teams}" th:value="${team.id}"></option>
-        </select>
-        <br><br>
-        <label>Second team:</label>
-        <select name="team2Id">
-            <option th:each="team : ${teams}" th:value="${team.id}"></option>
-        </select>
-        <br><br>
-        <button type="submit">Create match</button>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seleccionar Jugadores</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+      select {
+        margin: 10px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  {{> header}}
+  <body>
+    <h2>Selecciona dos equipos</h2>
+
+    <form action="/matches/add" method="post">
+      <label for="homeTeam">Team 1:</label>
+      <select
+        name="homeTeamId"
+        id="homeTeam"
+        onchange="updateSelection()"
+        required
+      >
+        {{#teams}}
+        <option value="{{id}}">{{id}}</option>
+        {{/teams}}
+      </select>
+
+      <label for="awayTeam">Team 2:</label>
+      <select
+        name="awayTeamId"
+        id="awayTeam"
+        onchange="updateSelection()"
+        required
+      >
+        {{#teams}}
+        <option value="{{id}}">{{id}}</option>
+        {{/teams}}
+      </select>
+
+      <label for="dateM">Fecha del Partido:</label>
+      <input type="date" name="dateM" id="dateM" required />
+
+      <label for="surface">Superficie:</label>
+      <select name="surface" id="surface" required>
+        <option value="CLAY">Clay</option>
+        <option value="GRASS">Grass</option>
+        <option value="HARD">Hard</option>
+        <option value="INDOOR">Indoor</option>
+      </select>
+
+      <h3>Teams seleccionados:</h3>
+      <p id="selectedTeams">Ninguno</p>
+
+      <button type="submit">Crear Partido</button>
     </form>
+
+    <script>
+      function updateSelection() {
+        const selected1 = document.getElementById("homeTeam").value;
+        const selected2 = document.getElementById("awayTeam").value;
+        document.getElementById("selectedTeams").textContent =
+          selected1 && selected2 ? `${selected1} vs ${selected2}` : "Ninguno";
+      }
+    </script>
+  </body>
 </html>

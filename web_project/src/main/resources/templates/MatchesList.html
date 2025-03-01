@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matches List</title>
+  </head>
+  {{> header}}
+  <body>
+    <h2>Lista de Partidos</h2>
+    <ul>
+      {{#matches}}
+      <li>
+        <a href="/matches/{{id}}"><strong>Partido {{id}}:</strong></a>
+        <br />
+        <strong>Equipos:</strong> {{homeTeam.id}} vs {{awayTeam.id}}
+        <br />
+        <strong>Fecha:</strong> {{dateM}}
+        <br />
+        <strong>Superficie:</strong> {{surface}}
+      </li>
+      {{/matches}}
+    </ul>
+  </body>
+</html>

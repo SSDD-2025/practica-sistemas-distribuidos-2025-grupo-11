@@ -30,6 +30,9 @@ public class Match {
     @OneToOne
     private Team winnerTeam;
 
+    public Match() {
+    }
+
     public Match(Team homeTeam, Team awayTeam, LocalDate dateM, Surface surface) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

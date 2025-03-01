@@ -1,5 +1,7 @@
 package ssdd_web.web_project.model;
 
+import java.util.List;
+
 //import java.util.ArrayList;
 
 import jakarta.persistence.Entity;
@@ -7,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -31,6 +34,9 @@ public class Team {
     private int lossesTeam;
     private double winrateTeam;
 
+    @OneToMany
+    private List<Match> matches;
+
     /*
      * @OneToOne
      * private User manager;
@@ -47,6 +53,7 @@ public class Team {
         this.winrateTeam = 0;
         this.ranking = 0;
         this.points = 0;
+        this.matches = null;
     }
 
     public Long getId() {
@@ -121,6 +128,14 @@ public class Team {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 
 }
