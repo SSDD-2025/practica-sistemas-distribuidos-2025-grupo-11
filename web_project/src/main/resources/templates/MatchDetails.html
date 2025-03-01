@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles del Partido</title>
+  </head>
+  <body>
+    {{> header}}
+
+    <h1>Detalles del Partido</h1>
+
+    <table>
+      <tr>
+        <th>ID del Partido: </th>
+        <td>{{match.id}}</td>
+      </tr>
+      <tr>
+        <th>Equipo Local: </th>
+        <td>{{match.homeTeam.id}}</td>
+      </tr>
+      <tr>
+        <th>Equipo Visitante: </th>
+        <td>{{match.awayTeam.id}}</td>
+      </tr>
+      <tr>
+        <th>Fecha del Partido:</th>
+        <td>{{match.dateM}}</td>
+      </tr>
+      <tr>
+        <th>Superficie: </th>
+        <td>{{match.surface}}</td>
+      </tr>
+      <tr>
+        <th>Resultado: </th>
+        <td>{{match.score}}</td>
+      </tr>
+      <tr>
+        <th>Equipo Ganador: </th>
+        <p>{{#match.winnerTeam}}{{match.winnerTeam.id}}{{/match.winnerTeam}}</p>
+      </tr>
+    </table>
+
+    <form
+          id="deleteForm"
+          action="/matches/delete/{{match.id}} "
+          method="post"
+        >
+          <button
+            type="button"
+            onclick="confirmDelete()"
+            style="
+              background-color: red;
+              color: white;
+              padding: 10px;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            "
+          >
+            Delete Match
+          </button>
+        </form>
+      </div>
+
+      <script>
+        function confirmDelete() {
+          if (confirm("Are you sure you want to delete this Match?")) {
+            document.getElementById("deleteForm").submit();
+          }
+        }
+      </script>
+
+<a href="/matches/list">Volver a la lista de equipos</a>
+  </body>
+</html>

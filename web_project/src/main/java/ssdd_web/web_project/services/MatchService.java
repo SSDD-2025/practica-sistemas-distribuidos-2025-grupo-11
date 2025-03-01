@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import ssdd_web.web_project.model.Match;
@@ -25,6 +26,11 @@ public class MatchService {
     // get all matches
     public List<Match> getAllMatches() {
         return matchRepository.findAll();
+    }
+
+    // get all matches in date order
+    public List<Match> getAllMatchesDateOrder() {
+        return matchRepository.findByOrderByDateMAsc();
     }
 
     public Optional<Match> getMatchById(Long id) {
@@ -48,5 +54,13 @@ public class MatchService {
 
         // setters and more
         return matchRepository.save(match);
+    }
+
+    // delete match by id
+    public void deleteMatchById(Long id) {
+        Optional<Match> match = matchRepository.findById(id);
+        if (match.isPresent()) {
+            matchRepository.deleteById(id);
+        }
     }
 }

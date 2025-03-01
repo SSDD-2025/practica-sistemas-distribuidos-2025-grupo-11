@@ -15,6 +15,7 @@ import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/matches")
@@ -26,33 +27,41 @@ public class MatchController {
     @Autowired
     private TeamService teamService;
 
-    @GetMapping("/createMatch")
+    @GetMapping("/register")
     public String showMatchCreate(Model model) {
         model.addAttribute("teams", teamService.getAllTeams());
         return "CreateMatch"; // html where we create a match
     }
 
-    @PostMapping("/createMatch")
-    public String postMethodName(@RequestParam Long homeTeamID, @RequestParam Long awayTeamId,
+    @PostMapping("/add")
+    public String createMatch(@RequestParam Long homeTeamId, @RequestParam Long awayTeamId,
             @RequestParam LocalDate dateM, @RequestParam Surface surface) {
 
-        Match match = matchService.createMatch(homeTeamID, awayTeamId, dateM, surface);
-        return "redirect:/matches/" + match.getId();
+        Match match = matchService.createMatch(homeTeamId, awayTeamId, dateM, surface);
+        return "redirect:/home";
     }
 
     // all matches
-    @GetMapping
+    @GetMapping("/list")
     public String listMatches(Model model) {
-        model.addAttribute("matches", matchService.getAllMatches());
-        return "ListMatches"; // html with all matches
+        model.addAttribute("matches", matchService.getAllMatchesDateOrder());
+        return "MatchesList"; // html with all matches
     }
 
     // match details
     @GetMapping("/{id}")
     public String showMatchDetails(@PathVariable Long id, Model model) {
-        // Match match = matchService.getMatchById(id).orElseThrow(() -> new
-        // RuntimeException("Partido no encontrado"));
+        Match match = matchService.getMatchById(id).orElseThrow(() -> new RuntimeException("Partido no encontrado"));
+        model.addAttribute("match", match);
         return "MatchDetails"; // html with match details
+    }
+
+    // delete match by id
+    @PostMapping("/delete/{id}")
+    public String deleteMatchById(@PathVariable Long id) {
+        matchService.deleteMatchById(id);
+
+        return "redirect:/matches/list";
     }
 
 }

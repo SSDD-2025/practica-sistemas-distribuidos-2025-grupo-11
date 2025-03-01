@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Lob;
 
@@ -51,6 +52,12 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
+    @ManyToOne
+    private Team team;
+
+    @ManyToOne
+    private Team team;
+
     //Constructor without the player image
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
             Hand bestHand,
@@ -70,6 +77,30 @@ public class Player {
         this.doubleFaults = 0;
         this.acespm = 0;
         this.doubleFaultspm = 0;
+        this.team = null;
+    }
+
+    //Constructor with the player image
+    public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
+            Hand bestHand,
+            Surface bestSurface, 
+            Blob playerImage) {
+        this.name = namePlayer;
+        this.surname = surname;
+        this.citizenship = citizenship;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.bestHand = bestHand;
+        this.bestSurface = bestSurface;
+        this.winsPlayer = 0;
+        this.lossesPlayer = 0;
+        this.winratePlayer = 0;
+        this.aces = 0;
+        this.doubleFaults = 0;
+        this.acespm = 0;
+        this.doubleFaultspm = 0;
+        this.playerImage = playerImage;
     }
 
     //Constructor with the player image
@@ -233,6 +264,14 @@ public class Player {
 
     public void setBestSurface(Surface bestSurface) {
         this.bestSurface = bestSurface;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
 }

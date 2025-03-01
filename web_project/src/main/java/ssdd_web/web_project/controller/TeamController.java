@@ -16,6 +16,7 @@ import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.services.TeamService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/teams")
@@ -31,7 +32,7 @@ public class TeamController {
     // see all players and select 2
     @GetMapping("/register")
     public String showCreateTeamForm(Model model) {
-        List<Player> players = teamService.getAllPlayers();
+        List<Player> players = teamService.getAvailablePlayers();
         model.addAttribute("players", players);
         return "CreateTeam"; // html to pick players
     }
@@ -57,6 +58,13 @@ public class TeamController {
         Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
         model.addAttribute("team", team);
         return "TeamStats";
+    }
+
+    // delete team by id
+    @PostMapping("/delete/{id}")
+    public String deleteTeamById(@PathVariable Long id) {
+        teamService.deleteTeamById(id);
+        return "redirect:/teams/list";
     }
 
 }
