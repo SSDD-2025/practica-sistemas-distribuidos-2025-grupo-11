@@ -23,4 +23,9 @@ public class WebController {
         return "PlayerRegistration";
     }
 
+    @GetMapping("/team/select")
+    public String selectTeam(Model model) {
+        model.addAttribute("name", "Select Team");
+        return "CreateTeam";
+    }
 }

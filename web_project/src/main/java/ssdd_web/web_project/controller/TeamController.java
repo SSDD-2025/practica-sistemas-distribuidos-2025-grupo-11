@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
+import ssdd_web.web_project.repository.PlayerRepository;
+import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.services.TeamService;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/teams")
 public class TeamController {
 
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private PlayerService playerService;
     @Autowired
     private TeamService teamService;
 
