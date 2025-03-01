@@ -30,17 +30,22 @@ public class TeamService {
         return playerRepository.findByTeamIsNull();
     }
 
+    // all teams order by ranking
+    public List<Team> getAllTeamsByRanking() {
+        return teamRepository.findByOrderByRankingAsc();
+    }
+
     // all teams list
     public List<Team> getAllTeams() {
         return teamRepository.findAll();
     }
 
-    public Team createTeam(Long player1Id, Long player2Id) {
+    public Team createTeam(String name, Long player1Id, Long player2Id) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
 
         if (player1.isPresent() && player2.isPresent()) {
-            Team team = new Team(player1.get(), player2.get());
+            Team team = new Team(name, player1.get(), player2.get());
             player1.get().setTeam(team);
             player2.get().setTeam(team);
             return teamRepository.save(team);

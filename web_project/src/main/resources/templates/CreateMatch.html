@@ -7,20 +7,67 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
+        background-image: "background.jpg";
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
       }
+
+      form {
+        width: 25%;
+        margin: 20px 0 20px 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label,
+      p {
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 5px;
+        padding: 1px;
+      }
+
+      input[type="text"],
       select {
-        margin: 10px;
-        padding: 5px;
+        width: 100%;
+        padding: 6px;
+        margin-top: 1px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        width: 100%;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      #selectedTeams {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 10px;
       }
     </style>
   </head>
   {{> header}}
   <body>
-    <h2>Selecciona dos equipos</h2>
-
     <form action="/matches/add" method="post">
+      <h2>Selecciona dos equipos:</h2>
       <label for="homeTeam">Team 1:</label>
       <select
         name="homeTeamId"
@@ -29,7 +76,7 @@
         required
       >
         {{#teams}}
-        <option value="{{id}}">{{id}}</option>
+        <option value="{{id}}" data-name="{{name}}">{{id}} - {{name}}</option>
         {{/teams}}
       </select>
 
@@ -41,7 +88,7 @@
         required
       >
         {{#teams}}
-        <option value="{{id}}">{{id}}</option>
+        <option value="{{id}}" data-name="{{name}}">{{id}} - {{name}}</option>
         {{/teams}}
       </select>
 
@@ -64,10 +111,20 @@
 
     <script>
       function updateSelection() {
-        const selected1 = document.getElementById("homeTeam").value;
-        const selected2 = document.getElementById("awayTeam").value;
-        document.getElementById("selectedTeams").textContent =
-          selected1 && selected2 ? `${selected1} vs ${selected2}` : "Ninguno";
+        const homeTeam = document.getElementById("homeTeam");
+        const awayTeam = document.getElementById("awayTeam");
+
+        const homeTeamName =
+          homeTeam.options[homeTeam.selectedIndex].getAttribute("data-name");
+        const awayTeamName =
+          awayTeam.options[awayTeam.selectedIndex].getAttribute("data-name");
+
+        const selectedTeams =
+          homeTeamName && awayTeamName
+            ? `${homeTeamName} vs ${awayTeamName}`
+            : "Ninguno";
+
+        document.getElementById("selectedTeams").textContent = selectedTeams;
       }
     </script>
   </body>

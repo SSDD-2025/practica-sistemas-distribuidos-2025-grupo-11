@@ -7,21 +7,71 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
+        background-image: "background.jpg";
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        padding: 0;
       }
+
+      form {
+        width: 25%;
+        margin: 20px 0 20px 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label,
+      p {
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 5px;
+        padding: 1px;
+      }
+
+      input[type="text"],
       select {
-        margin: 10px;
-        padding: 5px;
+        width: 100%;
+        padding: 6px;
+        margin-top: 5px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        width: 100%;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      #selectedPlayers {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 14px;
       }
     </style>
   </head>
   {{> header}}
   <body>
-    <h2>Selecciona dos jugadores</h2>
-
     <form action="/teams/add" method="post">
-      <label for="player1">Jugador 1:</label>
+      <p>Selecciona dos jugadores y el nombre del equipo:</p>
+
+      <label for="teamName">Nombre del equipo</label>
+      <input type="text" name="name" id="teamName" required />
+
+      <label for="player1">Jugador 1</label>
       <select
         name="player1Id"
         id="player1"
@@ -29,11 +79,13 @@
         required
       >
         {{#players}}
-        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        <option value="{{id}}" data-name="{{name}}" data-surname="{{surname}}">
+          {{id}} - {{name}} {{surname}}
+        </option>
         {{/players}}
       </select>
 
-      <label for="player2">Jugador 2:</label>
+      <label for="player2">Jugador 2</label>
       <select
         name="player2Id"
         id="player2"
@@ -41,22 +93,40 @@
         required
       >
         {{#players}}
-        <option value="{{id}}">{{id}} - {{name}} {{surname}}</option>
+        <option value="{{id}}" data-name="{{name}}" data-surname="{{surname}}">
+          {{id}} - {{name}} {{surname}}
+        </option>
         {{/players}}
       </select>
 
       <h3>Jugadores seleccionados:</h3>
       <p id="selectedPlayers">Ninguno</p>
 
-      <button type="submit">Crear Equipo</button>
+      <input type="submit" value="Crear Equipo" />
     </form>
 
     <script>
       function updateSelection() {
-        const selected1 = document.getElementById("player1").value;
-        const selected2 = document.getElementById("player2").value;
+        const player1 = document.getElementById("player1");
+        const player2 = document.getElementById("player2");
+
+        const player1Name =
+          player1.options[player1.selectedIndex].getAttribute("data-name");
+        const player1Surname =
+          player1.options[player1.selectedIndex].getAttribute("data-surname");
+
+        const player2Name =
+          player2.options[player2.selectedIndex].getAttribute("data-name");
+        const player2Surname =
+          player2.options[player2.selectedIndex].getAttribute("data-surname");
+
+        const selectedPlayers =
+          player1Name && player1Surname && player2Name && player2Surname
+            ? `${player1Name} ${player1Surname} and ${player2Name} ${player2Surname}`
+            : "Ninguno";
+
         document.getElementById("selectedPlayers").textContent =
-          selected1 && selected2 ? `${selected1} & ${selected2}` : "Ninguno";
+          selectedPlayers;
       }
     </script>
   </body>

@@ -18,12 +18,13 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public Player savePlayer(Player player){
+    public Player savePlayer(Player player) {
         return playerRepository.save(player);
     }
+
     // save player in database
     public Player savePlayer(Player player, MultipartFile playerImage) throws IOException {
-        if(!playerImage.isEmpty()) {
+        if (!playerImage.isEmpty()) {
             player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
         }
         return playerRepository.save(player);
@@ -34,17 +35,17 @@ public class PlayerService {
         return playerRepository.findById(id).orElse(null);
     }
 
-    //get all players
+    // get all players
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
 
-    //delete player by id
+    // delete player by id
     public void deletePlayerById(Long Id) {
         playerRepository.deleteById(Id);
     }
-    
+
     public Optional<Player> findById(long id) {
-		return playerRepository.findById(id);
-	}
+        return playerRepository.findById(id);
+    }
 }

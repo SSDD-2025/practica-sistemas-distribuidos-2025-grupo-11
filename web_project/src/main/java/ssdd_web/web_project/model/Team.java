@@ -33,6 +33,7 @@ public class Team {
     private int winsTeam;
     private int lossesTeam;
     private double winrateTeam;
+    private String name;
 
     @OneToMany
     private List<Match> matches;
@@ -45,7 +46,8 @@ public class Team {
     private int ranking;
     private int points;
 
-    public Team(Player player1, Player player2) {
+    public Team(String name, Player player1, Player player2) {
+        this.name = name;
         this.player1 = player1;
         this.player2 = player2;
         this.winsTeam = 0;
