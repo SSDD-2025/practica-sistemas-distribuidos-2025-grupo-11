@@ -45,6 +45,10 @@
       </div>
       <div class="info">
         <h2 style="font-size: 32px">{{player.name}} {{player.surname}}</h2>
+        <p>
+          <strong>Team:</strong>
+          {{#player.team}}{{player.team.id}}{{/player.team}}
+        </p>
         <p><strong>Country:</strong> {{player.citizenship}}</p>
         <p><strong>Age:</strong> {{player.age}}</p>
         <p><strong>Height:</strong> {{player.height}} cm</p>

@@ -6,6 +6,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -45,6 +46,9 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
+    @ManyToOne
+    private Team team;
+
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
             Hand bestHand,
             Surface bestSurface) {
@@ -63,6 +67,7 @@ public class Player {
         this.doubleFaults = 0;
         this.acespm = 0;
         this.doubleFaultspm = 0;
+        this.team = null;
     }
 
     public long getId() {
@@ -195,6 +200,14 @@ public class Player {
 
     public void setBestSurface(Surface bestSurface) {
         this.bestSurface = bestSurface;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
 }

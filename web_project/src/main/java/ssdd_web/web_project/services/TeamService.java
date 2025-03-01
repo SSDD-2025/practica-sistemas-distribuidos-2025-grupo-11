@@ -25,6 +25,11 @@ public class TeamService {
         return playerRepository.findAll();
     }
 
+    // all available players
+    public List<Player> getAvailablePlayers() {
+        return playerRepository.findByTeamIsNull();
+    }
+
     // all teams list
     public List<Team> getAllTeams() {
         return teamRepository.findAll();
@@ -36,9 +41,11 @@ public class TeamService {
 
         if (player1.isPresent() && player2.isPresent()) {
             Team team = new Team(player1.get(), player2.get());
+            player1.get().setTeam(team);
+            player2.get().setTeam(team);
             return teamRepository.save(team);
         }
-        throw new RuntimeException("Jugador no encontrado");
+        throw new RuntimeException("Player not found");
     }
 
     // get team by id
@@ -48,6 +55,21 @@ public class TeamService {
 
     // delete team by id
     public void deleteTeamById(Long id) {
-        teamRepository.deleteById(id);
+        Optional<Team> team = teamRepository.findById(id);
+        if (team.isPresent()) {
+            Team existTeam = team.get();
+
+            if (existTeam.getPlayer1() != null) {
+                existTeam.getPlayer1().setTeam(null);
+                playerRepository.save(existTeam.getPlayer1());
+            }
+            if (existTeam.getPlayer2() != null) {
+                existTeam.getPlayer2().setTeam(null);
+                playerRepository.save(existTeam.getPlayer2());
+            }
+            teamRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Team not found");
+        }
     }
 }

@@ -32,7 +32,7 @@ public class TeamController {
     // see all players and select 2
     @GetMapping("/register")
     public String showCreateTeamForm(Model model) {
-        List<Player> players = teamService.getAllPlayers();
+        List<Player> players = teamService.getAvailablePlayers();
         model.addAttribute("players", players);
         return "CreateTeam"; // html to pick players
     }
