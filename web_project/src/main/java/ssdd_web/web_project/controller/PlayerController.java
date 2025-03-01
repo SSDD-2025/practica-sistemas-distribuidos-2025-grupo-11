@@ -33,7 +33,7 @@ public class PlayerController {
     @PostMapping("/add")
     public String savePlayerDatabase(@ModelAttribute Player player) {
         playerService.savePlayer(player);
-        return "redirect:/ValidRegistration.html";
+        return "redirect:/home";
     }
 
     @GetMapping("/list")

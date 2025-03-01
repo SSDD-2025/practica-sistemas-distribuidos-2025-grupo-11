@@ -3,75 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seleccionar Jugadores</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-image: "background.jpg";
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-        padding: 0;
-      }
-
-      form {
-        width: 25%;
-        margin: 20px 0 20px 20px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-      }
-
-      label,
-      p {
-        font-weight: bold;
-        font-size: 14px;
-        margin-top: 5px;
-        padding: 1px;
-      }
-
-      input[type="text"],
-      select {
-        width: 100%;
-        padding: 6px;
-        margin-top: 5px;
-        border: 1px solid #000;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 14px;
-      }
-
-      input[type="submit"] {
-        background-color: #4caf50;
-        width: 100%;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 15px;
-        font-size: 14px;
-      }
-
-      #selectedPlayers {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 14px;
-      }
-    </style>
+    <title>Players select</title>
+    <link rel="stylesheet" href="/css/CreateTeam.css" />
   </head>
   {{> header}}
   <body>
     <form action="/teams/add" method="post">
-      <p>Selecciona dos jugadores y el nombre del equipo:</p>
-
-      <label for="teamName">Nombre del equipo</label>
+      <label for="teamName">Team name</label>
       <input type="text" name="name" id="teamName" required />
 
-      <label for="player1">Jugador 1</label>
+      <label for="player1">Player 1</label>
       <select
         name="player1Id"
         id="player1"
@@ -85,7 +26,7 @@
         {{/players}}
       </select>
 
-      <label for="player2">Jugador 2</label>
+      <label for="player2">Player 2</label>
       <select
         name="player2Id"
         id="player2"
@@ -99,10 +40,10 @@
         {{/players}}
       </select>
 
-      <h3>Jugadores seleccionados:</h3>
-      <p id="selectedPlayers">Ninguno</p>
+      <h3>Selected players:</h3>
+      <p id="selectedPlayers">None</p>
 
-      <input type="submit" value="Crear Equipo" />
+      <input type="submit" value="Create team" />
     </form>
 
     <script>
@@ -123,7 +64,7 @@
         const selectedPlayers =
           player1Name && player1Surname && player2Name && player2Surname
             ? `${player1Name} ${player1Surname} and ${player2Name} ${player2Surname}`
-            : "Ninguno";
+            : "None";
 
         document.getElementById("selectedPlayers").textContent =
           selectedPlayers;

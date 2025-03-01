@@ -3,71 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seleccionar Jugadores</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-image: "background.jpg";
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-        padding: 0;
-      }
-
-      form {
-        width: 25%;
-        margin: 20px 0 20px 20px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-      }
-
-      label,
-      p {
-        font-weight: bold;
-        font-size: 14px;
-        margin-top: 5px;
-        padding: 1px;
-      }
-
-      input[type="text"],
-      select {
-        width: 100%;
-        padding: 6px;
-        margin-top: 1px;
-        border: 1px solid #000;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 14px;
-      }
-
-      input[type="submit"] {
-        background-color: #4caf50;
-        width: 100%;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 15px;
-        font-size: 14px;
-      }
-
-      #selectedTeams {
-        margin-top: 10px;
-        font-weight: bold;
-        font-size: 14px;
-        margin-bottom: 10px;
-      }
-    </style>
+    <title>Create match</title>
+    <link rel="stylesheet" href="/css/CreateMatch.css" />
   </head>
   {{> header}}
   <body>
-    <form action="/matches/add" method="post">
-      <h2>Selecciona dos equipos:</h2>
+    <form action="/matches/add" method="post" onsubmit="return validateTeams()">
       <label for="homeTeam">Team 1:</label>
       <select
         name="homeTeamId"
@@ -92,10 +33,10 @@
         {{/teams}}
       </select>
 
-      <label for="dateM">Fecha del Partido:</label>
+      <label for="dateM">Match date:</label>
       <input type="date" name="dateM" id="dateM" required />
 
-      <label for="surface">Superficie:</label>
+      <label for="surface">Surface:</label>
       <select name="surface" id="surface" required>
         <option value="CLAY">Clay</option>
         <option value="GRASS">Grass</option>
@@ -103,10 +44,10 @@
         <option value="INDOOR">Indoor</option>
       </select>
 
-      <h3>Teams seleccionados:</h3>
-      <p id="selectedTeams">Ninguno</p>
+      <h3>Selected teams:</h3>
+      <p id="selectedTeams">None</p>
 
-      <button type="submit">Crear Partido</button>
+      <button type="submit">Create match</button>
     </form>
 
     <script>
@@ -122,9 +63,21 @@
         const selectedTeams =
           homeTeamName && awayTeamName
             ? `${homeTeamName} vs ${awayTeamName}`
-            : "Ninguno";
+            : "None";
 
         document.getElementById("selectedTeams").textContent = selectedTeams;
+      }
+
+      function validateTeams() {
+        const homeTeam = document.getElementById("homeTeam");
+        const awayTeam = document.getElementById("awayTeam");
+
+        // Comparar los IDs de los equipos seleccionados
+        if (homeTeam.value === awayTeam.value) {
+          alert("Choose two different teams.");
+          return false; // Evita que se envíe el formulario
+        }
+        return true; // Permite el envío del formulario si son diferentes
       }
     </script>
   </body>
