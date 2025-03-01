@@ -24,6 +24,8 @@ public class PlayerService {
 
     // save player in database
     public Player savePlayer(Player player, MultipartFile playerImage) throws IOException {
+        if(!playerImage.isEmpty()) {
+            //player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
         if (!playerImage.isEmpty()) {
             player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
         }
