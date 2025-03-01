@@ -31,8 +31,10 @@ public class Team {
     private int lossesTeam;
     private double winrateTeam;
 
-    @OneToOne
-    private User manager;
+    /*
+     * @OneToOne
+     * private User manager;
+     */
 
     private int ranking;
     private int points;
@@ -95,13 +97,15 @@ public class Team {
         this.winrateTeam = winrateTeam;
     }
 
-    public User getManager() {
-        return manager;
-    }
-
-    public void setManager(User manager) {
-        this.manager = manager;
-    }
+    /*
+     * public User getManager() {
+     * return manager;
+     * }
+     * 
+     * public void setManager(User manager) {
+     * this.manager = manager;
+     * }
+     */
 
     public int getRanking() {
         return ranking;

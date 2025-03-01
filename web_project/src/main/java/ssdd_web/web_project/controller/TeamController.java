@@ -34,7 +34,15 @@ public class TeamController {
     @PostMapping("/add")
     public String createTeam(@RequestParam("player1Id") Long player1Id, @RequestParam("player2Id") Long player2Id) {
         Team team = teamService.createTeam(player1Id, player2Id);
-        return "/teams/" + team.getId();
+        return "redirect:/home";
+    }
+
+    // list all teams
+    @GetMapping("/list")
+    public String listTeams(Model model, @RequestParam(required = false) Team team) {
+        List<Team> teams = teamService.getAllTeams();
+        model.addAttribute("teams", teams);
+        return "TeamsList";
     }
 
     // team stats show
