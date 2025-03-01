@@ -15,6 +15,7 @@ import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/matches")
@@ -50,9 +51,17 @@ public class MatchController {
     // match details
     @GetMapping("/{id}")
     public String showMatchDetails(@PathVariable Long id, Model model) {
-        // Match match = matchService.getMatchById(id).orElseThrow(() -> new
-        // RuntimeException("Partido no encontrado"));
+        Match match = matchService.getMatchById(id).orElseThrow(() -> new RuntimeException("Partido no encontrado"));
+        model.addAttribute("match", match);
         return "MatchDetails"; // html with match details
+    }
+
+    // delete match by id
+    @PostMapping("/delete/{id}")
+    public String deleteMatchById(@PathVariable Long id) {
+        matchService.deleteMatchById(id);
+
+        return "redirect:/matches/list";
     }
 
 }

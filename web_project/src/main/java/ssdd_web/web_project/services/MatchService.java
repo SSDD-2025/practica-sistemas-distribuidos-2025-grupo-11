@@ -55,4 +55,12 @@ public class MatchService {
         // setters and more
         return matchRepository.save(match);
     }
+
+    // delete match by id
+    public void deleteMatchById(Long id) {
+        Optional<Match> match = matchRepository.findById(id);
+        if (match.isPresent()) {
+            matchRepository.deleteById(id);
+        }
+    }
 }
