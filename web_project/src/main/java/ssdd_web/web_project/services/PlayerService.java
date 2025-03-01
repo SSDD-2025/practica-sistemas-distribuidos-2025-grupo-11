@@ -43,6 +43,7 @@ public class PlayerService {
     public void deletePlayerById(Long Id) {
         playerRepository.deleteById(Id);
     }
+    
     public Optional<Player> findById(long id) {
 		return playerRepository.findById(id);
 	}
