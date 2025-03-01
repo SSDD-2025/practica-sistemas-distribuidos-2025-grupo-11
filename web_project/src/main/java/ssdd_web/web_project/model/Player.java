@@ -1,5 +1,7 @@
 package ssdd_web.web_project.model;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -7,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Lob;
 
 @Entity
 @Table(name = "player")
@@ -35,6 +38,9 @@ public class Player {
     private double weight;
     private int age;
 
+    @Lob
+    private Blob playerImage;
+
     private int aces; // total number of aces of the player in one match
     private int doubleFaults; // total number of double faults of this player in one match
     private double acespm; // average value of aces per match of the player
@@ -45,6 +51,7 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
+    //Constructor without the player image
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
             Hand bestHand,
             Surface bestSurface) {
@@ -63,6 +70,29 @@ public class Player {
         this.doubleFaults = 0;
         this.acespm = 0;
         this.doubleFaultspm = 0;
+    }
+
+    //Constructor with the player image
+    public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
+            Hand bestHand,
+            Surface bestSurface, 
+            Blob playerImage) {
+        this.name = namePlayer;
+        this.surname = surname;
+        this.citizenship = citizenship;
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.bestHand = bestHand;
+        this.bestSurface = bestSurface;
+        this.winsPlayer = 0;
+        this.lossesPlayer = 0;
+        this.winratePlayer = 0;
+        this.aces = 0;
+        this.doubleFaults = 0;
+        this.acespm = 0;
+        this.doubleFaultspm = 0;
+        this.playerImage = playerImage;
     }
 
     public long getId() {
@@ -147,6 +177,14 @@ public class Player {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Blob getPlayerImage() {
+        return playerImage;
+    }
+
+    public void setPlayerImage(Blob playerImage) {
+        this.playerImage = playerImage;
     }
 
     public int getAces() {
