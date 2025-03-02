@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -57,10 +58,11 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "team_id", nullable = true)
     private Team team;
 
-    //Constructor without the player image
+    // Constructor without the player image
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
             Hand bestHand,
             Surface bestSurface) {
