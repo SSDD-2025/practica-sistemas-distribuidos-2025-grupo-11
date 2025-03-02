@@ -17,6 +17,12 @@ public class WebController {
         return "UserRegistration";
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("name", "Login");
+        return "Login";
+    }
+
     @GetMapping("/players/create")
     public String createPlayer(Model model) {
         model.addAttribute("name", "Create Player");
