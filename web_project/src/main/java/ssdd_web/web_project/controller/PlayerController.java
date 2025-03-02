@@ -8,7 +8,12 @@ import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -38,18 +43,12 @@ public class PlayerController {
 
     // save player in database
     @PostMapping("/add")
-    public String savePlayerDatabase(@ModelAttribute Player player) throws IOException, SQLException {
-    
-        /* 
-    if (!file.isEmpty()) {
-        byte[] imageBytes = file.getBytes(); // Convert MultipartFile to byte[]
-        Blob imageBlob = new SerialBlob(imageBytes); // Convert byte[] to Blob
-        player.setPlayerImage(imageBlob); // Set image in Player object
-    }
-    */
-
-    playerService.savePlayer(player); // Save player to database
-    return "redirect:/ValidRegistration.html";
+    public String savePlayerDatabase(@ModelAttribute Player player, MultipartFile imageFile) throws IOException, SQLException {   
+        if(!imageFile.isEmpty()) {
+            player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
+        }
+        playerService.savePlayer(player); // Save player to database
+    return "redirect:/home";
     }
 
     @GetMapping("/list")
@@ -89,4 +88,16 @@ public class PlayerController {
         return "redirect:/players/" + player.getId();
     }
 
+    @GetMapping("/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id)throws SQLException{
+        Optional<Player> player = playerService.findById(id);
+        if(player.isPresent() && player.get().getPlayerImage() != null){
+            Blob image = player.get().getPlayerImage();
+            Resource file = new InputStreamResource(image.getBinaryStream());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .contentLength(image.length()).body(file);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

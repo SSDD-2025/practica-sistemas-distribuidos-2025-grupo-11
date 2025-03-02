@@ -5,154 +5,106 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: "background.jpg";
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        form {
-            width: 25%;
-            margin: 20px 0 20px 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        label,
-        p {
-            font-weight: bold;
-            font-size: 14px;
-            margin-top: 5px;
-            padding: 1px;
-        }
-
-        input[type="text"],
-        select {
-            width: 100%;
-            /* Asegurado que los campos de entrada llenen el formulario */
-            padding: 6px;
-            margin-top: 5px;
-            border: 1px solid #000;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        input[type="submit"] {
-            background-color: #4caf50;
-            width: 100%;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-    </style>
 </head>
-{{> header}}
 
 <body>
-    <form action="/players/add" method="post">
-        <p>Enter the following data:</p>
+    <title>Player registration</title>
+    <link rel="stylesheet" href="/css/FormsStyle.css" />
+    </head>
+    {{> header}}
 
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required />
+    <body>
+        <form action="/players/add" method="post" enctype="multipart/form-data">
+            <p>Enter the following data:</p>
 
-        <label for="surname">Surnames</label>
-        <input type="text" name="surname" id="surname" required />
-        
-        <label for="playerImage">Player Picture</label>
-        <input type="file" name="playerImage" id="playerImage" accept=".png,.jpg, .jpeg"/>
-        
-        <label for="citizenship">Country</label>
-        <select name="citizenship" id="citizenship" required>
-            <option value="Spain">Spain</option>
-            <option value="France">France</option>
-            <option value="Italy">Italy</option>
-            <option value="Germany">Germany</option>
-            <option value="United Kingdom">United Kingdom</option>
-            <option value="United States">United States</option>
-            <option value="China">China</option>
-            <option value="Japan">Japan</option>
-            <option value="Russia">Russia</option>
-            <option value="Brazil">Brazil</option>
-            <option value="Argentina">Argentina</option>
-            <option value="Australia">Australia</option>
-            <option value="Canada">Canada</option>
-            <option value="India">India</option>
-            <option value="Mexico">Mexico</option>
-            <option value="South Africa">South Africa</option>
-            <option value="South Korea">South Korea</option>
-            <option value="Turkey">Turkey</option>
-            <option value="Sweden">Sweden</option>
-            <option value="Norway">Norway</option>
-            <option value="Finland">Finland</option>
-            <option value="Denmark">Denmark</option>
-            <option value="Netherlands">Netherlands</option>
-            <option value="Belgium">Belgium</option>
-            <option value="Switzerland">Switzerland</option>
-            <option value="Austria">Austria</option>
-            <option value="Portugal">Portugal</option>
-            <option value="Greece">Greece</option>
-            <option value="Poland">Poland</option>
-            <option value="Czech Republic">Czech Republic</option>
-            <option value="Hungary">Hungary</option>
-            <option value="Romania">Romania</option>
-            <option value="Bulgaria">Bulgaria</option>
-            <option value="Croatia">Croatia</option>
-            <option value="Serbia">Serbia</option>
-            <option value="Slovenia">Slovenia</option>
-            <option value="Slovakia">Slovakia</option>
-            <option value="Ukraine">Ukraine</option>
-            <option value="Belarus">Belarus</option>
-            <option value="Lithuania">Lithuania</option>
-            <option value="Latvia">Latvia</option>
-            <option value="Estonia">Estonia</option>
-            <option value="Ireland">Ireland</option>
-            <option value="Scotland">Scotland</option>
-            <option value="Wales">Wales</option>
-            <option value="Northern Ireland">Northern Ireland</option>
-            <option value="Iceland">Iceland</option>
-            <option value="Greenland">Greenland</option>
-            <option value="New Zealand">New Zealand</option>
-        </select>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required />
 
-        <label for="age">Age</label>
-        <input type="text" name="age" id="age" required />
+            <label for="surname">Surnames</label>
+            <input type="text" name="surname" id="surname" required />
 
-        <label for="height">Height (cm)</label>
-        <input type="text" name="height" id="height" required />
+            <label for="playerImage">Player Picture</label>
+            <input type="file" name="imageFile" id="image" accept=".png,.jpg, .jpeg" />
 
-        <label for="weight">Weight (kg)</label>
-        <input type="text" name="weight" id="weight" required />
+            <label for="citizenship">Country</label>
+            <select name="citizenship" id="citizenship" required>
+                <option value="Spain">Spain</option>
+                <option value="France">France</option>
+                <option value="Italy">Italy</option>
+                <option value="Germany">Germany</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+                <option value="China">China</option>
+                <option value="Japan">Japan</option>
+                <option value="Russia">Russia</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Australia">Australia</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="Mexico">Mexico</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Norway">Norway</option>
+                <option value="Finland">Finland</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Austria">Austria</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Greece">Greece</option>
+                <option value="Poland">Poland</option>
+                <option value="Czech Republic">Czech Republic</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Romania">Romania</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Scotland">Scotland</option>
+                <option value="Wales">Wales</option>
+                <option value="Northern Ireland">Northern Ireland</option>
+                <option value="Iceland">Iceland</option>
+                <option value="Greenland">Greenland</option>
+                <option value="New Zealand">New Zealand</option>
+            </select>
 
-        <label for="hand">Skilled hand</label>
-        <select name="bestHand" id="hand">
-            <option value="RIGHT">Right</option>
-            <option value="LEFT">Left</option>
-            <option value="BOTH">Ambidextrous</option>
-        </select>
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" min="16" required />
 
-        <label for="surface">Best surface</label>
-        <select name="bestSurface" id="surface" required>
-            <option value="CLAY">Clay</option>
-            <option value="HARD">Hard</option>
-            <option value="GRASS">Grass</option>
-            <option value="INDOOR">Indoor</option>
-        </select>
+            <label for="height">Height (cm)</label>
+            <input type="text" name="height" id="height" required />
 
-        <input type="submit" value="Register" />
-    </form>
-</body>
+            <label for="weight">Weight (kg)</label>
+            <input type="text" name="weight" id="weight" required />
+
+            <label for="hand">Skilled hand</label>
+            <select name="bestHand" id="hand">
+                <option value="RIGHT">Right</option>
+                <option value="LEFT">Left</option>
+                <option value="BOTH">Ambidextrous</option>
+            </select>
+
+            <label for="surface">Best surface</label>
+            <select name="bestSurface" id="surface" required>
+                <option value="CLAY">Clay</option>
+                <option value="HARD">Hard</option>
+                <option value="GRASS">Grass</option>
+                <option value="INDOOR">Indoor</option>
+            </select>
+
+            <input type="submit" value="Register" />
+        </form>
+    </body>
 
 </html>

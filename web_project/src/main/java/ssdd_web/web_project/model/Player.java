@@ -4,6 +4,7 @@ import java.sql.Blob;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -44,8 +45,7 @@ public class Player {
     private int age;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] playerImage;
+    private Blob playerImage;
 
     private int aces; // total number of aces of the player in one match
     private int doubleFaults; // total number of double faults of this player in one match
@@ -57,7 +57,7 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Surface bestSurface;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Team team;
 
     //Constructor without the player image
@@ -80,29 +80,6 @@ public class Player {
         this.acespm = 0;
         this.doubleFaultspm = 0;
         this.team = null;
-    }
-
-    //Constructor with the player image
-    public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
-            Hand bestHand,
-            Surface bestSurface, 
-            byte[] playerImage) {
-        this.name = namePlayer;
-        this.surname = surname;
-        this.citizenship = citizenship;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.bestHand = bestHand;
-        this.bestSurface = bestSurface;
-        this.winsPlayer = 0;
-        this.lossesPlayer = 0;
-        this.winratePlayer = 0;
-        this.aces = 0;
-        this.doubleFaults = 0;
-        this.acespm = 0;
-        this.doubleFaultspm = 0;
-        this.playerImage = playerImage;
     }
 
     public long getId() {
@@ -189,11 +166,11 @@ public class Player {
         this.age = age;
     }
 
-    public byte[] getPlayerImage() {
+    public Blob getPlayerImage() {
         return playerImage;
     }
 
-    public void setPlayerImage(byte[] playerImage) {
+    public void setPlayerImage(Blob playerImage) {
         this.playerImage = playerImage;
     }
 

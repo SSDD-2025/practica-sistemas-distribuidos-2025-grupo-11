@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.repository.PlayerRepository;
 
@@ -19,16 +20,6 @@ public class PlayerService {
     private PlayerRepository playerRepository;
 
     public Player savePlayer(Player player) {
-        return playerRepository.save(player);
-    }
-
-    // save player in database
-    public Player savePlayer(Player player, MultipartFile playerImage) throws IOException {
-        if(!playerImage.isEmpty()) {
-            //player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
-        if (!playerImage.isEmpty()) {
-            player.setPlayerImage(BlobProxy.generateProxy(playerImage.getInputStream(), playerImage.getSize()));
-        }
         return playerRepository.save(player);
     }
 
@@ -45,8 +36,8 @@ public class PlayerService {
     // delete player by id
     public void deletePlayerById(Long Id) {
         playerRepository.deleteById(Id);
+        
     }
-
     public Optional<Player> findById(long id) {
         return playerRepository.findById(id);
     }
