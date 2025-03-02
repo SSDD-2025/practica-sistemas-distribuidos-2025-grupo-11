@@ -4,7 +4,7 @@
 </head>
 {{> header}}
 <body>
-    <form action="ValidUserRegistration.html">
+    <form action="/users/register" method="post">
         <link rel="stylesheet" href="/css/FormsStyle.css" />
         <p>Enter the following data: </p>
         <p>Username</p>
@@ -15,8 +15,7 @@
         <input type="password" name="password"/>
         <p>E-mail</p>
         <input type="text" name="email"/>
-        <p>Foto de perfil (opcional): </p>
-        <input type="file" name="profilePicture"/>
         <input type="submit" value="Register"/>
+    </form>
 </body>
 </html>
