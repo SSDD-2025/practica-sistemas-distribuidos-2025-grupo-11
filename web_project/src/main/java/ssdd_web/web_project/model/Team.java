@@ -2,14 +2,18 @@ package ssdd_web.web_project.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+
 //import java.util.ArrayList;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,10 +27,12 @@ public class Team {
     public Team() {
     }
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "player1_id")
     private Player player1;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "player2_id")
     private Player player2;
 
     private int winsTeam;
@@ -34,8 +40,11 @@ public class Team {
     private double winrateTeam;
     private String name;
 
-    @OneToMany
-    private List<Match> matches;
+    @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Match> homeMatches;
+
+    @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Match> awayMatches;
 
     /*
      * @OneToOne
@@ -54,7 +63,8 @@ public class Team {
         this.winrateTeam = 0;
         this.ranking = 0;
         this.points = 0;
-        this.matches = null;
+        this.homeMatches = null;
+        this.awayMatches = null;
     }
 
     public Long getId() {
@@ -131,20 +141,28 @@ public class Team {
         this.points = points;
     }
 
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Match> getHomeMatches() {
+        return homeMatches;
+    }
+
+    public void setHomeMatches(List<Match> homeMatches) {
+        this.homeMatches = homeMatches;
+    }
+
+    public List<Match> getAwayMatches() {
+        return awayMatches;
+    }
+
+    public void setAwayMatches(List<Match> awayMatches) {
+        this.awayMatches = awayMatches;
     }
 
 }
