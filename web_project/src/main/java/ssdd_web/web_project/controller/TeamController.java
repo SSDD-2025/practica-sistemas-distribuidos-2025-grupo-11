@@ -13,19 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
-import ssdd_web.web_project.repository.PlayerRepository;
-import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.services.TeamService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/teams")
 public class TeamController {
 
-    @Autowired
-    private PlayerRepository playerRepository;
-    @Autowired
-    private PlayerService playerService;
     @Autowired
     private TeamService teamService;
 
@@ -41,7 +34,7 @@ public class TeamController {
     @PostMapping("/add")
     public String createTeam(@RequestParam String name, @RequestParam("player1Id") Long player1Id,
             @RequestParam("player2Id") Long player2Id) {
-        Team team = teamService.createTeam(name, player1Id, player2Id);
+        teamService.createTeam(name, player1Id, player2Id);
         return "redirect:/home";
     }
 
