@@ -61,4 +61,9 @@ public class TeamController {
         return "redirect:/teams/list";
     }
 
+    @GetMapping("/available")
+    public List<Team> getAvailableteams() {
+        return teamService.getAllAvailableTeams();
+    }
+
 }

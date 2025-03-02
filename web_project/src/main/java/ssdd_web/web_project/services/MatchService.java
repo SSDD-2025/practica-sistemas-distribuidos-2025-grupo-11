@@ -43,6 +43,8 @@ public class MatchService {
         Team awayTeam = teamRepository.findById(awayTeamId)
                 .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
 
+        homeTeam.setAvailable(false);
+        awayTeam.setAvailable(false);
         Match match = new Match(homeTeam, awayTeam, dateM, surface);
         return matchRepository.save(match);
     }
@@ -59,6 +61,8 @@ public class MatchService {
     public void deleteMatchById(Long id) {
         Optional<Match> match = matchRepository.findById(id);
         if (match.isPresent()) {
+            match.get().getHomeTeam().setAvailable(true);
+            match.get().getAwayTeam().setAvailable(true);
             matchRepository.deleteById(id);
         }
     }

@@ -1,62 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Details</title>
-    {{> header}}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuadro del Torneo</title>
+    <link rel="stylesheet" href="/css/DetailsStyle.css" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .bracket {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 20px;
-        }
-        .round {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .match {
-            background: white;
-            padding: 10px;
-            border: 1px solid #000;
-            text-align: center;
-            width: 150px;
-        }
-        .bracket.left {
-            align-items: flex-start;
-        }
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 10%;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 20%;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        display: left;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    .bracket {
+        display: flex;
+        align-items: center;
+    }
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 20px;
+    }
+    .match {
+        width: 150px;
+        height: 40px;
+        border: 2px solid black;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+    }
     </style>
-</head>
-<body>
-    <h1>ATP "location"</h1>
-    <h3>Date:</h3>
-    <h3>Prize</h3>
-    <div class="bracket left">
-        <div class="round">
-            <div class="match">Team 1 vs Team 2</div>
-            <div class="match">Team 3 vs Team 4</div>
-            <div class="match">Team 5 vs Team 6</div>
-            <div class="match">Team 7 vs Team 8</div>
-        </div>
-        <div class="round">
-            <div class="match">Semifinal 1</div>
-            <div class="match">Semifinal 2</div>
-        </div>
-        <div class="round">
-            <div class="match">Final</div>
-    </div>
+  </head>
+  {{> header}}
+  <body>
+    <h1>Tournament details</h1>
 
+    <div class="table-container">
+      <table>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>{{tournament.name}}</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>{{tournament.dateT}}</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>{{tournament.location}}</td>
+          </tr>
+          <tr>
+            <td>Surface</td>
+            <td>{{tournament.surface}}</td>
+          </tr>
+          <tr>
+            <td>Points</td>
+            <td>{{tournament.givenPoints}}</td>
+          </tr>
+          <tr>
+            <td>Prize money</td>
+            <td>{{tournament.prizeMoney}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="bracket">
+        <div class="column">
+          {{#matches}}
+            <a href="/teams/{{homeTeam.id}}"><div class="match">{{homeTeam.name}}</div></a>
+            <a href="/teams/{{awayTeam.id}}"><div class="match">{{awayTeam.name}}</div></a>
+          {{/matches}}
+        </div>
+        <div class="column">
+          {{#matches}}
+          <a href="/matches/{{id}}"><div class="match">{{homeTeam.name}} vs {{awayTeam.name}}</div></a>
+          {{/matches}}
+        </div>
+        <div class="column">
+            <div class="match">Ganador A</div>
+            <div class="match">Ganador B</div>
+        </div>
+        <div class="column">
+            <div class="match">Finalista</div>
+        </div>
     </div>
-</body>
+  </body>
 </html>

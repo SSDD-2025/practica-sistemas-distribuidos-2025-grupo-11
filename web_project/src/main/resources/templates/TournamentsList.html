@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tournaments list</title>
+    <link rel="stylesheet" href="/css/ListsStyle.css" />
+  </head>
+
+  {{> header}}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Surface</th>
+          <th>Points</th>
+          <th>Prize money</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#tournaments}}
+        <tr>
+          <td><a href="/tournaments/{{id}}">{{name}}</a></td>
+          <td>{{dateT}}</td>
+          <td>{{location}}</td>
+          <td>{{surface}}</td>
+          <td>{{givenPoints}}</td>
+          <td>{{prizeMoney}}</td>
+        </tr>
+        {{/tournaments}}
+      </tbody>
+    </table>
+  </div>
+</html>

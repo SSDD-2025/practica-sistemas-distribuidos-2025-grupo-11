@@ -1,17 +1,19 @@
 package ssdd_web.web_project.services;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
+import ssdd_web.web_project.repository.MatchRepository;
 import ssdd_web.web_project.repository.TeamRepository;
 import ssdd_web.web_project.repository.TournamentRepository;
+
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class TournamentService {
@@ -20,26 +22,38 @@ public class TournamentService {
     private TournamentRepository tournamentRepository;
 
     @Autowired
-    private TeamRepository teamRepository;
+    private MatchRepository matchRepository;
 
-    // all teams
-    public List<Team> getAllTeams() {
-        return teamRepository.findAll();
+    public List<Match> getAllMatches() {
+        return matchRepository.findAll();
     }
 
-    // create new tournament
-    public Tournament createTournament(LocalDate dateT, int givenPoints, String location, double prizeMoney,
-            Surface surface, List<Long> teamIds) {
-        Tournament tournament = new Tournament(dateT, givenPoints, location, List.of(), prizeMoney, surface);
-        return tournamentRepository.save(tournament);
-    }
-
-    // all tournaments
     public List<Tournament> getAllTournaments() {
         return tournamentRepository.findAll();
+    }
+
+    public Tournament createTournament(String name, LocalDate dateT, int givenPoints, double prizeMoney,
+            String location, Surface surface, List<Long> matchIds) {
+
+        List<Match> matches = matchRepository.findAllById(matchIds);
+
+        for (Match match : matches) {
+            match.setDateM(dateT);
+            match.setSurface(surface);
+        }
+
+        Tournament tournament = new Tournament(name, dateT, givenPoints, prizeMoney, location, surface,
+                matches);
+
+        return tournamentRepository.save(tournament);
     }
 
     public Optional<Tournament> getTournamentById(Long id) {
         return tournamentRepository.findById(id);
     }
+
+    public void deleteTournamentById(Long id) {
+
+    }
+
 }

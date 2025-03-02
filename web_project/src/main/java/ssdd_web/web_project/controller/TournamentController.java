@@ -1,15 +1,15 @@
 package ssdd_web.web_project.controller;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ssdd_web.web_project.model.Surface;
+import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.services.TournamentService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,36 +26,47 @@ public class TournamentController {
     private TournamentService tournamentService;
 
     // create tournament
-    @GetMapping("/tournCreate")
+    @GetMapping("/register")
     public String showTournCreateForm(Model model) {
-        model.addAttribute("teams", tournamentService.getAllTeams());
+        model.addAttribute("matches", tournamentService.getAllMatches());
         return "CreateTournament"; // html where user picks tournament data
     }
 
-    @PostMapping("/tournCreate")
-    public String createTournament(@RequestBody String date, @RequestParam int givenPoints,
+    @PostMapping("/add")
+    public String createTournament(@RequestParam String name, @RequestParam LocalDate dateT,
+            @RequestParam int givenPoints,
             @RequestParam String location, @RequestParam double prizeMoney, @RequestParam Surface surface,
-            @RequestParam List<Long> teamIds) {
-        LocalDate dateT = LocalDate.parse(date);
-        Tournament tournament = tournamentService.createTournament(dateT, givenPoints, location, prizeMoney, surface,
-                teamIds);
+            @RequestParam Long match1Id, @RequestParam Long match2Id, @RequestParam Long match3Id,
+            @RequestParam Long match4Id) {
 
-        return "redirect:/tournaments/" + tournament.getId();
+        List<Long> matchIds = Arrays.asList(match1Id, match2Id, match3Id, match4Id);
+
+        Tournament tournament = tournamentService.createTournament(name, dateT, givenPoints, prizeMoney, location,
+                surface, matchIds);
+
+        return "redirect:/home";
     }
 
     // all tournaments list
-    @GetMapping
+    @GetMapping("/list")
     public String listTournaments(Model model) {
         model.addAttribute("tournaments", tournamentService.getAllTournaments());
-        return "ListTournaments"; // html with all tournaments
+        return "TournamentsList"; // html with all tournaments
     }
 
-    // tournament details
+    // team stats show
     @GetMapping("/{id}")
     public String showTournamentDetails(@PathVariable Long id, Model model) {
-        Optional<Tournament> tournament = tournamentService.getTournamentById(id);
+        Tournament tournament = tournamentService.getTournamentById(id)
+                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
         model.addAttribute("tournament", tournament);
-        return "TournamentDetails"; // html with tournament details
+        model.addAttribute("matches", tournament.getMatches());
+        return "TournamentDetails";
     }
 
+    // delete team by id
+    @PostMapping("/delete/{id}")
+    public String deleteTeamById(@PathVariable Long id) {
+        return "redirect:/teams/list";
+    }
 }

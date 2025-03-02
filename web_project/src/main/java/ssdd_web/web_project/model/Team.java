@@ -51,6 +51,7 @@ public class Team {
      * private User manager;
      */
 
+    private boolean available;
     private int ranking;
     private int points;
 
@@ -65,6 +66,7 @@ public class Team {
         this.points = 0;
         this.homeMatches = null;
         this.awayMatches = null;
+        this.available = true;
     }
 
     public Long getId() {
@@ -165,4 +167,11 @@ public class Team {
         this.awayMatches = awayMatches;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 }

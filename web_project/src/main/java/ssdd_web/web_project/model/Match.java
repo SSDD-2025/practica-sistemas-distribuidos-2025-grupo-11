@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -30,6 +31,9 @@ public class Match {
     @OneToOne
     private Team winnerTeam;
 
+    @ManyToOne
+    private Tournament tournament;
+
     public Match() {
     }
 
@@ -40,6 +44,7 @@ public class Match {
         this.surface = surface;
         this.score = "0-0";
         this.winnerTeam = null;
+        this.tournament = null;
     }
 
     public Long getId() {
@@ -103,4 +108,13 @@ public class Match {
         double chance = 0.5;
         return chance;
     }
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
 }

@@ -29,9 +29,11 @@ public class Tournament {
     private int givenPoints;
     private Surface surface;
     private String location;
+    private String name;
 
-    public Tournament(LocalDate dateT, int givenPoints, String location, List<Match> matches, double prizeMoney,
-            Surface surface) {
+    public Tournament(String name, LocalDate dateT, int givenPoints, double prizeMoney, String location,
+            Surface surface, List<Match> matches) {
+        this.name = name;
         this.dateT = dateT;
         this.givenPoints = givenPoints;
         this.location = location;
@@ -94,6 +96,14 @@ public class Tournament {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

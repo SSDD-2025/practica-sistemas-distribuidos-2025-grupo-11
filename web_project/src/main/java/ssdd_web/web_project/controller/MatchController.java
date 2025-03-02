@@ -28,7 +28,7 @@ public class MatchController {
 
     @GetMapping("/register")
     public String showMatchCreate(Model model) {
-        model.addAttribute("teams", teamService.getAllTeams());
+        model.addAttribute("teams", teamService.getAllAvailableTeams());
         return "CreateMatch"; // html where we create a match
     }
 
