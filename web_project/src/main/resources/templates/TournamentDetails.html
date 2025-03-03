@@ -5,50 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuadro del Torneo</title>
     <link rel="stylesheet" href="/css/DetailsStyle.css" />
-    <style>
-      th:nth-child(1),
-      td:nth-child(1) {
-        width: 10%;
-      }
-      th:nth-child(2),
-      td:nth-child(2) {
-        width: 20%;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        display: left;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f4f4f4;
-    }
-    .bracket {
-        display: flex;
-        align-items: center;
-    }
-    .column {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 0 20px;
-    }
-    .match {
-        width: 150px;
-        height: 40px;
-        border: 2px solid black;
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: white;
-    }
-    </style>
+    <link rel="stylesheet" href="/css/BracketStyle.css" />
   </head>
   {{> header}}
   <body>
-    <h1>Tournament details</h1>
-
     <div class="table-container">
       <table>
         <tbody>
@@ -97,7 +57,35 @@
         </div>
         <div class="column">
             <div class="match">Finalista</div>
-        </div>
+        </div>    
     </div>
+    <form
+        id="deleteForm"
+        action="/tournaments/delete/{{tournament.id}}"
+        method="post"
+      >
+        <button
+          type="button"
+          onclick="confirmDelete()"
+          style="
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Delete Tournament
+        </button>
+      </form>
+
+    <script>
+      function confirmDelete() {
+        if (confirm("Are you sure you want to delete this tournament?")) {
+          document.getElementById("deleteForm").submit();
+        }
+      }
+    </script>
   </body>
 </html>

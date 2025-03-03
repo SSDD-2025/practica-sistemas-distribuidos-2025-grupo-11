@@ -1,0 +1,37 @@
+th:nth-child(1),
+td:nth-child(1) {
+  width: 10%;
+}
+th:nth-child(2),
+td:nth-child(2) {
+  width: 20%;
+}
+body {
+  font-family: Arial, sans-serif;
+  display: left;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+.bracket {
+  display: flex;
+  align-items: center;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+.match {
+  width: 150px;
+  height: 40px;
+  border: 2px solid black;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}

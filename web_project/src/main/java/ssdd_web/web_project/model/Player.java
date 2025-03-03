@@ -23,7 +23,7 @@ import jakarta.persistence.Lob;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public Player() {
