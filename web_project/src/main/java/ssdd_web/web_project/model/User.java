@@ -1,9 +1,12 @@
 package ssdd_web.web_project.model;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +31,9 @@ public class User {
     private double winrate;
     private int winsUser;
     private int lossesUser;
+
+    @Lob
+    private Blob profilePicture;
 
     public User(String name) {
         this.name = name;
@@ -92,6 +98,14 @@ public class User {
 
     public void setLossesPlayer(int lossesUser) {
         this.lossesUser = lossesUser;
+    }
+
+    public Blob getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Blob profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     /*

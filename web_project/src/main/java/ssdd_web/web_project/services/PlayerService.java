@@ -25,6 +25,14 @@ public class PlayerService {
     private TeamRepository teamRepository;
 
     public Player savePlayer(Player player) {
+        if (player.getName() == null || player.getName().isEmpty() || player.getSurname() == null || 
+            player.getSurname().isEmpty()) { 
+            throw new IllegalArgumentException("Player name is required");
+        }
+        if (playerRepository.existsByName(player.getName()) && playerRepository.existsBySurname(player.getSurname())) {
+            throw new IllegalArgumentException("Player name already exists");
+        }
+
         return playerRepository.save(player);
     }
 
