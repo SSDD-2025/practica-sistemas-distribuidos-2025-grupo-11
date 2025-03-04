@@ -13,13 +13,13 @@
 
 
 ## Navigation Diagram
-(./images.classDiagram.png)
+
 
 ## Database Entities Diagram
-
+[](/images/entitiesDiagram.png)
 
 ## Classes and Templates Diagram
-
+[](/images/classDiagram.png)
 
 ## Team Members Participation
 
