@@ -3,42 +3,48 @@
   {{> header}}
   <head>
     <title>Home</title>
-    <link rel="stylesheet" href="/css/indexStyle.css">
+    <link rel="stylesheet" href="/css/indexStyle.css" />
   </head>
   <body>
     <main class="container">
       <section class="card">
         <h2 class="section-title">Next matches</h2>
-        {{#matches}}
         <div class="match-container">
-          <div class="match">{{id}}, {{homeTeam.name}}</div>
-          <div class="match">Team 3 vs Team 4</div>
-          <div class="match">Team 5 vs Team 6</div>
-          <div class="match">Show more...</div>
+          {{#matches}}
+          <a href="/matches/{{id}}"
+            ><div class="match">{{homeTeam.name}} vs {{awayTeam.name}}</div></a
+          >
+          {{/matches}}
+          <a href="/matches/list"
+            ><div class="match"><strong>Show more...</strong></div></a
+          >
         </div>
-        {{/matches}}
       </section>
 
       <div class="grid">
-        <!-- Ranking -->
         <section class="card">
           <h2 class="section-title">Ranking</h2>
           <ul class="ranking-list">
-            <li>1. Team A</li>
-            <li>2. Team B</li>
-            <li>3. Team C</li>
-            <li>4. Team D</li>
-            <li class="show-more">Show more...</li>
+            {{#teams}}
+            <a href="/teams/{{id}}"
+              ><li><strong>{{id}}.</strong> {{name}}</li></a
+            >
+            {{/teams}}
+            <a href="/teams/list"
+              ><li class="show-more"><strong>Show more...</strong></li></a
+            >
           </ul>
         </section>
 
         <section class="card">
-          <h2 class="section-title">Recent Winners</h2>
+          <h2 class="section-title">Upcoming Tournaments</h2>
           <ul class="ranking-list">
-            <li>ATP X - Winner:</li>
-            <li>ATP Y - Winner</li>
-            <li>ATP Z - Winner</li>
-            <li class="show-more">Show more...</li>
+            {{#tournaments}}
+            <a href="/tournaments/{{id}}"><li>{{name}} - {{dateT}}</li></a>
+            {{/tournaments}}
+            <a href="/tournaments/list"
+              ><li class="show-more"><strong>Show more...</strong></li></a
+            >
           </ul>
         </section>
       </div>

@@ -1,74 +1,75 @@
 body {
-    font-family: Arial, sans-serif;
-    background-image: url("../pictures/background.jpg");
-    background-size: cover;
-    background-position: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background-color: #f7f7f7;
-    color: #1a202c;
-  }
-  
-  .container {
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 16px;
-  }
-  
-  .card {
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .section-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 12px;
-  }
-  
-  .match-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 16px;
-    padding: 8px;
-  }
-  
-  .match {
-    background-color: #e5e7eb;
-    padding: 16px;
-    border-radius: 8px;
-    min-width: 200px;
-    white-space: nowrap;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-image: url("../pictures/background.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f7f7f7;
+  color: #1a202c;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.card {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.match-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 8px;
+}
+
+.match {
+  background-color: #e5e7eb;
+  padding: 16px;
+  border-radius: 8px;
+  min-width: 200px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
   .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  @media (min-width: 768px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  .ranking-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .ranking-list li {
-    background-color: #e5e7eb;
-    padding: 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-  }
-  
-  .show-more {
-    background-color: #f3f4f6;
-  }
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ranking-list li {
+  background-color: #e5e7eb;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.show-more {
+  background-color: #f3f4f6;
+}
