@@ -1,7 +1,6 @@
 package ssdd_web.web_project.model;
 
 import java.sql.Blob;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +19,12 @@ public class User {
     public User() {
     };
 
-    private String name;
     /*
      * @OneToOne
      * private Team team;
      */
 
+    private String name;
     private String password;
     private String email;
     private double winrate;
@@ -75,7 +74,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public double getWinrate() {
         return winrate;
     }
@@ -107,28 +106,4 @@ public class User {
     public void setProfilePicture(Blob profilePicture) {
         this.profilePicture = profilePicture;
     }
-
-    /*
-     * public void CreateTeam(Player p1, Player p2) {
-     * this.team = new Team(p1, p2);
-     * }
-     */
-
-    public void UpdateWinrate() { // sets new winrate after a match
-        this.winrate = (double) this.winsUser / (this.winsUser + this.lossesUser);
-    }
-
-    /*
-     * public void StartMatch(Team RivalTeam, java.time.LocalDate dateM, Surface
-     * surface) { //starts a match and updates user's winrate
-     * Match match = new Match(this.team, RivalTeam , dateM, surface);
-     * if (this.team.equals(match.SimulateMatch())) {
-     * this.setWinsUser(winsUser++);
-     * }
-     * else {
-     * this.setLossesPlayer(lossesUser++);
-     * }
-     * UpdateWinrate();
-     * }
-     */
 }

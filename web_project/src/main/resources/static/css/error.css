@@ -1,46 +1,46 @@
 /* Reset default styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 /* Full-page styling */
 body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #d0dfd4; 
-    color: #e61212; 
-    background-image: url("../pictures/backgroundError.jpg");
-    background-size: cover;
-    background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d0dfd4;
+  color: #e61212;
+  background-image: url("../pictures/backgroundError.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 /* Centered container */
 .container {
-    text-align: center;
-    padding: 25px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+  text-align: center;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
 }
 
 /* Button styling */
 .btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    color: white;
-    background-color: #4caf50;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  color: white;
+  background-color: #4caf50;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
 
 .btn:hover {
-    background-color: #4caf50;
+  background-color: #4caf50;
 }

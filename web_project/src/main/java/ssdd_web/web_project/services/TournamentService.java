@@ -3,14 +3,12 @@ package ssdd_web.web_project.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.repository.MatchRepository;
 import ssdd_web.web_project.repository.TeamRepository;
 import ssdd_web.web_project.repository.TournamentRepository;
-
 import java.time.LocalDate;
 import java.util.*;
 

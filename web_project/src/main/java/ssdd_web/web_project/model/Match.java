@@ -1,7 +1,6 @@
 package ssdd_web.web_project.model;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -103,12 +102,6 @@ public class Match {
 
     public void setWinnerTeam(Team winnerTeam) {
         this.winnerTeam = winnerTeam;
-    }
-
-    public double ChanceOfWining() { // Temporary implementation, think of a formula to calculate the chance of
-                                     // winning
-        double chance = 0.5;
-        return chance;
     }
 
     public Tournament getTournament() {

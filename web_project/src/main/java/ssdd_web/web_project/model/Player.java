@@ -38,14 +38,13 @@ public class Player {
     private int height;
     private double weight;
     private int age;
-
-    @Lob
-    private Blob playerImage;
-
     private int aces; // total number of aces of the player in one match
     private int doubleFaults; // total number of double faults of this player in one match
     private double acespm; // average value of aces per match of the player
     private double doubleFaultspm; // average value of double falts per match of the player
+
+    @Lob
+    private Blob playerImage;
 
     @Enumerated(EnumType.STRING)
     private Hand bestHand;
@@ -58,8 +57,7 @@ public class Player {
 
     // Constructor without the player image
     public Player(String namePlayer, String surname, String citizenship, int height, double weight, int age,
-            Hand bestHand,
-            Surface bestSurface) {
+            Hand bestHand, Surface bestSurface) {
         this.name = namePlayer;
         this.surname = surname;
         this.citizenship = citizenship;

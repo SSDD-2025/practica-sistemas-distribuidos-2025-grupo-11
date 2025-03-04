@@ -1,7 +1,6 @@
 package ssdd_web.web_project.services;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssdd_web.web_project.model.User;

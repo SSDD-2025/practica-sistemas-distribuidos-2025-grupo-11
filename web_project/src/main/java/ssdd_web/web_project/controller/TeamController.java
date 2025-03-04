@@ -1,7 +1,6 @@
 package ssdd_web.web_project.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.TeamService;
@@ -49,7 +47,7 @@ public class TeamController {
     // team stats show
     @GetMapping("/{id}")
     public String showTeamStats(@PathVariable Long id, Model model) {
-        Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+        Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Team not found"));
         model.addAttribute("team", team);
         return "TeamStats";
     }
@@ -61,6 +59,7 @@ public class TeamController {
         return "redirect:/teams/list";
     }
 
+    // get all available teams
     @GetMapping("/available")
     public List<Team> getAvailableteams() {
         return teamService.getAllAvailableTeams();

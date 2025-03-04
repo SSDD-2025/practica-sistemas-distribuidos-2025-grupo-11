@@ -5,7 +5,6 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.services.PlayerService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +52,7 @@ public class PlayerController {
         }
     }
 
+    // show all players
     @GetMapping("/list")
     public String listPlayers(Model model, @RequestParam(required = false) Player player) {
         List<Player> players = playerService.getAllPlayers();

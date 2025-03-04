@@ -2,10 +2,8 @@ package ssdd_web.web_project.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.repository.PlayerRepository;
@@ -49,7 +47,7 @@ public class TeamService {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
 
-        if (player1.isPresent() && player2.isPresent()) {
+        if (player1.isPresent() && player2.isPresent() && player1Id != player2Id) {
             Team team = new Team(name, player1.get(), player2.get());
             player1.get().setTeam(team);
             player2.get().setTeam(team);

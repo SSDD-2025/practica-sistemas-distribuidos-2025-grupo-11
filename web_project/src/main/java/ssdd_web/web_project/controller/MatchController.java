@@ -1,7 +1,6 @@
 package ssdd_web.web_project.controller;
 
 import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +57,6 @@ public class MatchController {
     @PostMapping("/delete/{id}")
     public String deleteMatchById(@PathVariable Long id) {
         matchService.deleteMatchById(id);
-
         return "redirect:/matches/list";
     }
 

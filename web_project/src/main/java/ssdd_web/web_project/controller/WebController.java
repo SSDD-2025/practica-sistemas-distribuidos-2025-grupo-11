@@ -1,12 +1,10 @@
 package ssdd_web.web_project.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
@@ -26,6 +24,7 @@ public class WebController {
     @Autowired
     private TournamentService tournamentService;
 
+    // get home
     @GetMapping("/home")
     public String webString(Model model) {
         List<Match> matches = matchService.getAllMatchesDateOrder();
@@ -53,17 +52,5 @@ public class WebController {
     public String login(Model model) {
         model.addAttribute("name", "Login");
         return "Login";
-    }
-
-    @GetMapping("/players/create")
-    public String createPlayer(Model model) {
-        model.addAttribute("name", "Create Player");
-        return "PlayerRegistration";
-    }
-
-    @GetMapping("/team/select")
-    public String selectTeam(Model model) {
-        model.addAttribute("name", "Select Team");
-        return "CreateTeam";
     }
 }
