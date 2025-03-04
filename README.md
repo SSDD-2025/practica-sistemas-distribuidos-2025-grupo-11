@@ -1,11 +1,10 @@
 # Tennis Tour
 
 ## Colaborators
-| Columna 1 | Columna 2 | Columna 3 |
+| Name | Email | Github account |
 |-----------|-----------|-----------|
-| Fila 1    | Dato 1    | Dato 2    |
-| Fila 2    | Dato 3    | Dato 4    |
-| Fila 3    | Dato 5    | Dato 6    |
+| Ignacio Carnal Bernal    | i.carnal.2022@alumnos.urjc.es    | Nachooo51 |
+| Iker Morante Aceituno    | i.morante.2022@alumnos.urjc.es    | sgiker21    |
 
 ## Execution Instructions
 
@@ -14,7 +13,7 @@
 
 
 ## Navigation Diagram
-
+(./images.classDiagram.png)
 
 ## Database Entities Diagram
 
