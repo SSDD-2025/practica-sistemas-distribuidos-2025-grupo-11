@@ -10,6 +10,6 @@ public class GlobalExceptionHandler {
     public String handleIllegalArgumentException(IllegalArgumentException ex, Model model) {
         // Add the error message to the model
         model.addAttribute("errorMessage", ex.getMessage());
-        return "errorPlayer";  // This will resolve to the error.html page
+        return "errorPlayer";  // This will resolve to the errorPlayer.html page
     }
 }
