@@ -18,30 +18,53 @@ Tennis Tour is an exciting application where you can create your own team and ad
 ![Main page](/images/Navigation%20Diagram/Home.png)
 This is the main page of Tennis Tour. Here we can see the upcoming matches that are going to be played. We can also view the top teams currently in the ranking, as well as the upcoming tournaments that will take place.
 
+- Create a player
+![Create a player](/images/Navigation%20Diagram/player-form.png)
+On this page, we will be able to create a player who can later be added to a team.
 
+- Show all players
+![Show all players](/images/Navigation%20Diagram/Player-List.png)
+On this page, we will be able to see a list of all the players who have joined Tennis Tour.
 
+- Show player stats
+![Show player stats](/images/Navigation%20Diagram/Player.png)
+On this page, we will be able to see the stats of a particular player.
 
+- Create a team
+![Create a team](/images/Navigation%20Diagram/Team-form.png)
+On this page, we will be able to create a team by choosing two players who already belong to Tennis Tour, as well as a name for the team.
 
+- Show all teams
+![Show all teams](/images/Navigation%20Diagram/Team-list.png)
+On this page, we will be able to see a ranking of all the teams.
 
+- Show team stats
+![Show team stats](/images/Navigation%20Diagram/Team.png)
+On this page, we will be able to see the stats of a specific team.
 
+- Create a match
+![Create a match](/images/Navigation%20Diagram/Match-form.png)
+On this page, we will be able to create a match by choosing two teams, a date, and a surface on which the match will be played.
 
+- Show all matches
+![Show all matches](/images/Navigation%20Diagram/Match-list.png)
+On this page, we will be able to see a list of matches that will be played in the coming days.
 
+- Show match details
+![Show match details](/images/Navigation%20Diagram/match.png)
+On this page, we will be able to see the details of a particular match.
 
+- Create a tournament
+![Create a tournament](/images/Navigation%20Diagram/Tournament-form.png)
+On this page, we will be able to create a tournament. To do this, we will need to choose a name, the date, the surface on which it will be played, the prize, and the points that will be awarded to the first place. Additionally, we will need to choose four different matches that will participate in the tournament.
 
+- Show all tournaments
+![Show all tournaments](/images/Navigation%20Diagram/tournament-list.png)
+On this page, we can see a list of tournaments that will take place.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Show tournament details
+![Show tournament details](/images/Navigation%20Diagram/tournament.png)
+On this page, we will be able to see the stats of a particular tournament, as well as its bracket.
 
 ## Navigation Diagram
 
