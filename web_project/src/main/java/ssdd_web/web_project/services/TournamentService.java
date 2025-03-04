@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
-import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.repository.MatchRepository;
 import ssdd_web.web_project.repository.TeamRepository;

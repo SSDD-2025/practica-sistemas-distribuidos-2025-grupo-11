@@ -1,11 +1,6 @@
 package ssdd_web.web_project.model;
 
 import java.sql.Blob;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.persistence.Lob;
 
 @Entity
@@ -81,7 +75,6 @@ public class Player {
         this.doubleFaults = 0;
         this.acespm = 0;
         this.doubleFaultspm = 0;
-        this.team = null;
     }
 
     public long getId() {

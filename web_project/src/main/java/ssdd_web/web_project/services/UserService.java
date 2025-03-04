@@ -4,9 +4,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import ssdd_web.web_project.model.Player;
-import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.UserRepository;
 
@@ -15,13 +12,14 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     // save user to database
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     public void deleteUserbyId(Long id) {
-        Optional <User> user = userRepository.findById(id);
+        // Optional<User> user = userRepository.findById(id);
         userRepository.deleteById(id);
     }
 

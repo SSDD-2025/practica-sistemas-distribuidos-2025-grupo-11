@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/players")
@@ -47,12 +46,12 @@ public class PlayerController {
         if (!imageFile.isEmpty()) {
             player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
         }
-        try{
+        try {
             playerService.savePlayer(player); // Save player to database
             return "redirect:/home";
         } catch (IllegalArgumentException ex) {
-        return "redirect:errorPlayer";  // Redirect to the page with the error message
-    }
+            return "redirect:errorPlayer"; // Redirect to the page with the error message
+        }
     }
 
     @GetMapping("/list")
@@ -88,7 +87,7 @@ public class PlayerController {
     // update player
     @PostMapping("/update")
     public String updatePlayer(@ModelAttribute Player player) {
-        playerService.savePlayer(player);
+        playerService.saveEditPlayer(player);
         return "redirect:/players/" + player.getId();
     }
 

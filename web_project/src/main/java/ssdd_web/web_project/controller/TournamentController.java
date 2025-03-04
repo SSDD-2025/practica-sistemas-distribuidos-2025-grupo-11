@@ -9,14 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ssdd_web.web_project.model.Surface;
-import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.services.TournamentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/tournaments")
@@ -41,8 +39,7 @@ public class TournamentController {
 
         List<Long> matchIds = Arrays.asList(match1Id, match2Id, match3Id, match4Id);
 
-        Tournament tournament = tournamentService.createTournament(name, dateT, givenPoints, prizeMoney, location,
-                surface, matchIds);
+        tournamentService.createTournament(name, dateT, givenPoints, prizeMoney, location, surface, matchIds);
 
         return "redirect:/home";
     }

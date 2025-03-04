@@ -1,14 +1,9 @@
 package ssdd_web.web_project.services;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
@@ -25,14 +20,26 @@ public class PlayerService {
     private TeamRepository teamRepository;
 
     public Player savePlayer(Player player) {
-        if (player.getName() == null || player.getName().isEmpty() || player.getSurname() == null || 
-            player.getSurname().isEmpty()) { 
+        if (player.getName() == null || player.getName().isEmpty() || player.getSurname() == null ||
+                player.getSurname().isEmpty()) {
             throw new IllegalArgumentException("Player name is required");
         }
         if (playerRepository.existsByName(player.getName()) && playerRepository.existsBySurname(player.getSurname())) {
             throw new IllegalArgumentException("Player name already exists");
         }
 
+        return playerRepository.save(player);
+    }
+
+    // save edited player
+    public Player saveEditPlayer(Player player) {
+        Player existingPlayer = playerRepository.findById(player.getId()).orElse(null);
+
+        if (existingPlayer != null) {
+            if (player.getTeam() == null) {
+                player.setTeam(existingPlayer.getTeam());
+            }
+        }
         return playerRepository.save(player);
     }
 
