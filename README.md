@@ -86,19 +86,19 @@ This error page specifically appears when someone registers a new player and lea
 ## Team Members Participation
 
 ### Ignacio Carnal Bernal
-- Tareas:
-- 5 commits mas mas significativos
-  - [Commit 1]()
-  - [Commit 2]()
-  - [Commit 3]()
-  - [Commit 4]()
-  - [Commit 5]()
-- 5 ficheros en los que mas se ha participado:
-  - [Fichero 1]()
-  - [Fichero 2]()
-  - [Fichero 3]()
-  - [Fichero 4]()
-  - [Fichero 5]()
+- **Tasks:** Creation and implementation of repositories, services, and controllers for all entities except User. Implementation of various HTML files related to the entities, as well as multiple CSS styles.
+- **5 most important commits**
+  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/22cf99e7e8ee72047a595cddc5e7297edd69f5fb)
+  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/fd91759611045f36ac442763afeb104c93d3b255)
+  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/03665882ca1c769ad1c73166297d6e634760897e)
+  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/17b9d3a6125d51c2c842a47e19d8f51057ee1e67)
+  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/5e3ed45ca8463a28dda54a74c2029978ae50315d)
+- **5 files with the most contributions**
+  - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TournamentController.java)
+  - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TeamController.java)
+  - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TournamentService.java)
+  - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/MatchService.java)
+  - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
 
 ### Iker Morante Aceituno
 - Tareas:
