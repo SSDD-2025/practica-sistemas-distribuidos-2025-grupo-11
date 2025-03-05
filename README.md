@@ -101,16 +101,17 @@ This error page specifically appears when someone registers a new player and lea
   - [Fichero 5]()
 
 ### Iker Morante Aceituno
-- Tareas:
+- Tareas: Creation of HTML templates, some stylesheets. Management of the web controller, and some methods related with the user. Working with the My
+
 - 5 commits mas mas significativos
-  - [Commit 1]()
-  - [Commit 2]()
-  - [Commit 3]()
-  - [Commit 4]()
-  - [Commit 5]()
+  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/7c3135d86ae478119cd8d36981e38558dd36fb02)
+  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/853d1c70ebd4f89e480260177b7f009aebae8e0c)
+  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fd12c0e25592a4ad60d7bd8b8f2d2c5f00f093a8)
+  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fc34cb4717a4d9c57bac80d498a840e7e6ec25ac)
+  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/232e9b0987961230836e5f936fadf7fc071154b7)
 - 5 ficheros en los que mas se ha participado:
-  - [Fichero 1]()
-  - [Fichero 2]()
-  - [Fichero 3]()
-  - [Fichero 4]()
-  - [Fichero 5]()
+  - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerRegistration.html)
+  - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
+  - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/error.html)
+  - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/Player.html)
+  - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/WebController.java)
