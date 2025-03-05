@@ -7,8 +7,22 @@
 | Iker Morante Aceituno | i.morante.2022@alumnos.urjc.es | [sgiker21](https://github.com/sgiker21) |
 
 ## Execution Instructions
+*Note that this project has been developed using Visual Studio Code, so these instructions will be done considering this IDE. Some instructions may differ in other IDEs. 
 
+1. Download the .zip from the repository and unzip it. Open the project in VS Code
+2. Download MySQL Workbench. Username is root, password Mysqlroot21. Port is by default 3306
+3. Open Workbench and write the following query: 
+        CREATE databaseTennis;
+        USE databaseTennis;
+4. Run application on VS Code
+5. After spring boot has initialised the web, go to //localhost:8080 on your browser
 
+## Programs and other software to install
+1. Visual Studio Code: https://code.visualstudio.com/download
+2. Java: JDK 21 https://www.oracle.com/java/technologies/downloads/#java21 (or install the extension Java)
+2. MySQL v.8.0.41: https://dev.mysql.com/downloads/file/?id=536787
+3. Maven v.4.0.0: https://maven.apache.org/download.cgi (or install the extension Maven for Java)
+4. Spring Boot v.3.4.3: Install the extension Spring Boot Extension Pack in VS Code
 ## Application Functionality
 Tennis Tour is an exciting application where you can create your own team and add players to it. The app allows you to organize multiple matches between teams, providing a dynamic and competitive environment. Additionally, teams can participate in tournaments with many other teams, all striving for a prize and a spot in the team rankings. It's a great way to challenge yourself and compete against others in the world of tennis!
 
@@ -101,15 +115,15 @@ This error page specifically appears when someone registers a new player and lea
   - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
 
 ### Iker Morante Aceituno
-- Tareas: Creation of HTML templates, some stylesheets. Management of the web controller, and some methods related with the user. Working with the My
+-**Tasks:** Creation of HTML templates, some stylesheets. Management of the web controller, and architecture related with the user. Working with the MySQL Workbench to store data. 
 
-- 5 commits mas mas significativos
+- **5 most important commits**
   - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/7c3135d86ae478119cd8d36981e38558dd36fb02)
   - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/853d1c70ebd4f89e480260177b7f009aebae8e0c)
   - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fd12c0e25592a4ad60d7bd8b8f2d2c5f00f093a8)
   - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fc34cb4717a4d9c57bac80d498a840e7e6ec25ac)
   - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/232e9b0987961230836e5f936fadf7fc071154b7)
-- 5 ficheros en los que mas se ha participado:
+- **5 files with the most contributions**
   - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerRegistration.html)
   - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
   - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/error.html)
