@@ -85,3 +85,32 @@ This error page specifically appears when someone registers a new player and lea
 
 ## Team Members Participation
 
+### Ignacio Carnal Bernal
+- Tareas:
+- 5 commits mas mas significativos
+  - [Commit 1]()
+  - [Commit 2]()
+  - [Commit 3]()
+  - [Commit 4]()
+  - [Commit 5]()
+- 5 ficheros en los que mas se ha participado:
+  - [Fichero 1]()
+  - [Fichero 2]()
+  - [Fichero 3]()
+  - [Fichero 4]()
+  - [Fichero 5]()
+
+### Iker Morante Aceituno
+- Tareas:
+- 5 commits mas mas significativos
+  - [Commit 1]()
+  - [Commit 2]()
+  - [Commit 3]()
+  - [Commit 4]()
+  - [Commit 5]()
+- 5 ficheros en los que mas se ha participado:
+  - [Fichero 1]()
+  - [Fichero 2]()
+  - [Fichero 3]()
+  - [Fichero 4]()
+  - [Fichero 5]()
