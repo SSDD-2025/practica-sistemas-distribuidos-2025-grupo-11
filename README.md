@@ -3,8 +3,8 @@
 ## Colaborators
 | Name | Email | Github account |
 |-----------|-----------|-----------|
-| Ignacio Carnal Bernal | i.carnal.2022@alumnos.urjc.es  | Nachooo51 |
-| Iker Morante Aceituno | i.morante.2022@alumnos.urjc.es | sgiker21 |
+| Ignacio Carnal Bernal | i.carnal.2022@alumnos.urjc.es  | [Nachooo51](https://github.com/Nachooo51) |
+| Iker Morante Aceituno | i.morante.2022@alumnos.urjc.es | [sgiker21](https://github.com/sgiker21) |
 
 ## Execution Instructions
 
@@ -75,7 +75,7 @@ This is the general error page for anything that goes wrong while navigating the
 This error page specifically appears when someone registers a new player and leaves their first name and/or last name blank, or when there is already another player with the same first and last name.
 
 ## Navigation Diagram
-
+![](/images/Navigation%20Diagram/Navigation_Diagram.png)
 
 ## Database Entities Diagram
 ![](/images/entitiesDiagram.png)

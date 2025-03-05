@@ -57,7 +57,7 @@ public class Team {
         this.winsTeam = 0;
         this.lossesTeam = 0;
         this.winrateTeam = 0;
-        this.ranking = 0;
+        this.ranking = 1;
         this.points = 0;
         this.homeMatches = null;
         this.awayMatches = null;
