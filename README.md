@@ -89,6 +89,9 @@ This is the general error page for anything that goes wrong while navigating the
 This error page specifically appears when someone registers a new player and leaves their first name and/or last name blank, or when there is already another player with the same first and last name.
 
 ## Navigation Diagram
+- Blue: Accessible for all users
+- Orange: Accessible for registered users
+- Red: Accessible only for admins
 ![](/images/Navigation%20Diagram/Navigation_Diagram.png)
 
 ## Database Entities Diagram
