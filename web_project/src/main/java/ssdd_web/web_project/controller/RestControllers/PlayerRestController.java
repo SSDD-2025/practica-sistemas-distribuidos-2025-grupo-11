@@ -24,15 +24,17 @@ import ssdd_web.web_project.DTO.PlayerMapper;
 public class PlayerRestController {
 
     private final PlayerService playerService;
+    private final PlayerMapper playerMapper;
 
-    public PlayerRestController(PlayerService playerService) {
+    public PlayerRestController(PlayerService playerService, PlayerMapper playerMapper) {
+        this.playerMapper = playerMapper;
         this.playerService = playerService;
     }
 
     // Obtener todos los jugadores
     @GetMapping
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
-        List<PlayerDTO> players = PlayerMapper.toDTOList(playerService.getAllPlayers());
+        List<PlayerDTO> players = playerMapper.toDTOList(playerService.getAllPlayers());
         return ResponseEntity.ok(players);
     }
 
@@ -41,7 +43,7 @@ public class PlayerRestController {
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable Long id) {
         Player player = playerService.getPlayerById(id);
         if (player != null) {
-            return ResponseEntity.ok(PlayerMapper.toDTO(player));
+            return ResponseEntity.ok(playerMapper.toDTO(player));
         }
         return ResponseEntity.notFound().build();
     }
@@ -49,9 +51,9 @@ public class PlayerRestController {
     // Crear un nuevo jugador
     @PostMapping
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDTO) {
-        Player player = PlayerMapper.toEntity(playerDTO);
+        Player player = playerMapper.toEntity(playerDTO);
         Player savedPlayer = playerService.savePlayer(player);
-        return ResponseEntity.status(HttpStatus.CREATED).body(PlayerMapper.toDTO(savedPlayer));
+        return ResponseEntity.status(HttpStatus.CREATED).body(playerMapper.toDTO(savedPlayer));
     }
 
     // Actualizar un jugador existente
@@ -62,11 +64,11 @@ public class PlayerRestController {
             return ResponseEntity.notFound().build();
         }
 
-        Player updatedPlayer = PlayerMapper.toEntity(playerDTO);
+        Player updatedPlayer = playerMapper.toEntity(playerDTO);
         updatedPlayer.setId(id); // Asegurar que mantiene el mismo ID
         playerService.saveEditPlayer(updatedPlayer);
 
-        return ResponseEntity.ok(PlayerMapper.toDTO(updatedPlayer));
+        return ResponseEntity.ok(playerMapper.toDTO(updatedPlayer));
     }
 
     // Eliminar un jugador por ID
