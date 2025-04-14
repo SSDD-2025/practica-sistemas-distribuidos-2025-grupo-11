@@ -1,7 +1,7 @@
 package ssdd_web.web_project.DTO;
 
-public record PlayerDTO (
-        Long id,
+public record PlayerDTO(
+        Long id,    // necessary for team controller
         String name,
         String surname,
         String citizenship,
@@ -9,9 +9,5 @@ public record PlayerDTO (
         double weight,
         int age,
         String bestHand,
-        String bestSurface,
-        int winsPlayer,
-        int lossesPlayer,
-        double winratePlayer
-)
-{}
+        String bestSurface) {
+}

@@ -14,7 +14,9 @@ import org.mapstruct.Mapping;
 public interface PlayerMapper {
 
     PlayerDTO toDTO(Player player);
+
     List<PlayerDTO> toDTOList(Collection<Player> players);
+
     @Mapping(target = "id", ignore = true)
     Player toEntity(PlayerDTO dto);
 }

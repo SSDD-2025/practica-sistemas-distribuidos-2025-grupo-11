@@ -32,7 +32,7 @@ public class PlayerRestController {
     }
 
     // Obtener todos los jugadores
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
         List<PlayerDTO> players = playerMapper.toDTOList(playerService.getAllPlayers());
         return ResponseEntity.ok(players);
@@ -49,7 +49,7 @@ public class PlayerRestController {
     }
 
     // Crear un nuevo jugador
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDTO) {
         Player player = playerMapper.toEntity(playerDTO);
         Player savedPlayer = playerService.savePlayer(player);
