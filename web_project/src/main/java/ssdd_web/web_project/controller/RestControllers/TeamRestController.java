@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/teams")
@@ -28,19 +29,19 @@ public class TeamRestController {
         return ResponseEntity.ok(teams);
     }
 
-    /*@GetMapping("/{id}")
-    public ResponseEntity<TeamDTO> getTeamById(@PathVariable Long id){
-        Team team = teamService.getTeamById(id);
-        if (team!= null){
-            return ResponseEntity.ok(teamMapper.toDTO(team));
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamDTO> getTeamById(@PathVariable Long id) {
+        Optional<Team> teamOpt = teamService.getTeamById(id); // We use optional here although we could have changed the service to return a Team directly
+        if (teamOpt.isPresent()) {
+            return ResponseEntity.ok(teamMapper.toDTO(teamOpt.get()));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    */
+
     @PostMapping("/")
     public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) {
-        Team team = teamMapper.toEntity(teamDTO);
+        //Team team = teamMapper.toEntity(teamDTO);
         Team savedTeam = teamService.createTeam(teamDTO.name(), teamDTO.player1().id(), teamDTO.player2().id());
         if (savedTeam == null) {
             return ResponseEntity.badRequest().build(); // Bad request if players are not valid
@@ -48,6 +49,10 @@ public class TeamRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(teamMapper.toDTO(savedTeam));
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
+        teamService.deleteTeamById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
