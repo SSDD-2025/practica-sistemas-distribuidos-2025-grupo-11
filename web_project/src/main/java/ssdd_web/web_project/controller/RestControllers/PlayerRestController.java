@@ -1,11 +1,13 @@
 package ssdd_web.web_project.controller.RestControllers;
 
 import java.io.IOException;
+import java.net.URI;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.services.PlayerService;
@@ -78,34 +81,45 @@ public class PlayerRestController {
         return ResponseEntity.noContent().build();
     }
 
-    // Subir imagen de un jugador
-    /*@PostMapping("/{id}/image")
-    public ResponseEntity<String> uploadImage(@PathVariable Long id, @RequestParam("file") MultipartFile imageFile)
-            throws IOException, SQLException {
-        Player player = playerService.getPlayerById(id);
-        if (player == null) {
-            return ResponseEntity.notFound().build();
-        }
 
-        player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
-        playerService.saveEditPlayer(player);
-
-        return ResponseEntity.ok("Imagen subida correctamente");
-    }*/
-
-    // Descargar imagen de un jugador
+    // Images
+    // Get the image of a player
     @GetMapping("/{id}/image")
-    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
-        Optional<Player> player = playerService.findById(id);
-        if (player.isPresent() && player.get().getPlayerImage() != null) {
-            Blob image = player.get().getPlayerImage();
-            Resource file = new InputStreamResource(image.getBinaryStream());
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(image.length())
-                    .body(file);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Object> getPlayerImage(@PathVariable long id) throws SQLException {
+        Resource image = playerService.getPlayerImage(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .body(image);
     }
+
+    @PostMapping("/{id}/image")
+    public ResponseEntity<Void> uploadPlayerImage(@PathVariable long id,
+            @RequestParam MultipartFile imageFile) throws IOException {
+        playerService.createPlayerImage(id, imageFile.getInputStream(), imageFile.getSize());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}/image")
+    public ResponseEntity<Object> deletePlayerImage(@PathVariable long id) throws IOException{
+        playerService.deletePlayerImage(id);
+        return ResponseEntity.noContent().build();
+    }
+    /*
+     * @PostMapping("/{id}/image")
+     * public ResponseEntity<String> uploadImage(@PathVariable Long
+     * id, @RequestParam("file") MultipartFile imageFile)
+     * throws IOException, SQLException {
+     * Player player = playerService.getPlayerById(id);
+     * if (player == null) {
+     * return ResponseEntity.notFound().build();
+     * }
+     * 
+     * player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(),
+     * imageFile.getSize()));
+     * playerService.saveEditPlayer(player);
+     * 
+     * return ResponseEntity.ok("Imagen subida correctamente");
+     * }
+     */
+
 }
