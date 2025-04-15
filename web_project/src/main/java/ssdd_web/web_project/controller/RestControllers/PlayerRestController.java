@@ -81,7 +81,6 @@ public class PlayerRestController {
         return ResponseEntity.noContent().build();
     }
 
-
     // Images
     // Get the image of a player
     @GetMapping("/{id}/image")
@@ -93,33 +92,23 @@ public class PlayerRestController {
     }
 
     @PostMapping("/{id}/image")
-    public ResponseEntity<Void> uploadPlayerImage(@PathVariable long id,
+    public ResponseEntity<Object> createPlayerImage(@PathVariable long id,
             @RequestParam MultipartFile imageFile) throws IOException {
-        playerService.createPlayerImage(id, imageFile.getInputStream(), imageFile.getSize());
-        return ResponseEntity.ok().build();
+        playerService.uploadPlayerImage(id, imageFile.getInputStream(), imageFile.getSize());
+        return ResponseEntity.status(HttpStatus.CREATED).build(); // 201
     }
 
     @DeleteMapping("/{id}/image")
-    public ResponseEntity<Object> deletePlayerImage(@PathVariable long id) throws IOException{
+    public ResponseEntity<Object> deletePlayerImage(@PathVariable long id) throws IOException {
         playerService.deletePlayerImage(id);
         return ResponseEntity.noContent().build();
     }
-    /*
-     * @PostMapping("/{id}/image")
-     * public ResponseEntity<String> uploadImage(@PathVariable Long
-     * id, @RequestParam("file") MultipartFile imageFile)
-     * throws IOException, SQLException {
-     * Player player = playerService.getPlayerById(id);
-     * if (player == null) {
-     * return ResponseEntity.notFound().build();
-     * }
-     * 
-     * player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(),
-     * imageFile.getSize()));
-     * playerService.saveEditPlayer(player);
-     * 
-     * return ResponseEntity.ok("Imagen subida correctamente");
-     * }
-     */
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<Object> replacePlayerImage(@PathVariable long id,
+            @RequestParam MultipartFile imageFile) throws IOException {
+        playerService.updatePlayerImage(id, imageFile.getInputStream(), imageFile.getSize());
+        return ResponseEntity.ok().build();
+    }
 
 }

@@ -1,7 +1,6 @@
 package ssdd_web.web_project.services;
 
 import java.io.InputStream;
-import java.net.URI;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,7 +10,10 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
@@ -90,27 +92,41 @@ public class PlayerService {
     }
 
     public Resource getPlayerImage(long id) throws SQLException {
-    Player player = playerRepository.findById(id).orElseThrow();
-    if (player.getPlayerImage() != null) {
-        return new InputStreamResource(player.getPlayerImage().getBinaryStream());
-    } else {
-        throw new NoSuchElementException("Imagen no encontrada");
-    }
+        Player player = playerRepository.findById(id).orElseThrow();
+        if (player.getPlayerImage() != null) {
+            return new InputStreamResource(player.getPlayerImage().getBinaryStream());
+        } else {
+            throw new NoSuchElementException("Not found");
+        }
     }
 
-    public void createPlayerImage(long id, InputStream inputStream, long size) {
-        Player player = playerRepository.findById(id).orElseThrow();
+    public void uploadPlayerImage(long id, InputStream inputStream, long size) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found"));
+
+        if (player.getPlayerImage() != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "The player already has an image");
+        }
+
         player.setPlayerImage(BlobProxy.generateProxy(inputStream, size));
         playerRepository.save(player);
     }
 
-    public void deletePlayerImage(long id){
+    // Permite crear o reemplazar
+    public void updatePlayerImage(long id, InputStream inputStream, long size) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found"));
+
+        player.setPlayerImage(BlobProxy.generateProxy(inputStream, size));
+        playerRepository.save(player);
+    }
+
+    public void deletePlayerImage(long id) {
         Player player = playerRepository.findById(id).orElseThrow();
         if (player.getPlayerImage() == null) {
-            throw new NoSuchElementException("Imagen no encontrada");
+            throw new NoSuchElementException("Not found");
         }
         player.setPlayerImage(null);
         playerRepository.save(player);
     }
 }
-
