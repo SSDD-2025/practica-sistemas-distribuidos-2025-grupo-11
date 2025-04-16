@@ -3,10 +3,10 @@ package ssdd_web.web_project.DTO;
 import java.time.LocalDate;
 
 import ssdd_web.web_project.model.Surface;
-public record MatchDTO(
-        String id,
+
+public record MatchCreateDTO(
+        Long homeTeamId,
+        Long awayTeamId,
         LocalDate dateM,
-        Surface surface,
-        TeamDTO homeTeam,
-        TeamDTO awayTeam) {
+        Surface surface) {
 }
