@@ -18,7 +18,6 @@ import ssdd_web.web_project.DTO.MatchMapper;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.services.MatchService;
 import java.util.List;
-import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/matches")

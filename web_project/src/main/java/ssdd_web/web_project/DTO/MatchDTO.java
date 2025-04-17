@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import ssdd_web.web_project.model.Surface;
 public record MatchDTO(
-        String id,
+        Long id,
         LocalDate dateM,
         Surface surface,
         TeamDTO homeTeam,
