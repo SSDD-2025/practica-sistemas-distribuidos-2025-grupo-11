@@ -31,9 +31,6 @@ public class UserController {
     // Save in the database
     @PostMapping("/register")
     public String register(@ModelAttribute User user, MultipartFile userFile) throws SQLException, IOException {
-        if (!userFile.isEmpty()) {
-            user.setProfilePicture(BlobProxy.generateProxy(userFile.getInputStream(), userFile.getSize()));
-        }
         userService.saveUser(user);
         return "redirect:/login";
     }
@@ -43,19 +40,18 @@ public class UserController {
     public String getUserInfo(@PathVariable Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "User";
+        return "UserProfile";
     }
 
-    @GetMapping("/{id}/image")
+    /*@GetMapping("/{id}/image")
     public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
         Optional<User> user = userService.findById(id);
-        if (user.isPresent() && user.get().getProfilePicture() != null) {
-            Blob image = user.get().getProfilePicture();
+        if (user.isPresent()) {
             Resource file = new InputStreamResource(image.getBinaryStream());
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
                     .contentLength(image.length()).body(file);
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
+    }*/
 }

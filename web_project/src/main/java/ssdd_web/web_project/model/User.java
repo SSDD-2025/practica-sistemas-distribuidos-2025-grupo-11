@@ -1,7 +1,11 @@
 package ssdd_web.web_project.model;
 
 import java.sql.Blob;
+import java.util.List;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,8 +35,8 @@ public class User {
     private int winsUser;
     private int lossesUser;
 
-    @Lob
-    private Blob profilePicture;
+    @ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 
     public User(String name) {
         this.name = name;
@@ -99,11 +103,4 @@ public class User {
         this.lossesUser = lossesUser;
     }
 
-    public Blob getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(Blob profilePicture) {
-        this.profilePicture = profilePicture;
-    }
 }

@@ -1,5 +1,9 @@
 package ssdd_web.web_project.DTO;
 
-public class UserDTO {
+public record UserDTO(
+        Long id,
+        String username,
+        String role
+        ) {
     
 }
