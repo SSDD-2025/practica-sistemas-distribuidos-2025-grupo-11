@@ -10,6 +10,8 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -128,5 +130,9 @@ public class PlayerService {
         }
         player.setPlayerImage(null);
         playerRepository.save(player);
+    }
+
+    public Page<Player> getAllPlayersPaged(Pageable pageable) {
+        return playerRepository.findAll(pageable);
     }
 }

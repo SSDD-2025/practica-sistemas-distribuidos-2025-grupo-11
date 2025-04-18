@@ -38,6 +38,5 @@ public class UserController {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "UserProfile";
-    }
-
+    } 
 }

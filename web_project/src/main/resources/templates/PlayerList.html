@@ -3,41 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration</title>
+    <title>Players</title>
     <link rel="stylesheet" href="/css/ListsStyle.css" />
+    <style>
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 10%;
+      }
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 20%;
+      }
+    </style>
   </head>
-  <style>
-    th:nth-child(1),
-    td:nth-child(1) {
-      width: 10%;
-    }
-    th:nth-child(4),
-    td:nth-child(4) {
-      width: 20%;
-    }
-  </style>
 
-  {{> header}}
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Citizenship</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#players}}
-        <tr>
-          <td><a href="/players/{{id}}">{{id}}</a></td>
-          <td>{{name}}</td>
-          <td>{{surname}}</td>
-          <td>{{citizenship}}</td>
-        </tr>
-        {{/players}}
-      </tbody>
-    </table>
-  </div>
+  <body>
+    {{> header}}
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Citizenship</th>
+          </tr>
+        </thead>
+        <tbody id="players-table-body">
+          <!-- Se llenará por JavaScript -->
+        </tbody>
+      </table>
+      <div style="margin-top: 10px; text-align: center;">
+        <button id="load-more-btn">Más resultados</button>
+        <div id="spinner" style="display: none;">Cargando...</div>
+      </div>
+    </div>
+
+    <script>
+      let currentPage = 0;
+      const size = 10;
+
+      document.getElementById("load-more-btn").addEventListener("click", loadPlayers);
+
+      function loadPlayers() {
+        document.getElementById("spinner").style.display = "block";
+
+        fetch(`/api/players/paged?page=${currentPage}&size=${size}`)
+          .then(response => response.json())
+          .then(data => {
+            const tbody = document.getElementById("players-table-body");
+
+            data.content.forEach(player => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td><a href="/players/${player.id}">${player.id}</a></td>
+                <td>${player.name}</td>
+                <td>${player.surname}</td>
+                <td>${player.citizenship}</td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            if (data.last) {
+              document.getElementById("load-more-btn").style.display = "none";
+            }
+
+            currentPage++;
+          })
+          .catch(err => {
+            console.error("Error cargando jugadores:", err);
+          })
+          .finally(() => {
+            document.getElementById("spinner").style.display = "none";
+          });
+      }
+
+      // Cargar los primeros 10 jugadores al cargar la página
+      window.addEventListener("DOMContentLoaded", loadPlayers);
+    </script>
+  </body>
 </html>

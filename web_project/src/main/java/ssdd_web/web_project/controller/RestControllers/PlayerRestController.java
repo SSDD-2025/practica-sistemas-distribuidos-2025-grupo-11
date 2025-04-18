@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -117,4 +119,9 @@ public class PlayerRestController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/paged")
+    public ResponseEntity<Page<PlayerDTO>> getPlayersPaged(Pageable pageable) {
+        Page<Player> players = playerService.getAllPlayersPaged(pageable);
+        return ResponseEntity.ok(players.map(playerMapper::toDTO));
+    }
 }
