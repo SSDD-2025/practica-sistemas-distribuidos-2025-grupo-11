@@ -18,13 +18,16 @@ public class UserService {
 
     // save user to database
     public User saveUser(User user) {
+        if (userRepository.findByName(user.getName()).isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 
     public void deleteUserbyId(Long id) {
-        // Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         userRepository.deleteById(id);
     }
 

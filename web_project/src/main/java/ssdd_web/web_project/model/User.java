@@ -1,6 +1,7 @@
 package ssdd_web.web_project.model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -36,10 +37,13 @@ public class User {
     private int lossesUser;
 
     @ElementCollection(fetch = FetchType.EAGER)
-	private List<String> roles;
+    private List<String> roles;
 
-    public User(String name) {
+    public User(String email, String name, String password, String... roles) {
+        this.email = email;
         this.name = name;
+        this.password = password;
+        this.roles = List.of(roles);
         this.winrate = 0;
         this.winsUser = 0;
         this.lossesUser = 0;
