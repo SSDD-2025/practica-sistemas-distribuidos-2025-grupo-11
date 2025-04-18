@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,6 +17,8 @@ import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.DTO.MatchMapper;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.services.MatchService;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -46,10 +48,18 @@ public class MatchRestController {
     }
 
     @PostMapping
-public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchCreateDTO dto) {
-    Match match = matchService.createMatch(dto.homeTeamId(), dto.awayTeamId(), dto.dateM(), dto.surface());
-    return ResponseEntity.status(HttpStatus.CREATED).body(matchMapper.toDto(match));
-}
+    public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchCreateDTO dto) {
+        Match match = matchService.createMatch(dto.homeTeamId(), dto.awayTeamId(), dto.dateM(), dto.surface());
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(match.getId())
+                .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(matchMapper.toDto(match));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteMatch(@PathVariable Long id) {

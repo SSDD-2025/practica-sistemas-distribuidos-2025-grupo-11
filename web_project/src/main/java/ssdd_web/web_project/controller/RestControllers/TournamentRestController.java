@@ -1,6 +1,7 @@
 package ssdd_web.web_project.controller.RestControllers;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ssdd_web.web_project.DTO.TournamentDTO;
 import ssdd_web.web_project.DTO.TournamentMapper;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +42,9 @@ public class TournamentRestController {
 
     @PostMapping
     public ResponseEntity<TournamentDTO> createTournament(@RequestBody TournamentDTO tournamentDTO) {
-        List<Long> matchIds = tournamentDTO.matches().stream()  // We do this to get the IDs of the matches to create the tournament
-                .map(match -> match.id()) 
+        List<Long> matchIds = tournamentDTO.matches().stream() // We do this to get the IDs of the matches to create the
+                                                               // tournament
+                .map(match -> match.id())
                 .collect(Collectors.toList());
 
         Tournament tournament = tournamentService.createTournament(
@@ -51,11 +54,18 @@ public class TournamentRestController {
                 tournamentDTO.prizeMoney(),
                 tournamentDTO.location(),
                 tournamentDTO.surface(),
-                matchIds 
-        );
+                matchIds);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(tournament.getId())
+                .toUri();
 
         TournamentDTO responseDTO = tournamentMapper.toDto(tournament);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity
+                .created(location)
+                .body(responseDTO);
     }
 
     @DeleteMapping("/{id}")

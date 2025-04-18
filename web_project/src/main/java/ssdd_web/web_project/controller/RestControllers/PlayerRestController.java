@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.services.PlayerService;
@@ -48,12 +49,20 @@ public class PlayerRestController {
         return ResponseEntity.notFound().build();
     }
 
-    // Crear un nuevo jugador
     @PostMapping("/")
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDTO) {
         Player player = playerMapper.toEntity(playerDTO);
         Player savedPlayer = playerService.savePlayer(player);
-        return ResponseEntity.status(HttpStatus.CREATED).body(playerMapper.toDTO(savedPlayer));
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedPlayer.getId())
+                .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(playerMapper.toDTO(savedPlayer));
     }
 
     // Actualizar un jugador existente

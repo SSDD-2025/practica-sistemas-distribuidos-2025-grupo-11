@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,12 +42,19 @@ public class TeamRestController {
 
     @PostMapping("/")
     public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) {
-        // Team team = teamMapper.toEntity(teamDTO);
         Team savedTeam = teamService.createTeam(teamDTO.name(), teamDTO.player1().id(), teamDTO.player2().id());
         if (savedTeam == null) {
             return ResponseEntity.badRequest().build(); // Bad request if players are not valid
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(teamMapper.toDTO(savedTeam));
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedTeam.getId())
+                .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(teamMapper.toDTO(savedTeam));
     }
 
     @DeleteMapping("/{id}")
