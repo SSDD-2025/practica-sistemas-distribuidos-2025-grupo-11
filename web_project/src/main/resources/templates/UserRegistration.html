@@ -1,5 +1,5 @@
 <html>
-<head>
+  <head>
     <title>Sign up</title>
 </head>
 {{> header}}
@@ -14,6 +14,19 @@
         <p>E-mail</p>
         <input type="text" name="email"/>
         <input type="submit" value="Register"/>
+  </head>
+  {{> header}}
+  <body>
+    <form action="/users/add" method="post">
+      <link rel="stylesheet" href="/css/FormsStyle.css" />
+      <p>Enter the following data:</p>
+      <p>E-mail</p>
+      <input type="text" name="email" id="email" />
+      <p>Username</p>
+      <input type="text" name="name" id="name" />
+      <p>Password</p>
+      <input type="password" name="password" id="password" />
+      <input type="submit" value="Register" />
     </form>
-</body>
+  </body>
 </html>

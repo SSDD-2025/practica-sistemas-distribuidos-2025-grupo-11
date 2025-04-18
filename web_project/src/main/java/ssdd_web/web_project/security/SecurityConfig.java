@@ -46,6 +46,17 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll());
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest()
+                        .permitAll() // Permitir todas las peticiones (sin autenticación)
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/profile", true) // después de login, ir al perfil
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll());
 
         return http.build();
     }

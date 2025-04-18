@@ -41,16 +41,4 @@ public class WebController {
         model.addAttribute("name", "Home");
         return "index";
     }
-
-    @GetMapping("/signup")
-    public String signup(Model model) {
-        model.addAttribute("name", "Signup");
-        return "UserRegistration";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("name", "Login");
-        return "Login";
-    }
 }

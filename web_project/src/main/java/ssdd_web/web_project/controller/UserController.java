@@ -20,6 +20,7 @@ import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.UserRepository;
 import ssdd_web.web_project.services.UserService;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/users")
@@ -56,6 +57,26 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:/login?registered";
+    // new user
+    @GetMapping("/register")
+    public String showSignupForm(Model model) {
+        model.addAttribute("user", new User());
+        return "UserRegistration"; // busca signup.html en templates
+    }
+
+    // save user in database
+    @PostMapping("/add")
+    public String saveUserDatabase(@RequestParam String email, @RequestParam String name,
+            @RequestParam String password) {
+        User user = new User(email, name, password, "ROLE_USER");
+        userService.saveUser(user);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("name", "Login");
+        return "login";
     }
 
     // Show the user
@@ -64,5 +85,5 @@ public class UserController {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "UserProfile";
-    } 
+    }
 }
