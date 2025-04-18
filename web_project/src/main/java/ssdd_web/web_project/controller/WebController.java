@@ -25,7 +25,7 @@ public class WebController {
     private TournamentService tournamentService;
 
     // get home
-    @GetMapping("/home")
+    @GetMapping("/, /home")
     public String webString(Model model) {
         List<Match> matches = matchService.getAllMatchesDateOrder();
         List<Team> teams = teamService.getAllTeamsByRanking();

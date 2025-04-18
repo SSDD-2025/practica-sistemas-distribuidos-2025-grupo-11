@@ -99,6 +99,30 @@ public class User {
         return lossesUser;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getLossesUser() {
+        return lossesUser;
+    }
+
+    public void setLossesUser(int lossesUser) {
+        this.lossesUser = lossesUser;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
     public void setLossesPlayer(int lossesUser) {
         this.lossesUser = lossesUser;
     }
