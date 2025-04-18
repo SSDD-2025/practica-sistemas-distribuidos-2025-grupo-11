@@ -3,49 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teams list</title>
+    <title>Teams</title>
     <link rel="stylesheet" href="/css/ListsStyle.css" />
+    <style>
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 10%;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 20%;
+      }
+    </style>
   </head>
-  <style>
-    th:nth-child(1),
-    td:nth-child(1) {
-      width: 10%;
-    }
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 20%;
-    }
-  </style>
 
-  {{> header}}
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Ranking</th>
-          <th>Team</th>
-          <th>Player 1</th>
-          <th>Player 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#teams}}
-        <tr>
-          <td>{{ranking}}</td>
-          <td><a href="/teams/{{id}}">{{name}}</a></td>
-          <td>
-            <a href="/players/{{player1.id}}"
-              >{{player1.name}} {{player1.surname}}</a
-            >
-          </td>
-          <td>
-            <a href="/players/{{player2.id}}"
-              >{{player2.name}} {{player2.surname}}</a
-            >
-          </td>
-        </tr>
-        {{/teams}}
-      </tbody>
-    </table>
-  </div>
+  <body>
+    {{> header}}
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Ranking</th>
+            <th>Team</th>
+            <th>Player 1</th>
+            <th>Player 2</th>
+          </tr>
+        </thead>
+        <tbody id="teams-table-body">
+          <!-- Se llenará por JavaScript -->
+        </tbody>
+      </table>
+      <div style="margin-top: 10px; text-align: center;">
+        <button id="load-more-btn">More teams</button>
+        <div id="spinner" style="display: none;">Loading...</div>
+      </div>
+    </div>
+
+    <script>
+      let currentPage = 0;
+      const size = 10;
+
+      document.getElementById("load-more-btn").addEventListener("click", loadTeams);
+
+      function loadTeams() {
+        document.getElementById("spinner").style.display = "block";
+
+        fetch(`/api/teams/paged?page=${currentPage}&size=${size}`)
+          .then(response => response.json())
+          .then(data => {
+            const tbody = document.getElementById("teams-table-body");
+
+            data.content.forEach(team => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${team.ranking}</td>
+                <td><a href="/teams/${team.id}">${team.name}</a></td>
+                <td>
+                  <a href="/players/${team.player1.id}">
+                    ${team.player1.name} ${team.player1.surname}
+                  </a>
+                </td>
+                <td>
+                  <a href="/players/${team.player2.id}">
+                    ${team.player2.name} ${team.player2.surname}
+                  </a>
+                </td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            if (data.last) {
+              document.getElementById("load-more-btn").style.display = "none";
+            }
+
+            currentPage++;
+          })
+          .catch(err => {
+            console.error("Error cargando equipos:", err);
+          })
+          .finally(() => {
+            document.getElementById("spinner").style.display = "none";
+          });
+      }
+
+      // Cargar la primera página de equipos al cargar la página
+      window.addEventListener("DOMContentLoaded", loadTeams);
+    </script>
+  </body>
 </html>

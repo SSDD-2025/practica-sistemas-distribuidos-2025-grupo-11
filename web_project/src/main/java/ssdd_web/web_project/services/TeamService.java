@@ -3,6 +3,8 @@ package ssdd_web.web_project.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
@@ -79,5 +81,9 @@ public class TeamService {
         } else {
             throw new RuntimeException("Team not found");
         }
+    }
+
+    public Page<Team> getAllTeamsPaged(Pageable pageable) {
+        return teamRepository.findAll(pageable);
     }
 }

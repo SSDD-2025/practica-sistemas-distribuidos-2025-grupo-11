@@ -1,10 +1,14 @@
 package ssdd_web.web_project.controller.RestControllers;
 
+import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.DTO.TeamMapper;
+import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.TeamService;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,4 +67,9 @@ public class TeamRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/paged")
+    public ResponseEntity<Page<TeamDTO>> getTeamsPaged(Pageable pageable) {
+        Page<Team> teams = teamService.getAllTeamsPaged(pageable);
+        return ResponseEntity.ok(teams.map(teamMapper::toDTO));
+    }
 }
