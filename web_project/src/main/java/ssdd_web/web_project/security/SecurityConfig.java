@@ -48,7 +48,7 @@ public class SecurityConfig {
                 http
                                 .csrf(csrf -> csrf.disable()) // <- ESTO
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/profile").hasRole("USER")
+                                                .requestMatchers("/profile", "/players/register").hasRole("USER")
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")

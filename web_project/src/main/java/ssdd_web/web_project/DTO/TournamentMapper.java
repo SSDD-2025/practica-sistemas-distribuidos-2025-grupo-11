@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring", uses = {MatchMapper.class})
 public interface TournamentMapper {
 
-    TournamentDTO toDto (Tournament tournament);
+    TournamentDTO toDTO (Tournament tournament);
 
     List<TournamentDTO> toDtoList (Collection<Tournament> tournaments);
     Tournament toEntity (TournamentDTO tournamentDTO);

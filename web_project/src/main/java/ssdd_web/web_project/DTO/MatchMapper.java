@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {TeamMapper.class})
 public interface MatchMapper {
-    MatchDTO toDto(Match match);
+    MatchDTO toDTO(Match match);
 
     List<MatchDTO> toDtoList (Collection<Match> matches);
 

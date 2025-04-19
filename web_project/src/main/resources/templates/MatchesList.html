@@ -3,41 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matches list</title>
+    <title>Matches</title>
     <link rel="stylesheet" href="/css/ListsStyle.css" />
+    <style>
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 10%;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 20%;
+      }
+    </style>
   </head>
-  <style>
-    th:nth-child(1),
-    td:nth-child(1) {
-      width: 10%;
-    }
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 20%;
-    }
-  </style>
 
-  {{> header}}
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Home team</th>
-          <th>Away Team</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#matches}}
-        <tr>
-          <td><a href="/matches/{{id}}">{{id}}</a></td>
-          <td>{{dateM}}</td>
-          <td><a href="/teams/{{homeTeam.id}}">{{homeTeam.name}}</a></td>
-          <td><a href="/teams/{{awayTeam.id}}">{{awayTeam.name}}</a></td>
-        </tr>
-        {{/matches}}
-      </tbody>
-    </table>
-  </div>
+  <body>
+    {{> header}}
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Home Team</th>
+            <th>Away Team</th>
+          </tr>
+        </thead>
+        <tbody id="matches-table-body">
+          <!-- Se llenará por JavaScript -->
+        </tbody>
+      </table>
+
+      <div style="margin-top: 10px; text-align: center;">
+        <button id="load-more-btn">More matches</button>
+        <div id="spinner" style="display: none;">Loading...</div>
+      </div>
+    </div>
+
+    <script>
+      let currentPage = 0;
+      const size = 10;
+
+      document.getElementById("load-more-btn").addEventListener("click", loadMatches);
+
+      function loadMatches() {
+        document.getElementById("spinner").style.display = "block";
+
+        fetch(`/api/matches/paged?page=${currentPage}&size=${size}`)
+          .then(response => response.json())
+          .then(data => {
+            const tbody = document.getElementById("matches-table-body");
+
+            data.content.forEach(match => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td><a href="/matches/${match.id}">${match.id}</a></td>
+                <td>${match.dateM}</td>
+                <td><a href="/teams/${match.homeTeam.id}">${match.homeTeam.name}</a></td>
+                <td><a href="/teams/${match.awayTeam.id}">${match.awayTeam.name}</a></td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            if (data.last) {
+              document.getElementById("load-more-btn").style.display = "none";
+            }
+
+            currentPage++;
+          })
+          .catch(err => {
+            console.error("Error cargando partidos:", err);
+          })
+          .finally(() => {
+            document.getElementById("spinner").style.display = "none";
+          });
+      }
+
+      // Cargar la primera página de partidos al cargar la página
+      window.addEventListener("DOMContentLoaded", loadMatches);
+    </script>
+  </body>
 </html>

@@ -62,7 +62,7 @@ public class TournamentRestController {
                 .buildAndExpand(tournament.getId())
                 .toUri();
 
-        TournamentDTO responseDTO = tournamentMapper.toDto(tournament);
+        TournamentDTO responseDTO = tournamentMapper.toDTO(tournament);
         return ResponseEntity
                 .created(location)
                 .body(responseDTO);

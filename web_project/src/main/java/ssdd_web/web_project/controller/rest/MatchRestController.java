@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import ssdd_web.web_project.DTO.MatchCreateDTO;
 import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.DTO.MatchMapper;
+import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.model.Match;
+import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.MatchService;
 
 import java.net.URI;
@@ -43,7 +47,7 @@ public class MatchRestController {
     public ResponseEntity<MatchDTO> getMatchById(@PathVariable Long id) {
         Match match = matchService.getMatchById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        MatchDTO matchDTO = matchMapper.toDto(match);
+        MatchDTO matchDTO = matchMapper.toDTO(match);
         return ResponseEntity.ok(matchDTO);
     }
 
@@ -58,12 +62,18 @@ public class MatchRestController {
 
         return ResponseEntity
                 .created(location)
-                .body(matchMapper.toDto(match));
+                .body(matchMapper.toDTO(match));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteMatch(@PathVariable Long id) {
         matchService.deleteMatchById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<MatchDTO>> getMatchesPaged(Pageable pageable) {
+        Page<Match> matches = matchService.getAllMatchesPaged(pageable);
+        return ResponseEntity.ok(matches.map(matchMapper::toDTO));
     }
 }
