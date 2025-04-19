@@ -20,7 +20,6 @@ import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.UserRepository;
 import ssdd_web.web_project.services.UserService;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/users")
@@ -34,11 +33,17 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @GetMapping("/register")
+    public String showSignupForm(Model model) {
+        model.addAttribute("user", new User());
+        return "UserRegistration"; // busca signup.html en templates
+    }
+
     // Save in the database
-    @PostMapping("/register")
+    @PostMapping("/add")
     public String registerUser(@RequestParam("name") String name,
-                               @RequestParam("password") String password,
-                               @RequestParam("email") String email) {
+            @RequestParam("password") String password,
+            @RequestParam("email") String email) {
 
         // Verificar si el usuario ya existe
         if (userRepository.findByName(name).isPresent()) {
@@ -57,20 +62,6 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:/login?registered";
-    // new user
-    @GetMapping("/register")
-    public String showSignupForm(Model model) {
-        model.addAttribute("user", new User());
-        return "UserRegistration"; // busca signup.html en templates
-    }
-
-    // save user in database
-    @PostMapping("/add")
-    public String saveUserDatabase(@RequestParam String email, @RequestParam String name,
-            @RequestParam String password) {
-        User user = new User(email, name, password, "ROLE_USER");
-        userService.saveUser(user);
-        return "redirect:/home";
     }
 
     @GetMapping("/login")
@@ -80,10 +71,9 @@ public class UserController {
     }
 
     // Show the user
-    @GetMapping("/{id}")
-    public String getUserInfo(@PathVariable Long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
+    @GetMapping("/profile")
+    public String getUserInfo(Model model) {
+        model.addAttribute("user", userService.getLoggedUser());
         return "UserProfile";
     }
 }

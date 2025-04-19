@@ -17,53 +17,42 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final RepositoryUserDetailsService userDetailsService;
+        private final RepositoryUserDetailsService userDetailsService;
 
-    @Autowired
-    public SecurityConfig(RepositoryUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+        @Autowired
+        public SecurityConfig(RepositoryUserDetailsService userDetailsService) {
+                this.userDetailsService = userDetailsService;
+        }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
+        @Bean
+        public DaoAuthenticationProvider authenticationProvider() {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder());
+                return authProvider;
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // <- ESTO
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/players/register").hasAnyRole("USER")
-                        .anyRequest().permitAll())
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/profile", true)
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll());
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest()
-                        .permitAll() // Permitir todas las peticiones (sin autenticación)
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/profile", true) // después de login, ir al perfil
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll());
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(csrf -> csrf.disable()) // <- ESTO
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers("/players/register").hasAnyRole("USER")
+                                                .anyRequest().permitAll())
+                                .formLogin(form -> form
+                                                .loginPage("/login")
+                                                .defaultSuccessUrl("/profile", true)
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutSuccessUrl("/login?logout")
+                                                .permitAll());
 
-        return http.build();
-    }
+                return http.build();
+        }
 
-    // Codificador de contraseñas (BCrypt)
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        // Codificador de contraseñas (BCrypt)
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }
