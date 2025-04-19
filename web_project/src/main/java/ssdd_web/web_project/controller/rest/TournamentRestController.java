@@ -18,6 +18,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -72,5 +74,11 @@ public class TournamentRestController {
     public ResponseEntity<Object> deleteTournamentById(@PathVariable Long id) {
         tournamentService.deleteTournamentById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<TournamentDTO>> getTournamentsPaged(Pageable pageable) {
+        Page<Tournament> tournaments = tournamentService.getAllTournamentsPaged(pageable);
+        return ResponseEntity.ok(tournaments.map(tournamentMapper::toDTO));
     }
 }

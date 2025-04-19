@@ -3,35 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tournaments list</title>
+    <title>Tournaments</title>
     <link rel="stylesheet" href="/css/ListsStyle.css" />
+    <style>
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 20%;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 15%;
+      }
+    </style>
   </head>
 
-  {{> header}}
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Location</th>
-          <th>Surface</th>
-          <th>Points</th>
-          <th>Prize money</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#tournaments}}
-        <tr>
-          <td><a href="/tournaments/{{id}}">{{name}}</a></td>
-          <td>{{dateT}}</td>
-          <td>{{location}}</td>
-          <td>{{surface}}</td>
-          <td>{{givenPoints}}</td>
-          <td>{{prizeMoney}}</td>
-        </tr>
-        {{/tournaments}}
-      </tbody>
-    </table>
-  </div>
+  <body>
+    {{> header}}
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Surface</th>
+            <th>Points</th>
+            <th>Prize Money</th>
+          </tr>
+        </thead>
+        <tbody id="tournaments-table-body">
+          <!-- Se llenará por JavaScript -->
+        </tbody>
+      </table>
+      <div style="margin-top: 10px; text-align: center;">
+        <button id="load-more-btn">More tournaments</button>
+        <div id="spinner" style="display: none;">Loading...</div>
+      </div>
+    </div>
+
+    <script>
+      let currentPage = 0;
+      const size = 10;
+
+      document.getElementById("load-more-btn").addEventListener("click", loadTournaments);
+
+      function loadTournaments() {
+        document.getElementById("spinner").style.display = "block";
+
+        fetch(`/api/tournaments/paged?page=${currentPage}&size=${size}`)
+          .then(response => response.json())
+          .then(data => {
+            const tbody = document.getElementById("tournaments-table-body");
+
+            data.content.forEach(tournament => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td><a href="/tournaments/${tournament.id}">${tournament.name}</a></td>
+                <td>${tournament.dateT}</td>
+                <td>${tournament.location}</td>
+                <td>${tournament.surface}</td>
+                <td>${tournament.givenPoints}</td>
+                <td>${tournament.prizeMoney}</td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            if (data.last) {
+              document.getElementById("load-more-btn").style.display = "none";
+            }
+
+            currentPage++;
+          })
+          .catch(err => {
+            console.error("Error cargando torneos:", err);
+          })
+          .finally(() => {
+            document.getElementById("spinner").style.display = "none";
+          });
+      }
+
+      // Cargar la primera página de torneos al cargar la página
+      window.addEventListener("DOMContentLoaded", loadTournaments);
+    </script>
+  </body>
 </html>
