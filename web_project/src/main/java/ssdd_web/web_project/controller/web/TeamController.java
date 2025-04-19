@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
+import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.services.TeamService;
+import ssdd_web.web_project.services.UserService;
 
 @Controller
 @RequestMapping("/teams")
@@ -19,6 +21,9 @@ public class TeamController {
 
     @Autowired
     private TeamService teamService;
+
+    @Autowired
+    private UserService userService;
 
     // see all players and select 2
     @GetMapping("/register")
@@ -32,7 +37,8 @@ public class TeamController {
     @PostMapping("/add")
     public String createTeam(@RequestParam String name, @RequestParam("player1Id") Long player1Id,
             @RequestParam("player2Id") Long player2Id) {
-        teamService.createTeam(name, player1Id, player2Id);
+        User manager = userService.getLoggedUser();
+        teamService.createTeam(name, player1Id, player2Id, manager);
         return "redirect:/home";
     }
 
@@ -55,6 +61,14 @@ public class TeamController {
     // delete team by id
     @PostMapping("/delete/{id}")
     public String deleteTeamById(@PathVariable Long id) {
+        User loggedUser = userService.getLoggedUser();
+        Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Team not found"));
+        if (!team.getManager().getId().equals(loggedUser.getId())) {
+            System.err.println("ERORRRRRRRR");
+            return "redirect:/error";
+        }
+        loggedUser.setTeam(null);
+        team.setManager(null);
         teamService.deleteTeamById(id);
         return "redirect:/teams/list";
     }

@@ -41,14 +41,28 @@ public class Team {
     @OneToMany(mappedBy = "awayTeam", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Match> awayMatches;
 
-    /*
-     * @OneToOne
-     * private User manager;
-     */
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User manager;
 
     private boolean available;
     private int ranking;
     private int points;
+
+    public Team(String name, Player player1, Player player2, User manager) {
+        this.name = name;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.winsTeam = 0;
+        this.lossesTeam = 0;
+        this.winrateTeam = 0;
+        this.ranking = 1;
+        this.points = 0;
+        this.homeMatches = null;
+        this.awayMatches = null;
+        this.available = true;
+        this.manager = manager;
+    }
 
     public Team(String name, Player player1, Player player2) {
         this.name = name;
@@ -112,16 +126,6 @@ public class Team {
         this.winrateTeam = winrateTeam;
     }
 
-    /*
-     * public User getManager() {
-     * return manager;
-     * }
-     * 
-     * public void setManager(User manager) {
-     * this.manager = manager;
-     * }
-     */
-
     public int getRanking() {
         return ranking;
     }
@@ -168,5 +172,13 @@ public class Team {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

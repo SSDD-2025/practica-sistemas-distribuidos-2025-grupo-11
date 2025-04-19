@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,10 +26,8 @@ public class User {
     public User() {
     };
 
-    /*
-     * @OneToOne
-     * private Team team;
-     */
+    @OneToOne(mappedBy = "manager")
+    private Team team;
 
     private String name;
     private String password;
@@ -56,16 +56,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    /*
-     * public Team getTeam() {
-     * return team;
-     * }
-     * 
-     * public void setTeam(Team team) {
-     * this.team = team;
-     * }
-     */
 
     public String getPassword() {
         return password;
@@ -129,6 +119,14 @@ public class User {
 
     public void setLossesPlayer(int lossesUser) {
         this.lossesUser = lossesUser;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
 }

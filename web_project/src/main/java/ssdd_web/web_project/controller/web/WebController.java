@@ -2,15 +2,19 @@ package ssdd_web.web_project.controller.web;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
+import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
 import ssdd_web.web_project.services.TournamentService;
+import ssdd_web.web_project.services.UserService;
 
 @Controller
 public class WebController {
@@ -23,6 +27,9 @@ public class WebController {
 
     @Autowired
     private TournamentService tournamentService;
+
+    @Autowired
+    private UserService userService;
 
     // get home
     @GetMapping("/home")
@@ -44,7 +51,11 @@ public class WebController {
 
     // Show the user
     @GetMapping("/profile")
-    public String getUserInfo() {
+    public String getUserInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        User user = userService.getLoggedUser();
+        model.addAttribute("user", user);
+
         return "UserProfile";
     }
 }

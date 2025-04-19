@@ -23,10 +23,37 @@
         <tbody>
           <tr>
             <td>Name</td>
-            esto es privado
+            <td>{{user.name}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{user.email}}</td>
+          </tr>
+          <tr>
+            <td>Team</td>
+
+            <td>
+              {{#user.team}} {{name}} {{/user.team}} {{^user.team}} None
+              {{/user.team}}
+            </td>
           </tr>
         </tbody>
       </table>
+      <form action="/teams/register" method="get">
+        <button
+          type="submit"
+          style="
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Create Team
+        </button>
+      </form>
     </div>
   </body>
 </html>

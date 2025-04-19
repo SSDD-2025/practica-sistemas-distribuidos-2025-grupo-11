@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
+import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.repository.TeamRepository;
 
@@ -45,6 +46,19 @@ public class TeamService {
         return teamRepository.findByAvailableTrue();
     }
 
+    public Team createTeam(String name, Long player1Id, Long player2Id, User manager) {
+        Optional<Player> player1 = playerRepository.findById(player1Id);
+        Optional<Player> player2 = playerRepository.findById(player2Id);
+
+        if (player1.isPresent() && player2.isPresent() && player1Id != player2Id) {
+            Team team = new Team(name, player1.get(), player2.get(), manager);
+            player1.get().setTeam(team);
+            player2.get().setTeam(team);
+            return teamRepository.save(team);
+        }
+        throw new RuntimeException("Player not found");
+    }
+
     public Team createTeam(String name, Long player1Id, Long player2Id) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
@@ -77,6 +91,7 @@ public class TeamService {
                 existTeam.getPlayer2().setTeam(null);
                 playerRepository.save(existTeam.getPlayer2());
             }
+            existTeam.setManager(null);
             teamRepository.deleteById(id);
         } else {
             throw new RuntimeException("Team not found");

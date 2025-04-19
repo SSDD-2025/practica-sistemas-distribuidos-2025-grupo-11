@@ -24,11 +24,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,25 +38,13 @@ public class UserController {
 
     // Save in the database
     @PostMapping("/add")
-    public String registerUser(@RequestParam("name") String name,
-            @RequestParam("password") String password,
+    public String registerUser(@RequestParam("name") String name, @RequestParam("password") String password,
             @RequestParam("email") String email) {
 
-        // Verificar si el usuario ya existe
-        if (userRepository.findByName(name).isPresent()) {
-            return "redirect:/register?error=exists";
-        }
+        User user = new User(email, name, password);
+        user.setRoles(List.of("USER"));
 
-        User user = new User();
-        user.setName(name);
-        user.setPassword(passwordEncoder.encode(password)); // Codificar contraseña aquí
-        user.setEmail(email);
-        user.setRoles(List.of("USER")); // Puedes ajustarlo según tu modelo
-
-        // TODO: guardar la imagen si lo deseas
-        // if (userFile != null && !userFile.isEmpty()) { ... }
-
-        userRepository.save(user);
+        userService.saveUser(user);
 
         return "redirect:/users/login";
     }
