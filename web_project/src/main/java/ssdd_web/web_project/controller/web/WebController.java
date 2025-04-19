@@ -41,4 +41,10 @@ public class WebController {
         model.addAttribute("name", "Home");
         return "index";
     }
+
+    // Show the user
+    @GetMapping("/profile")
+    public String getUserInfo() {
+        return "UserProfile";
+    }
 }

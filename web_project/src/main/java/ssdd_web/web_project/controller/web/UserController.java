@@ -34,8 +34,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
-    public String showSignupForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showSignupForm() {
         return "UserRegistration"; // busca signup.html en templates
     }
 
@@ -61,19 +60,12 @@ public class UserController {
 
         userRepository.save(user);
 
-        return "redirect:/login?registered";
+        return "redirect:/users/login";
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("name", "Login");
+    public String login() {
         return "login";
     }
 
-    // Show the user
-    @GetMapping("/profile")
-    public String getUserInfo(Model model) {
-        model.addAttribute("user", userService.getLoggedUser());
-        return "UserProfile";
-    }
 }

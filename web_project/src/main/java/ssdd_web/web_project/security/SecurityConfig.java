@@ -42,17 +42,20 @@ public class SecurityConfig {
 
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+                // http.authenticationProvider(authenticationProvider());
+
                 http
                                 .csrf(csrf -> csrf.disable()) // <- ESTO
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/players/register").hasAnyRole("USER")
+                                                .requestMatchers("/profile").hasRole("USER")
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
-                                                .loginPage("/login")
-                                                .defaultSuccessUrl("/profile", true)
+                                                .loginPage("/users/login")
+                                                .defaultSuccessUrl("/home", true)
                                                 .permitAll())
                                 .logout(logout -> logout
-                                                .logoutSuccessUrl("/login?logout")
+                                                .logoutSuccessUrl("/home")
                                                 .permitAll());
 
                 return http.build();
