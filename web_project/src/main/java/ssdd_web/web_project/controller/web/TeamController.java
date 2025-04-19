@@ -64,7 +64,6 @@ public class TeamController {
         User loggedUser = userService.getLoggedUser();
         Team team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Team not found"));
         if (!team.getManager().getId().equals(loggedUser.getId())) {
-            System.err.println("ERORRRRRRRR");
             return "redirect:/error";
         }
         loggedUser.setTeam(null);
