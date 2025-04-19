@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller;
+package ssdd_web.web_project.controller.web;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

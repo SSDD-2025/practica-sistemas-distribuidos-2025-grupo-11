@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller.RestControllers;
+package ssdd_web.web_project.controller.rest;
 
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.TeamDTO;

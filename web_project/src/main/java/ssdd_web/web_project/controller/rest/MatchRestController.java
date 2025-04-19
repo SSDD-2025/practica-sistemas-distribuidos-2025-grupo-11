@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller.RestControllers;
+package ssdd_web.web_project.controller.rest;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

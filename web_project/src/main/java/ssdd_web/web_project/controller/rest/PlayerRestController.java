@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller.RestControllers;
+package ssdd_web.web_project.controller.rest;
 
 import java.io.IOException;
 import java.net.URI;

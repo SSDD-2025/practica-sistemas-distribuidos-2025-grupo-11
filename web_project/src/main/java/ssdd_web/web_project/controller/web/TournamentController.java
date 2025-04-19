@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller;
+package ssdd_web.web_project.controller.web;
 
 import java.time.LocalDate;
 import java.util.Arrays;

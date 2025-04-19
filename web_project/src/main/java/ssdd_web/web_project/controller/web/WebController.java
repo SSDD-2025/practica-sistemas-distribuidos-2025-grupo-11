@@ -1,4 +1,4 @@
-package ssdd_web.web_project.controller;
+package ssdd_web.web_project.controller.web;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
