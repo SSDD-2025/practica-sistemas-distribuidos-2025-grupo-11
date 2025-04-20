@@ -9,6 +9,7 @@
   {{> header}}
   <body>
     <form action="/teams/add" method="post" onsubmit="return validateTeams()">
+      <input type="hidden" name="_csrf" value="{{_csrf.token}}">
       <label for="teamName">Name</label>
       <input type="text" name="name" id="teamName" required />
 

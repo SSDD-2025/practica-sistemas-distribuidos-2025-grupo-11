@@ -2,7 +2,6 @@ package ssdd_web.web_project.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,13 +22,12 @@ class CSRFHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler,
-            final ModelAndView modelAndView) throws Exception {
+                           final ModelAndView modelAndView) throws Exception {
 
         if (modelAndView != null) {
-
             CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
             if (token != null) {
-                modelAndView.addObject("token", token.getToken());
+                modelAndView.addObject("_csrf", token);
             }
         }
     }

@@ -9,6 +9,7 @@
   {{> header}}
   <body>
     <form action="/tournaments/add" method="post">
+      <input type="hidden" name="_csrf" value="{{_csrf.token}}">
       <label for="tournamentName">Name</label>
       <input type="text" name="name" id="tournamentName" required />
 

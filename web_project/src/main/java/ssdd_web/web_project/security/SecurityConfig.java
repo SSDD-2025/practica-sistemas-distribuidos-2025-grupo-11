@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -46,9 +48,20 @@ public class SecurityConfig {
                 // http.authenticationProvider(authenticationProvider());
 
                 http
-                                .csrf(csrf -> csrf.disable()) // <- ESTO
+                                .csrf(csrf -> csrf
+                                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/profile", "/players/register").hasRole("USER")
+                                                .requestMatchers("/home",
+                                                                "/players/list",
+                                                                "/teams/list",
+                                                                "/matches/list",
+                                                                "/tournaments/list")
+                                                .permitAll()
+                                                .requestMatchers(
+                                                                "/profile",
+                                                                "/players/**",
+                                                                "/teams/**")
+                                                .hasRole("USER")
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
@@ -57,7 +70,6 @@ public class SecurityConfig {
                                 .logout(logout -> logout
                                                 .logoutSuccessUrl("/home")
                                                 .permitAll());
-
                 return http.build();
         }
 

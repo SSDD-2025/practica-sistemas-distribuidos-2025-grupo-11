@@ -5,6 +5,7 @@
   {{> header}}
   <body>
     <form action="/users/add" method="post">
+      <input type="hidden" name="_csrf" value="{{_csrf.token}}">
       <link rel="stylesheet" href="/css/FormsStyle.css" />
       <p>Enter the following data:</p>
       <p>E-mail</p>
