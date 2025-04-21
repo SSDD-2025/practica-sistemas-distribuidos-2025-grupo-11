@@ -10,5 +10,7 @@ public record MatchDTO(
                 Surface surface,
                 TeamDTO homeTeam,
                 TeamDTO awayTeam,
+                TeamDTO winnerTeam,
+                String score,
                 TournamentDTO tournament) {
 }

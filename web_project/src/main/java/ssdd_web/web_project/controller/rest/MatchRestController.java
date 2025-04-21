@@ -30,39 +30,35 @@ import java.util.List;
 public class MatchRestController {
 
     private final MatchService matchService;
-    private final MatchMapper matchMapper;
 
-    public MatchRestController(MatchService matchService, MatchMapper matchMapper) {
+    public MatchRestController(MatchService matchService) {
         this.matchService = matchService;
-        this.matchMapper = matchMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<MatchDTO>> getAllMatches() {
-        List<MatchDTO> matches = matchMapper.toDtoList(matchService.getAllMatches());
+        List<MatchDTO> matches = matchService.getAllMatches();
         return ResponseEntity.ok(matches);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MatchDTO> getMatchById(@PathVariable Long id) {
-        Match match = matchService.getMatchById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        MatchDTO matchDTO = matchMapper.toDTO(match);
-        return ResponseEntity.ok(matchDTO);
+        MatchDTO match = matchService.getMatchById(id);
+        return ResponseEntity.ok(match);
     }
 
     @PostMapping
     public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchCreateDTO dto) {
-        Match match = matchService.createMatch(dto.homeTeamId(), dto.awayTeamId(), dto.dateM(), dto.surface());
+        MatchDTO match = matchService.createMatch(dto.homeTeamId(), dto.awayTeamId(), dto.dateM(), dto.surface());
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(match.getId())
+                .buildAndExpand(match.id())
                 .toUri();
 
         return ResponseEntity
                 .created(location)
-                .body(matchMapper.toDTO(match));
+                .body(match);
     }
 
     @DeleteMapping("/{id}")
@@ -73,7 +69,7 @@ public class MatchRestController {
 
     @GetMapping("/paged")
     public ResponseEntity<Page<MatchDTO>> getMatchesPaged(Pageable pageable) {
-        Page<Match> matches = matchService.getAllMatchesPaged(pageable);
-        return ResponseEntity.ok(matches.map(matchMapper::toDTO));
+        Page<MatchDTO> matches = matchService.getAllMatchesPaged(pageable);
+        return ResponseEntity.ok(matches);
     }
 }

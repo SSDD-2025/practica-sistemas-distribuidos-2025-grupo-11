@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
@@ -48,7 +49,7 @@ public class MatchController {
     // match details
     @GetMapping("/{id}")
     public String showMatchDetails(@PathVariable Long id, Model model) {
-        Match match = matchService.getMatchById(id).orElseThrow(() -> new RuntimeException("Partido no encontrado"));
+        MatchDTO match = matchService.getMatchById(id);
         model.addAttribute("match", match);
         return "MatchDetails"; // html with match details
     }

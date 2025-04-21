@@ -53,22 +53,6 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD
-=======
-                                                .requestMatchers(
-                                                                "/home",
-                                                                "/players/list",
-                                                                "/teams/list",
-                                                                "/matches/list",
-                                                                "/tournaments/list",
-                                                                "/api/players/paged")
-                                                .permitAll()
-                                                .requestMatchers(
-                                                                "/profile",
-                                                                "/players/**",
-                                                                "/teams/**")
-                                                .hasRole("USER")
->>>>>>> 5eeb08600bac587beed16163eb7fe181ddeffedb
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
@@ -96,13 +80,12 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable()) // CSRF no es necesario para JWT
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll() // Login / refresh / logout
-                                                .requestMatchers("/api/players/paged",  // Lists shown correctly
+                                                .requestMatchers("/api/players/paged", // Lists shown correctly
                                                                 "/api/teams/paged",
                                                                 "/api/matches/paged",
                                                                 "/api/tournaments/paged")
                                                 .permitAll()
-                                                .anyRequest().authenticated() 
-                                )
+                                                .anyRequest().authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Sin sesión
                                 )

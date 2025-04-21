@@ -8,14 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
 
+import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
-=======
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jakarta.servlet.http.HttpServletRequest;
->>>>>>> 5eeb08600bac587beed16163eb7fe181ddeffedb
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
@@ -41,28 +39,29 @@ public class WebController {
     private UserService userService;
 
     @ModelAttribute
-	public void addAttributes(Model model, HttpServletRequest request) {
+    public void addAttributes(Model model, HttpServletRequest request) {
 
-		Principal principal = request.getUserPrincipal();
+        Principal principal = request.getUserPrincipal();
 
-		if(principal != null) {
-		
-			model.addAttribute("logged", true);		
-			model.addAttribute("userName", principal.getName());
-			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-			
-		} else {
-			model.addAttribute("logged", false);
-		}
-	}
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
+
     // get home
     @GetMapping("/home")
     public String webString(Model model) {
-        List<Match> matches = matchService.getAllMatchesDateOrder();
+        List<MatchDTO> matches = matchService.getAllMatchesDateOrder();
         List<TeamDTO> teams = teamService.getAllTeamsByRanking();
         List<Tournament> tournaments = tournamentService.getAllTournaments();
 
-        List<Match> recentMatches = matches.stream().limit(3).toList();
+        List<MatchDTO> recentMatches = matches.stream().limit(3).toList();
         List<Tournament> recentTournaments = tournaments.stream().limit(4).toList();
         List<TeamDTO> bestTeams = teams.stream().limit(4).toList();
 
