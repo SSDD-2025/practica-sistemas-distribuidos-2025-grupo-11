@@ -18,6 +18,10 @@ import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.repository.TeamRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.access.AccessDeniedException;
 
 @Service
 public class TeamService {
@@ -98,7 +102,15 @@ public class TeamService {
         Optional<Team> team = teamRepository.findById(id);
         if (team.isPresent()) {
             Team existTeam = team.get();
-
+    
+            String currentUsername = getCurrentUsername();
+    
+            // ⚠️ Control de dueño
+            if (!existTeam.getManager().getName().equals(currentUsername) &&
+                !isCurrentUserAdmin()) {
+                throw new AccessDeniedException("No tienes permiso para borrar este equipo");
+            }
+    
             if (existTeam.getPlayer1() != null) {
                 existTeam.getPlayer1().setTeam(null);
                 playerRepository.save(existTeam.getPlayer1());
@@ -107,6 +119,7 @@ public class TeamService {
                 existTeam.getPlayer2().setTeam(null);
                 playerRepository.save(existTeam.getPlayer2());
             }
+    
             existTeam.setManager(null);
             teamRepository.deleteById(id);
         } else {
@@ -116,5 +129,16 @@ public class TeamService {
 
     public Page<TeamDTO> getAllTeamsPaged(Pageable pageable) {
         return teamRepository.findAll(pageable).map(teamMapper::toDTO);
+    }
+
+    private String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+    
+    private boolean isCurrentUserAdmin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getAuthorities().stream()
+            .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
     }
 }

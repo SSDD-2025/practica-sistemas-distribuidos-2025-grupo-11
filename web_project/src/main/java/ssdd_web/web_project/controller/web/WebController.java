@@ -1,5 +1,6 @@
 package ssdd_web.web_project.controller.web;
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -7,8 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 
 import ssdd_web.web_project.DTO.TeamDTO;
+=======
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import jakarta.servlet.http.HttpServletRequest;
+>>>>>>> 5eeb08600bac587beed16163eb7fe181ddeffedb
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
@@ -33,6 +40,21 @@ public class WebController {
     @Autowired
     private UserService userService;
 
+    @ModelAttribute
+	public void addAttributes(Model model, HttpServletRequest request) {
+
+		Principal principal = request.getUserPrincipal();
+
+		if(principal != null) {
+		
+			model.addAttribute("logged", true);		
+			model.addAttribute("userName", principal.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			
+		} else {
+			model.addAttribute("logged", false);
+		}
+	}
     // get home
     @GetMapping("/home")
     public String webString(Model model) {
