@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -68,7 +69,7 @@ public class MatchRestController {
     }
 
     @GetMapping("/paged")
-    public ResponseEntity<Page<MatchDTO>> getMatchesPaged(Pageable pageable) {
+    public ResponseEntity<Page<MatchDTO>> getMatchesPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         Page<MatchDTO> matches = matchService.getAllMatchesPaged(pageable);
         return ResponseEntity.ok(matches);
     }

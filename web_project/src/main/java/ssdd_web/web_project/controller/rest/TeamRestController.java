@@ -9,6 +9,7 @@ import ssdd_web.web_project.services.TeamService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +67,7 @@ public class TeamRestController {
     }
 
     @GetMapping("/paged")
-    public ResponseEntity<Page<TeamDTO>> getTeamsPaged(Pageable pageable) {
+    public ResponseEntity<Page<TeamDTO>> getTeamsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         Page<TeamDTO> teams = teamService.getAllTeamsPaged(pageable);
         return ResponseEntity.ok(teams);
     }

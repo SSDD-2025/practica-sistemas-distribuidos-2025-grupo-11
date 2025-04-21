@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -100,7 +101,7 @@ public class PlayerRestController {
     }
 
     @GetMapping("/paged")
-    public ResponseEntity<Page<PlayerDTO>> getPlayersPaged(Pageable pageable) {
+    public ResponseEntity<Page<PlayerDTO>> getPlayersPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         Page<PlayerDTO> players = playerService.getAllPlayersPaged(pageable);
         return ResponseEntity.ok(players);
     }
