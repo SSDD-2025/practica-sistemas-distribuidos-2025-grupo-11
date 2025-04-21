@@ -11,10 +11,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PlayerMapper {
 
+    @Mapping(target = "team", ignore = true)
     PlayerDTO toDTO(Player player);
 
-    List<PlayerDTO> toDTOList(Collection<Player> players);
+    List<PlayerDTO> toDTOs(Collection<Player> players);
 
     @Mapping(target = "id", ignore = true)
-    Player toEntity(PlayerDTO dto);
+    Player toDomain(PlayerDTO dto);
 }

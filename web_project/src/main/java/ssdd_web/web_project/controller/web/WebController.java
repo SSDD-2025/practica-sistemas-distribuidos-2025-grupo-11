@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.Tournament;
@@ -35,12 +37,12 @@ public class WebController {
     @GetMapping("/home")
     public String webString(Model model) {
         List<Match> matches = matchService.getAllMatchesDateOrder();
-        List<Team> teams = teamService.getAllTeamsByRanking();
+        List<TeamDTO> teams = teamService.getAllTeamsByRanking();
         List<Tournament> tournaments = tournamentService.getAllTournaments();
 
         List<Match> recentMatches = matches.stream().limit(3).toList();
         List<Tournament> recentTournaments = tournaments.stream().limit(4).toList();
-        List<Team> bestTeams = teams.stream().limit(4).toList();
+        List<TeamDTO> bestTeams = teams.stream().limit(4).toList();
 
         model.addAttribute("matches", recentMatches);
         model.addAttribute("teams", bestTeams);

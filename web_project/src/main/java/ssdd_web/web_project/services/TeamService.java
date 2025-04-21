@@ -6,6 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import ssdd_web.web_project.DTO.PlayerDTO;
+import ssdd_web.web_project.DTO.PlayerMapper;
+import ssdd_web.web_project.DTO.TeamDTO;
+import ssdd_web.web_project.DTO.TeamMapper;
+import ssdd_web.web_project.DTO.UserDTO;
+import ssdd_web.web_project.DTO.UserMapper;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.User;
@@ -21,45 +28,54 @@ public class TeamService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private TeamMapper teamMapper;
+
+    @Autowired
+    private PlayerMapper playerMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
     // all players list
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public List<PlayerDTO> getAllPlayers() {
+        return playerMapper.toDTOs(playerRepository.findAll());
     }
 
     // all available players
-    public List<Player> getAvailablePlayers() {
-        return playerRepository.findByTeamIsNull();
+    public List<PlayerDTO> getAvailablePlayers() {
+        return playerMapper.toDTOs(playerRepository.findByTeamIsNull());
     }
 
     // all teams order by ranking
-    public List<Team> getAllTeamsByRanking() {
-        return teamRepository.findByOrderByRankingAsc();
+    public List<TeamDTO> getAllTeamsByRanking() {
+        return teamMapper.toDTOs(teamRepository.findByOrderByRankingAsc());
     }
 
     // all teams list
-    public List<Team> getAllTeams() {
-        return teamRepository.findAll();
+    public List<TeamDTO> getAllTeams() {
+        return teamMapper.toDTOs(teamRepository.findAll());
     }
 
     // all available teams for tournament
-    public List<Team> getAllAvailableTeams() {
-        return teamRepository.findByAvailableTrue();
+    public List<TeamDTO> getAllAvailableTeams() {
+        return teamMapper.toDTOs(teamRepository.findByAvailableTrue());
     }
 
-    public Team createTeam(String name, Long player1Id, Long player2Id, User manager) {
+    public TeamDTO createTeam(String name, Long player1Id, Long player2Id, UserDTO manager) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
 
         if (player1.isPresent() && player2.isPresent() && player1Id != player2Id) {
-            Team team = new Team(name, player1.get(), player2.get(), manager);
+            Team team = new Team(name, player1.get(), player2.get(), userMapper.toDomain(manager));
             player1.get().setTeam(team);
             player2.get().setTeam(team);
-            return teamRepository.save(team);
+            return teamMapper.toDTO(teamRepository.save(team));
         }
         throw new RuntimeException("Player not found");
     }
 
-    public Team createTeam(String name, Long player1Id, Long player2Id) {
+    public TeamDTO createTeam(String name, Long player1Id, Long player2Id) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
 
@@ -67,14 +83,14 @@ public class TeamService {
             Team team = new Team(name, player1.get(), player2.get());
             player1.get().setTeam(team);
             player2.get().setTeam(team);
-            return teamRepository.save(team);
+            return teamMapper.toDTO(teamRepository.save(team));
         }
         throw new RuntimeException("Player not found");
     }
 
     // get team by id
-    public Optional<Team> getTeamById(Long id) {
-        return teamRepository.findById(id);
+    public Optional<TeamDTO> getTeamById(Long id) {
+        return teamRepository.findById(id).map(teamMapper::toDTO);
     }
 
     // delete team by id
@@ -98,7 +114,7 @@ public class TeamService {
         }
     }
 
-    public Page<Team> getAllTeamsPaged(Pageable pageable) {
-        return teamRepository.findAll(pageable);
+    public Page<TeamDTO> getAllTeamsPaged(Pageable pageable) {
+        return teamRepository.findAll(pageable).map(teamMapper::toDTO);
     }
 }

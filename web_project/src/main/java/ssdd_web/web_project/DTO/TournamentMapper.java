@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Collection;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = {MatchMapper.class})
+@Mapper(componentModel = "spring")
 public interface TournamentMapper {
 
-    TournamentDTO toDTO (Tournament tournament);
+    TournamentDTO toDTO(Tournament tournament);
 
-    List<TournamentDTO> toDtoList (Collection<Tournament> tournaments);
-    Tournament toEntity (TournamentDTO tournamentDTO);
-    
+    List<TournamentDTO> toDTOs(Collection<Tournament> tournaments);
+
+    Tournament toEntity(TournamentDTO tournamentDTO);
+
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ssdd_web.web_project.DTO.PlayerDTO;
 
 @Controller
 @RequestMapping("/players")
@@ -33,19 +34,20 @@ public class PlayerController {
     // new player
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("player", new Player());
+        model.addAttribute("player",
+                new PlayerDTO(null, null, null, null, 0, 0.0, 0, null, null, null, 0, 0, 0.0, 0, 0.0, 0, 0.0));
         return "playerRegistration"; // "PlayerRegistration.html"
     }
 
     // save player in database
     @PostMapping("/add")
-    public String savePlayerDatabase(@ModelAttribute Player player, MultipartFile imageFile)
+    public String savePlayerDatabase(@ModelAttribute PlayerDTO playerDTO, MultipartFile imageFile)
             throws IOException, SQLException {
         if (!imageFile.isEmpty()) {
-            player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
+
         }
         try {
-            playerService.savePlayer(player); // Save player to database
+            playerService.savePlayer(playerDTO); // Save player to database
             return "redirect:/home";
         } catch (IllegalArgumentException ex) {
             return "redirect:errorPlayer"; // Redirect to the page with the error message
@@ -54,17 +56,17 @@ public class PlayerController {
 
     // show all players
     @GetMapping("/list")
-    public String listPlayers(Model model, @RequestParam(required = false) Player player) {
-        List<Player> players = playerService.getAllPlayers();
-        model.addAttribute("players", players);
+    public String listPlayers(Model model, @RequestParam(required = false) PlayerDTO playerDTO) {
+        List<PlayerDTO> playersDTO = playerService.getAllPlayers();
+        model.addAttribute("players", playersDTO);
         return "PlayerList";
     }
 
     // show player
     @GetMapping("/{id}")
     public String getPlayerStats(@PathVariable Long id, Model model) {
-        Player player = playerService.getPlayerById(id);
-        model.addAttribute("player", player);
+        PlayerDTO playerDTO = playerService.getPlayerById(id);
+        model.addAttribute("player", playerDTO);
         return "Player";
     }
 
@@ -78,28 +80,32 @@ public class PlayerController {
     // edit player
     @GetMapping("/edit/{id}")
     public String editPlayer(@PathVariable Long id, Model model) {
-        Player player = playerService.getPlayerById(id);
-        model.addAttribute("player", player);
+        PlayerDTO playerDTO = playerService.getPlayerById(id);
+        model.addAttribute("player", playerDTO);
         return "PlayerEditForm";
     }
 
     // update player
     @PostMapping("/update")
-    public String updatePlayer(@ModelAttribute Player player) {
-        playerService.saveEditPlayer(player);
-        return "redirect:/players/" + player.getId();
+    public String updatePlayer(@ModelAttribute PlayerDTO playerDTO) {
+        playerService.saveEditPlayer(playerDTO);
+        return "redirect:/players/" + playerDTO.id();
     }
 
-    @GetMapping("/{id}/image")
-    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
-        Optional<Player> player = playerService.findById(id);
-        if (player.isPresent() && player.get().getPlayerImage() != null) {
-            Blob image = player.get().getPlayerImage();
-            Resource file = new InputStreamResource(image.getBinaryStream());
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .contentLength(image.length()).body(file);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+    /*
+     * @GetMapping("/{id}/image")
+     * public ResponseEntity<Object> downloadImage(@PathVariable long id) throws
+     * SQLException {
+     * Optional<Player> player = playerService.findById(id);
+     * if (player.isPresent() && player.get().getPlayerImage() != null) {
+     * Blob image = player.get().getPlayerImage();
+     * Resource file = new InputStreamResource(image.getBinaryStream());
+     * return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+     * .contentLength(image.length()).body(file);
+     * } else {
+     * return ResponseEntity.notFound().build();
+     * }
+     * }
+     */
+
 }

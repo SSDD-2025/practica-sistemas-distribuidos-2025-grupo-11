@@ -8,12 +8,13 @@ import java.util.Collection;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {TeamMapper.class})
+@Mapper(componentModel = "spring")
 public interface MatchMapper {
+
     MatchDTO toDTO(Match match);
 
-    List<MatchDTO> toDtoList (Collection<Match> matches);
+    List<MatchDTO> toDTOs(Collection<Match> matches);
 
     @Mapping(target = "id", ignore = true)
-    Match toEntity(MatchDTO matchDTO);
+    Match toDomain(MatchDTO matchDTO);
 }

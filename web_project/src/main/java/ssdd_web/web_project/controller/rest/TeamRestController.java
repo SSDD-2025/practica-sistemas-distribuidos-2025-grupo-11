@@ -22,43 +22,40 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/teams")
 public class TeamRestController {
-    private final TeamMapper teamMapper;
     private final TeamService teamService;
 
-    public TeamRestController(TeamMapper teamMapper, TeamService teamService) {
-        this.teamMapper = teamMapper;
+    public TeamRestController(TeamService teamService) {
         this.teamService = teamService;
     }
 
     @GetMapping("/")
     public ResponseEntity<List<TeamDTO>> getAllTeams() {
-        List<TeamDTO> teams = teamMapper.toDTOList(teamService.getAllTeams());
+        List<TeamDTO> teams = teamService.getAllTeams();
         return ResponseEntity.ok(teams);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TeamDTO> getTeamById(@PathVariable Long id) {
-        Team team = teamService.getTeamById(id)
+        TeamDTO team = teamService.getTeamById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        TeamDTO teamDTO = teamMapper.toDTO(team);
-        return ResponseEntity.ok(teamDTO);
+        return ResponseEntity.ok(team);
     }
 
     @PostMapping("/")
     public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) {
-        Team savedTeam = teamService.createTeam(teamDTO.name(), teamDTO.player1().id(), teamDTO.player2().id());
+        TeamDTO savedTeam = teamService.createTeam(teamDTO.name(), teamDTO.player1().id(), teamDTO.player2().id());
         if (savedTeam == null) {
             return ResponseEntity.badRequest().build(); // Bad request if players are not valid
         }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedTeam.getId())
+                .buildAndExpand(savedTeam.id())
                 .toUri();
 
         return ResponseEntity
                 .created(location)
-                .body(teamMapper.toDTO(savedTeam));
+                .body(savedTeam);
     }
 
     @DeleteMapping("/{id}")
@@ -69,7 +66,7 @@ public class TeamRestController {
 
     @GetMapping("/paged")
     public ResponseEntity<Page<TeamDTO>> getTeamsPaged(Pageable pageable) {
-        Page<Team> teams = teamService.getAllTeamsPaged(pageable);
-        return ResponseEntity.ok(teams.map(teamMapper::toDTO));
+        Page<TeamDTO> teams = teamService.getAllTeamsPaged(pageable);
+        return ResponseEntity.ok(teams);
     }
 }

@@ -7,12 +7,16 @@ import java.util.Collection;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper (componentModel = "spring")
+@Mapper(componentModel = "spring", uses = PlayerMapper.class)
 public interface TeamMapper {
-    TeamDTO toDTO (Team team);
-    List<TeamDTO> toDTOList (Collection<Team> teams);
+
+    @Mapping(target = "player1.team", ignore = true)
+    @Mapping(target = "player2.team", ignore = true)
+    TeamDTO toDTO(Team team);
+
+    List<TeamDTO> toDTOs(Collection<Team> teams);
 
     @Mapping(target = "id", ignore = true)
-    Team toEntity (TeamDTO dto);
-    
+    Team toDomain(TeamDTO dto);
+
 }

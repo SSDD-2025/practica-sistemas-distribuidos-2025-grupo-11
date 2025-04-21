@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import ssdd_web.web_project.model.Player;
+import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.PlayerMapper;
@@ -27,59 +28,38 @@ import ssdd_web.web_project.DTO.PlayerMapper;
 public class PlayerRestController {
 
     private final PlayerService playerService;
-    private final PlayerMapper playerMapper;
 
-    public PlayerRestController(PlayerService playerService, PlayerMapper playerMapper) {
-        this.playerMapper = playerMapper;
+    public PlayerRestController(PlayerService playerService) {
         this.playerService = playerService;
     }
 
     // Obtener todos los jugadores
     @GetMapping("/")
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
-        List<PlayerDTO> players = playerMapper.toDTOList(playerService.getAllPlayers());
-        return ResponseEntity.ok(players);
+        return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
     // Obtener un jugador por ID
     @GetMapping("/{id}")
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable Long id) {
-        Player player = playerService.getPlayerById(id);
-        if (player != null) {
-            return ResponseEntity.ok(playerMapper.toDTO(player));
+        PlayerDTO playerDTO = playerService.getPlayerById(id);
+        if (playerDTO != null) {
+            return ResponseEntity.ok(playerDTO);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/")
     public ResponseEntity<PlayerDTO> createPlayer(@RequestBody PlayerDTO playerDTO) {
-        Player player = playerMapper.toEntity(playerDTO);
-        Player savedPlayer = playerService.savePlayer(player);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedPlayer.getId())
-                .toUri();
-
-        return ResponseEntity
-                .created(location)
-                .body(playerMapper.toDTO(savedPlayer));
+        PlayerDTO savedPlayer = playerService.savePlayer(playerDTO);
+        return new ResponseEntity<>(savedPlayer, HttpStatus.CREATED);
     }
 
-    // Actualizar un jugador existente
+    // Update existing player
     @PutMapping("/{id}")
-    public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable Long id, @RequestBody PlayerDTO playerDTO) {
-        Player existingPlayer = playerService.getPlayerById(id);
-        if (existingPlayer == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Player updatedPlayer = playerMapper.toEntity(playerDTO);
-        updatedPlayer.setId(id); // Asegurar que mantiene el mismo ID
-        playerService.saveEditPlayer(updatedPlayer);
-
-        return ResponseEntity.ok(playerMapper.toDTO(updatedPlayer));
+    public ResponseEntity<PlayerDTO> updatePlayer(@RequestBody PlayerDTO playerDTO) {
+        PlayerDTO updatedPlayerDTO = playerService.saveEditPlayer(playerDTO);
+        return ResponseEntity.ok(updatedPlayerDTO);
     }
 
     // Eliminar un jugador por ID
@@ -121,7 +101,7 @@ public class PlayerRestController {
 
     @GetMapping("/paged")
     public ResponseEntity<Page<PlayerDTO>> getPlayersPaged(Pageable pageable) {
-        Page<Player> players = playerService.getAllPlayersPaged(pageable);
-        return ResponseEntity.ok(players.map(playerMapper::toDTO));
+        Page<PlayerDTO> players = playerService.getAllPlayersPaged(pageable);
+        return ResponseEntity.ok(players);
     }
 }

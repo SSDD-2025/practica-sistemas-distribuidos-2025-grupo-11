@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.repository.TeamRepository;
+import ssdd_web.web_project.DTO.PlayerDTO;
+import ssdd_web.web_project.DTO.PlayerMapper;
 
 @Service
 public class PlayerService {
@@ -31,51 +34,62 @@ public class PlayerService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public Player savePlayer(Player player) {
-        if (player.getName() == null || player.getName().isEmpty() || player.getSurname() == null ||
-                player.getSurname().isEmpty()) {
+    @Autowired
+    private PlayerMapper playerMapper;
+
+    public PlayerDTO savePlayer(PlayerDTO playerDTO) {
+        if (playerDTO.name() == null || playerDTO.name().isEmpty() || playerDTO.surname() == null ||
+                playerDTO.surname().isEmpty()) {
             throw new IllegalArgumentException("Player name is required");
         }
-        if (playerRepository.existsByName(player.getName()) && playerRepository.existsBySurname(player.getSurname())) {
+        if (playerRepository.existsByName(playerDTO.name()) && playerRepository.existsBySurname(playerDTO.surname())) {
             throw new IllegalArgumentException("Player name already exists");
         }
 
-        return playerRepository.save(player);
+        Player player = playerMapper.toDomain(playerDTO);
+        return playerMapper.toDTO(playerRepository.save(player));
     }
 
     // save edited player
-    public Player saveEditPlayer(Player player) {
-        Player existingPlayer = playerRepository.findById(player.getId()).orElse(null);
-
-        if (existingPlayer != null) {
-            if (player.getTeam() == null) {
-                player.setTeam(existingPlayer.getTeam());
-            }
+    public PlayerDTO saveEditPlayer(PlayerDTO playerDTO) {
+        Player existingPlayer = playerRepository.findById(playerDTO.id()).orElse(null);
+        if (existingPlayer == null) {
+            throw new RuntimeException("Player not found");
         }
-        return playerRepository.save(player);
+
+        Player player = playerMapper.toDomain(playerDTO);
+        player.setId(existingPlayer.getId());
+
+        if (player.getTeam() == null) {
+            player.setTeam(existingPlayer.getTeam());
+        }
+
+        Player savedPlayer = playerRepository.save(player);
+        return playerMapper.toDTO(savedPlayer);
     }
 
     // get player by id
-    public Player getPlayerById(Long id) {
-        return playerRepository.findById(id).orElse(null);
+    public PlayerDTO getPlayerById(Long id) {
+        return playerMapper.toDTO(playerRepository.findById(id).orElse(null));
     }
 
     // get all players
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public List<PlayerDTO> getAllPlayers() {
+        return playerMapper.toDTOs(playerRepository.findAll());
     }
 
     // delete player by id
     @Transactional
-    public void deletePlayerById(Long Id) {
-        Player player = playerRepository.findById(Id).orElseThrow(() -> new RuntimeException("Player not found"));
+    public void deletePlayerById(Long id) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found"));
 
         if (player.getTeam() != null) {
             Team team = player.getTeam();
-            if (team.getPlayer1() != null && team.getPlayer1().getId() == Id) {
+            if (team.getPlayer1() != null && team.getPlayer1().getId() == id) {
                 team.getPlayer2().setTeam(null);
                 team.setPlayer1(null);
-            } else if (team.getPlayer2() != null && team.getPlayer2().getId() == Id) {
+            } else if (team.getPlayer2() != null && team.getPlayer2().getId() == id) {
                 team.getPlayer1().setTeam(null);
                 team.setPlayer2(null);
             }
@@ -85,12 +99,12 @@ public class PlayerService {
             }
         }
 
-        playerRepository.deleteById(Id);
+        playerRepository.deleteById(id);
 
     }
 
-    public Optional<Player> findById(long id) {
-        return playerRepository.findById(id);
+    public Optional<PlayerDTO> findById(long id) {
+        return playerRepository.findById(id).map(playerMapper::toDTO);
     }
 
     public Resource getPlayerImage(long id) throws SQLException {
@@ -132,7 +146,7 @@ public class PlayerService {
         playerRepository.save(player);
     }
 
-    public Page<Player> getAllPlayersPaged(Pageable pageable) {
-        return playerRepository.findAll(pageable);
+    public Page<PlayerDTO> getAllPlayersPaged(Pageable pageable) {
+        return playerRepository.findAll(pageable).map(playerMapper::toDTO);
     }
 }

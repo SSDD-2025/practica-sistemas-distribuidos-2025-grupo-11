@@ -51,17 +51,6 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/home",
-                                                                "/players/list",
-                                                                "/teams/list",
-                                                                "/matches/list",
-                                                                "/tournaments/list")
-                                                .permitAll()
-                                                .requestMatchers(
-                                                                "/profile",
-                                                                "/players/**",
-                                                                "/teams/**")
-                                                .hasRole("USER")
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
