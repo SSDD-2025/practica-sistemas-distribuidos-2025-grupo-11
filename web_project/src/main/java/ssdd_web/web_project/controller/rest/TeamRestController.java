@@ -22,6 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/teams")
 public class TeamRestController {
+
     private final TeamService teamService;
 
     public TeamRestController(TeamService teamService) {

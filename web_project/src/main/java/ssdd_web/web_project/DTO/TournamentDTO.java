@@ -9,8 +9,7 @@ public record TournamentDTO(
                 String name,
                 String location,
                 LocalDate dateT,
-                int givenPoints,
-                double prizeMoney,
-                Surface surface,
-                List<MatchDTO> matches) {
+                Integer givenPoints,
+                Double prizeMoney,
+                Surface surface) {
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ssdd_web.web_project.DTO.MatchDTO;
+import ssdd_web.web_project.DTO.TournamentDTO;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.services.TournamentService;
@@ -52,10 +55,10 @@ public class TournamentController {
     // team stats show
     @GetMapping("/{id}")
     public String showTournamentDetails(@PathVariable Long id, Model model) {
-        Tournament tournament = tournamentService.getTournamentById(id)
-                .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+        TournamentDTO tournament = tournamentService.getTournamentById(id);
+        List<MatchDTO> matches = tournamentService.getTournamentMatches(id);
         model.addAttribute("tournament", tournament);
-        model.addAttribute("matches", tournament.getMatches());
+        model.addAttribute("matches", matches);
         return "TournamentDetails";
     }
 

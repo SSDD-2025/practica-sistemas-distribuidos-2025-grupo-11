@@ -1,10 +1,16 @@
 package ssdd_web.web_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import ssdd_web.web_project.DTO.MatchDTO;
+import ssdd_web.web_project.DTO.MatchMapper;
+import ssdd_web.web_project.DTO.TournamentDTO;
+import ssdd_web.web_project.DTO.TournamentMapper;
 import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.model.Tournament;
@@ -26,39 +32,45 @@ public class TournamentService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public List<Match> getAllMatches() {
-        return matchRepository.findAll();
+    @Autowired
+    private MatchMapper matchMapper;
+
+    @Autowired
+    private TournamentMapper tournamentMapper;
+
+    public List<MatchDTO> getAllMatches() {
+        return matchMapper.toDTOs(matchRepository.findAll());
     }
 
-    public List<Tournament> getAllTournaments() {
-        return tournamentRepository.findAll();
+    public List<TournamentDTO> getAllTournaments() {
+        return tournamentMapper.toDTOs(tournamentRepository.findAll());
     }
 
     @Transactional
-    public Tournament createTournament(String name, LocalDate dateT, int givenPoints, double prizeMoney,
+    public TournamentDTO createTournament(String name, LocalDate dateT, int givenPoints, double prizeMoney,
             String location, Surface surface, List<Long> matchIds) {
 
         List<Match> matches = matchRepository.findAllById(matchIds);
+        Tournament tournament = new Tournament(name, dateT, givenPoints, prizeMoney, location, surface, matches);
 
         for (Match match : matches) {
             match.setDateM(dateT);
             match.setSurface(surface);
-            matchRepository.save(match);
-        }
-
-        Tournament tournament = new Tournament(name, dateT, givenPoints, prizeMoney, location, surface,
-                matches);
-
-        for (Match match : matches) {
             match.setTournament(tournament);
-            matchRepository.save(match);
+            matchMapper.toDTO(matchRepository.save(match));
         }
 
-        return tournamentRepository.save(tournament);
+        return tournamentMapper.toDTO(tournamentRepository.save(tournament));
     }
 
-    public Optional<Tournament> getTournamentById(Long id) {
-        return tournamentRepository.findById(id);
+    public TournamentDTO getTournamentById(Long id) {
+        return tournamentMapper.toDTO(tournamentRepository.findById(id).orElse(null));
+    }
+
+    public List<MatchDTO> getTournamentMatches(Long id) {
+        Tournament tournament = tournamentRepository.findById(id).orElse(null);
+        return matchMapper.toDTOs(tournament.getMatches());
+
     }
 
     @Transactional
@@ -82,8 +94,8 @@ public class TournamentService {
         }
     }
 
-    public Page<Tournament> getAllTournamentsPaged(Pageable pageable){
-            return tournamentRepository.findAll(pageable);
+    public Page<TournamentDTO> getAllTournamentsPaged(Pageable pageable) {
+        return tournamentRepository.findAll(pageable).map(tournamentMapper::toDTO);
     }
 
 }

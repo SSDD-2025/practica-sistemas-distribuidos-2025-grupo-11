@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
+import ssdd_web.web_project.DTO.TournamentDTO;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,10 +61,10 @@ public class WebController {
     public String webString(Model model) {
         List<MatchDTO> matches = matchService.getAllMatchesDateOrder();
         List<TeamDTO> teams = teamService.getAllTeamsByRanking();
-        List<Tournament> tournaments = tournamentService.getAllTournaments();
+        List<TournamentDTO> tournaments = tournamentService.getAllTournaments();
 
         List<MatchDTO> recentMatches = matches.stream().limit(3).toList();
-        List<Tournament> recentTournaments = tournaments.stream().limit(4).toList();
+        List<TournamentDTO> recentTournaments = tournaments.stream().limit(4).toList();
         List<TeamDTO> bestTeams = teams.stream().limit(4).toList();
 
         model.addAttribute("matches", recentMatches);

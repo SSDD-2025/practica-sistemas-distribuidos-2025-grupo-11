@@ -26,17 +26,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 @RestController
 @RequestMapping("/api/tournaments")
 public class TournamentRestController {
-    TournamentService tournamentService;
-    TournamentMapper tournamentMapper;
 
-    public TournamentRestController(TournamentService tournamentService, TournamentMapper tournamentMapper) {
+    TournamentService tournamentService;
+
+    public TournamentRestController(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
-        this.tournamentMapper = tournamentMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<TournamentDTO>> getAllTournaments() {
-        List<TournamentDTO> tournaments = tournamentMapper.toDtoList(tournamentService.getAllTournaments());
+        List<TournamentDTO> tournaments = tournamentService.getAllTournaments();
         return ResponseEntity.ok(tournaments);
     }
 
@@ -44,12 +43,15 @@ public class TournamentRestController {
 
     @PostMapping
     public ResponseEntity<TournamentDTO> createTournament(@RequestBody TournamentDTO tournamentDTO) {
-        List<Long> matchIds = tournamentDTO.matches().stream() // We do this to get the IDs of the matches to create the
-                                                               // tournament
+        List<Long> matchIds = tournamentService.getTournamentMatches(tournamentDTO.id()).stream() // We do this to get
+                                                                                                  // the IDs of the
+                                                                                                  // matches to create
+                                                                                                  // the
+                // tournament
                 .map(match -> match.id())
                 .collect(Collectors.toList());
 
-        Tournament tournament = tournamentService.createTournament(
+        TournamentDTO tournament = tournamentService.createTournament(
                 tournamentDTO.name(),
                 tournamentDTO.dateT(),
                 tournamentDTO.givenPoints(),
@@ -61,13 +63,12 @@ public class TournamentRestController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(tournament.getId())
+                .buildAndExpand(tournament.id())
                 .toUri();
 
-        TournamentDTO responseDTO = tournamentMapper.toDTO(tournament);
         return ResponseEntity
                 .created(location)
-                .body(responseDTO);
+                .body(tournament);
     }
 
     @DeleteMapping("/{id}")
@@ -78,7 +79,7 @@ public class TournamentRestController {
 
     @GetMapping("/paged")
     public ResponseEntity<Page<TournamentDTO>> getTournamentsPaged(Pageable pageable) {
-        Page<Tournament> tournaments = tournamentService.getAllTournamentsPaged(pageable);
-        return ResponseEntity.ok(tournaments.map(tournamentMapper::toDTO));
+        Page<TournamentDTO> tournaments = tournamentService.getAllTournamentsPaged(pageable);
+        return ResponseEntity.ok(tournaments);
     }
 }
