@@ -3,19 +3,22 @@ package ssdd_web.web_project.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
+
+import ssdd_web.web_project.security.jwt.JwtRequestFilter;
+import ssdd_web.web_project.security.jwt.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -43,19 +46,20 @@ public class SecurityConfig {
         }
 
         @Bean
+        @Order(2)
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-                // http.authenticationProvider(authenticationProvider());
 
                 http
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/home",
+                                                .requestMatchers(
+                                                                "/home",
                                                                 "/players/list",
                                                                 "/teams/list",
                                                                 "/matches/list",
-                                                                "/tournaments/list")
+                                                                "/tournaments/list",
+                                                                "/api/players/paged")
                                                 .permitAll()
                                                 .requestMatchers(
                                                                 "/profile",
@@ -70,6 +74,7 @@ public class SecurityConfig {
                                 .logout(logout -> logout
                                                 .logoutSuccessUrl("/home")
                                                 .permitAll());
+
                 return http.build();
         }
 
@@ -77,6 +82,30 @@ public class SecurityConfig {
         @Bean
         public PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        @Order(1)
+        public SecurityFilterChain apiFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter)
+                        throws Exception {
+                http
+                                .securityMatcher("/api/**") // Afecta solo a rutas que empiezan con /api/
+                                .csrf(csrf -> csrf.disable()) // CSRF no es necesario para JWT
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers("/api/auth/**").permitAll() // Login / refresh / logout
+                                                .requestMatchers("/api/players/paged",  // Lists shown correctly
+                                                                "/api/teams/paged",
+                                                                "/api/matches/paged",
+                                                                "/api/tournaments/paged")
+                                                .permitAll()
+                                                .anyRequest().authenticated() 
+                                )
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Sin sesión
+                                )
+                                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+                return http.build();
         }
 
 }
