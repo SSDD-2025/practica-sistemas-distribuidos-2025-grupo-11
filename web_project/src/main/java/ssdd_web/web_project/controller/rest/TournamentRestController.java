@@ -2,22 +2,16 @@ package ssdd_web.web_project.controller.rest;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import ssdd_web.web_project.DTO.TournamentDTO;
-import ssdd_web.web_project.DTO.TournamentMapper;
-import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.services.TournamentService;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -44,32 +38,18 @@ public class TournamentRestController {
 
     @PostMapping
     public ResponseEntity<TournamentDTO> createTournament(@RequestBody TournamentDTO tournamentDTO) {
-        List<Long> matchIds = tournamentService.getTournamentMatches(tournamentDTO.id()).stream() // We do this to get
-                                                                                                  // the IDs of the
-                                                                                                  // matches to create
-                                                                                                  // the
-                // tournament
-                .map(match -> match.id())
-                .collect(Collectors.toList());
+        // We do this to get the IDs of the matches to create the tournament
+        List<Long> matchIds = tournamentService.getTournamentMatches(tournamentDTO.id()).stream()
+                .map(match -> match.id()).collect(Collectors.toList());
 
-        TournamentDTO tournament = tournamentService.createTournament(
-                tournamentDTO.name(),
-                tournamentDTO.dateT(),
-                tournamentDTO.givenPoints(),
-                tournamentDTO.prizeMoney(),
-                tournamentDTO.location(),
-                tournamentDTO.surface(),
-                matchIds);
+        TournamentDTO tournament = tournamentService.createTournament(tournamentDTO.name(), tournamentDTO.dateT(),
+                tournamentDTO.givenPoints(), tournamentDTO.prizeMoney(), tournamentDTO.location(),
+                tournamentDTO.surface(), matchIds);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(tournament.id())
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tournament.id())
                 .toUri();
 
-        return ResponseEntity
-                .created(location)
-                .body(tournament);
+        return ResponseEntity.created(location).body(tournament);
     }
 
     @DeleteMapping("/{id}")
@@ -79,7 +59,8 @@ public class TournamentRestController {
     }
 
     @GetMapping("/paged")
-    public ResponseEntity<Page<TournamentDTO>> getTournamentsPaged(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public ResponseEntity<Page<TournamentDTO>> getTournamentsPaged(
+            @PageableDefault(page = 0, size = 10) Pageable pageable) {
         Page<TournamentDTO> tournaments = tournamentService.getAllTournamentsPaged(pageable);
         return ResponseEntity.ok(tournaments);
     }

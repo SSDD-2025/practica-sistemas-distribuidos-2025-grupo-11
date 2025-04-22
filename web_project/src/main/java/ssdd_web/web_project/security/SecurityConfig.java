@@ -1,6 +1,5 @@
 package ssdd_web.web_project.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import ssdd_web.web_project.security.jwt.JwtRequestFilter;
-import ssdd_web.web_project.security.jwt.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +23,6 @@ public class SecurityConfig {
 
         private final RepositoryUserDetailsService userDetailsService;
 
-        @Autowired
         public SecurityConfig(RepositoryUserDetailsService userDetailsService) {
                 this.userDetailsService = userDetailsService;
         }
@@ -72,6 +68,7 @@ public class SecurityConfig {
                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
+                                                .failureUrl("/loginerror")
                                                 .defaultSuccessUrl("/home", true)
                                                 .permitAll())
                                 .logout(logout -> logout
@@ -84,7 +81,7 @@ public class SecurityConfig {
                 return http.build();
         }
 
-        // Codificador de contraseñas (BCrypt)
+        // (BCrypt)
         @Bean
         public PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
@@ -95,8 +92,8 @@ public class SecurityConfig {
         public SecurityFilterChain apiFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter)
                         throws Exception {
                 http
-                                .securityMatcher("/api/**") // Afecta solo a rutas que empiezan con /api/
-                                .csrf(csrf -> csrf.disable()) // CSRF no es necesario para JWT
+                                .securityMatcher("/api/**") // only /api/ path
+                                .csrf(csrf -> csrf.disable()) // CSRF not necessary for JWT
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll() // Login / refresh / logout
                                                 .requestMatchers("/api/players/paged", // Lists shown correctly
@@ -106,7 +103,7 @@ public class SecurityConfig {
                                                 .permitAll()
                                                 .anyRequest().authenticated())
                                 .sessionManagement(session -> session
-                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Sin sesión
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No session
                                 )
                                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

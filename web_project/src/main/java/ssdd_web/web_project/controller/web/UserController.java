@@ -1,19 +1,9 @@
 package ssdd_web.web_project.controller.web;
 
-import java.io.IOException;
 import java.security.Principal;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.User;
-import ssdd_web.web_project.repository.UserRepository;
 import ssdd_web.web_project.services.TeamService;
 import ssdd_web.web_project.services.UserService;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/users")
@@ -62,7 +47,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String showSignupForm() {
-        return "UserRegistration"; // busca signup.html en templates
+        return "UserRegistration";
     }
 
     // Save in the database

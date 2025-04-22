@@ -1,12 +1,7 @@
 package ssdd_web.web_project.controller.rest;
 
-import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
-import ssdd_web.web_project.DTO.TeamMapper;
-import ssdd_web.web_project.model.Player;
-import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.TeamService;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/teams")

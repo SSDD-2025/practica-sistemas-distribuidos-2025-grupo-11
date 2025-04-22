@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.servlet.http.HttpServletRequest;
 import ssdd_web.web_project.DTO.MatchDTO;
-import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
-import ssdd_web.web_project.services.UserService;
 
 @Controller
 @RequestMapping("/matches")

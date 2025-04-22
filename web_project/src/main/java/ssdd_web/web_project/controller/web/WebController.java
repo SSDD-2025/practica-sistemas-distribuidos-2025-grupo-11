@@ -3,22 +3,14 @@ package ssdd_web.web_project.controller.web;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import ssdd_web.web_project.DTO.MatchDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.DTO.TournamentDTO;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import jakarta.servlet.http.HttpServletRequest;
-import ssdd_web.web_project.model.Match;
-import ssdd_web.web_project.model.Team;
-import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;

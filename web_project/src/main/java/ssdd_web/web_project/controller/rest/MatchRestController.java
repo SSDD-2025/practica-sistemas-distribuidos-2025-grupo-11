@@ -7,22 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import ssdd_web.web_project.DTO.MatchCreateDTO;
 import ssdd_web.web_project.DTO.MatchDTO;
-import ssdd_web.web_project.DTO.MatchMapper;
-import ssdd_web.web_project.DTO.TeamDTO;
-import ssdd_web.web_project.model.Match;
-import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.MatchService;
-
 import java.net.URI;
 import java.util.List;
 

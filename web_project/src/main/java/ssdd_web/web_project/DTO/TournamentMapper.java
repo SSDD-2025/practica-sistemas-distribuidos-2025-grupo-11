@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Collection;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring", uses = { MatchMapper.class })
 public interface TournamentMapper {

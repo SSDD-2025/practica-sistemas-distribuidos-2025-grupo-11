@@ -2,12 +2,9 @@ package ssdd_web.web_project.services;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.PostConstruct;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.UserRepository;
 

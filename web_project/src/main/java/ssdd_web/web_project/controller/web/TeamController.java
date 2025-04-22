@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.servlet.http.HttpServletRequest;
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
-import ssdd_web.web_project.DTO.TeamMapper;
-import ssdd_web.web_project.DTO.UserDTO;
-import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.services.TeamService;

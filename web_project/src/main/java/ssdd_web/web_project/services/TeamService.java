@@ -6,23 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.PlayerMapper;
 import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.DTO.TeamMapper;
-import ssdd_web.web_project.DTO.UserDTO;
-import ssdd_web.web_project.DTO.UserMapper;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.repository.TeamRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.access.AccessDeniedException;
 
 @Service
 public class TeamService {
@@ -38,9 +30,6 @@ public class TeamService {
 
     @Autowired
     private PlayerMapper playerMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     // all players list
     public List<PlayerDTO> getAllPlayers() {

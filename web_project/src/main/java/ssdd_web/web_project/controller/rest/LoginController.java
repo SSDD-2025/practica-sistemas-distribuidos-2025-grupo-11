@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import jakarta.servlet.http.HttpServletResponse;
 import ssdd_web.web_project.security.jwt.AuthResponse;
 import ssdd_web.web_project.security.jwt.AuthResponse.Status;
 import ssdd_web.web_project.security.jwt.LoginRequest;
 import ssdd_web.web_project.security.jwt.UserLoginService;
-
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,9 +32,8 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
-		return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(response)));
-	}
-
+    public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
+        return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(response)));
+    }
 
 }

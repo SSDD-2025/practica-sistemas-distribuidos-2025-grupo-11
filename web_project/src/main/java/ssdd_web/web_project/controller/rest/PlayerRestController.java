@@ -1,12 +1,8 @@
 package ssdd_web.web_project.controller.rest;
 
 import java.io.IOException;
-import java.net.URI;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.core.io.Resource;
@@ -16,13 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import ssdd_web.web_project.model.Player;
-import ssdd_web.web_project.model.Team;
 import ssdd_web.web_project.services.PlayerService;
 import ssdd_web.web_project.DTO.PlayerDTO;
-import ssdd_web.web_project.DTO.PlayerMapper;
 
 @RestController
 @RequestMapping("/api/players")
@@ -34,13 +25,13 @@ public class PlayerRestController {
         this.playerService = playerService;
     }
 
-    // Obtener todos los jugadores
+    // Get all players
     @GetMapping("/")
     public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
         return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
-    // Obtener un jugador por ID
+    // get player by id
     @GetMapping("/{id}")
     public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable Long id) {
         PlayerDTO playerDTO = playerService.getPlayerById(id);
@@ -63,7 +54,7 @@ public class PlayerRestController {
         return ResponseEntity.ok(updatedPlayerDTO);
     }
 
-    // Eliminar un jugador por ID
+    // delete a player
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlayerById(@PathVariable Long id) {
         playerService.deletePlayerById(id);
