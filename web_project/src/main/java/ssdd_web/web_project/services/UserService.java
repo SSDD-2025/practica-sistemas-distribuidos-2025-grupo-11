@@ -3,9 +3,13 @@ package ssdd_web.web_project.services;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.User;
+import ssdd_web.web_project.repository.TeamRepository;
 import ssdd_web.web_project.repository.UserRepository;
 import ssdd_web.web_project.DTO.UserDTO;
 import ssdd_web.web_project.DTO.UserMapper;
@@ -33,6 +37,10 @@ public class UserService {
     }
 
     public void deleteUserbyId(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user.getTeam() != null) {
+            user.setTeam(null);
+        }
         userRepository.deleteById(id);
     }
 
@@ -44,12 +52,19 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User getLoggedUser() {
+    public UserDTO getLoggedUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByName(username).get();
+        return mapper.toDTO(userRepository.findByName(username).get());
     }
 
-    public UserDTO getLoggedUserDTO() {
-        return mapper.toDTO(getLoggedUser());
+    public Optional<User> getUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return userRepository.findByName(username);
     }
 }

@@ -59,6 +59,7 @@ public class SecurityConfig {
                                                 .defaultSuccessUrl("/home", true)
                                                 .permitAll())
                                 .logout(logout -> logout
+                                                .logoutUrl("/logout")
                                                 .logoutSuccessUrl("/home")
                                                 .permitAll());
 

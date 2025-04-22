@@ -78,7 +78,7 @@ public class WebController {
     @GetMapping("/profile")
     public String getUserInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
-        User user = userService.getLoggedUser();
+        User user = userService.getUser().orElse(null);
         model.addAttribute("user", user);
 
         return "UserProfile";

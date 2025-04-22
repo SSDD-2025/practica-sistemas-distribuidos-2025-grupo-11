@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.PlayerMapper;
 import ssdd_web.web_project.DTO.TeamDTO;
@@ -99,32 +100,19 @@ public class TeamService {
 
     // delete team by id
     public void deleteTeamById(Long id) {
-        Optional<Team> team = teamRepository.findById(id);
-        if (team.isPresent()) {
-            Team existTeam = team.get();
-    
-            String currentUsername = getCurrentUsername();
-    
-            // ⚠️ Control de dueño
-            if (!existTeam.getManager().getName().equals(currentUsername) &&
-                !isCurrentUserAdmin()) {
-                throw new AccessDeniedException("No tienes permiso para borrar este equipo");
-            }
-    
-            if (existTeam.getPlayer1() != null) {
-                existTeam.getPlayer1().setTeam(null);
-                playerRepository.save(existTeam.getPlayer1());
-            }
-            if (existTeam.getPlayer2() != null) {
-                existTeam.getPlayer2().setTeam(null);
-                playerRepository.save(existTeam.getPlayer2());
-            }
-    
-            existTeam.setManager(null);
-            teamRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Team not found");
+        Team team = teamRepository.findById(id).orElse(null);
+
+        if (team.getPlayer1() != null) {
+            team.getPlayer1().setTeam(null);
+            playerRepository.save(team.getPlayer1());
         }
+        if (team.getPlayer2() != null) {
+            team.getPlayer2().setTeam(null);
+            playerRepository.save(team.getPlayer2());
+        }
+
+        team.setManager(null);
+        teamRepository.deleteById(id);
     }
 
     public Page<TeamDTO> getAllTeamsPaged(Pageable pageable) {
@@ -135,10 +123,10 @@ public class TeamService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
-    
+
     private boolean isCurrentUserAdmin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getAuthorities().stream()
-            .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
     }
 }
