@@ -43,22 +43,6 @@
           </tr>
         </tbody>
       </table>
-      <form action="/teams/register" method="get">
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-        <button
-          type="submit"
-          style="
-            background-color: blue;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-          "
-        >
-          Create Team
-        </button>
-      </form>
       <form id="deleteForm" action="/users/delete/{{user.id}}" method="post">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button

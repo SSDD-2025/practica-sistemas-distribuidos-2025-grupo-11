@@ -1,6 +1,6 @@
 # Tennis Tour
 
-## Phase 1
+# Phase 1:
 
 ## Colaborators
 | Name | Email | Github account |
@@ -123,11 +123,11 @@ This error page specifically appears when someone registers a new player and lea
 - **Tasks:** Creation of HTML templates, some stylesheets. Management of the web controller, and architecture related with the user. Working with the MySQL Workbench to store data. 
 
 - **5 most important commits**
-  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/7c3135d86ae478119cd8d36981e38558dd36fb02)
-  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/853d1c70ebd4f89e480260177b7f009aebae8e0c)
-  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fd12c0e25592a4ad60d7bd8b8f2d2c5f00f093a8)
-  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fc34cb4717a4d9c57bac80d498a840e7e6ec25ac)
-  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/232e9b0987961230836e5f936fadf7fc071154b7)
+  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/7c3135d86ae478119cd8d36981e38558dd36fb02)
+  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/853d1c70ebd4f89e480260177b7f009aebae8e0c)
+  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/fd12c0e25592a4ad60d7bd8b8f2d2c5f00f093a8)
+  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/fc34cb4717a4d9c57bac80d498a840e7e6ec25ac)
+  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/232e9b0987961230836e5f936fadf7fc071154b7)
 - **5 files with the most contributions**
   - [File 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerRegistration.html)
   - [File 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
@@ -136,7 +136,7 @@ This error page specifically appears when someone registers a new player and lea
   - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/WebController.java)
 
 
-## Phase 2
+# Phase 2:
 
 ## Execution Instructions
 
@@ -144,8 +144,25 @@ This error page specifically appears when someone registers a new player and lea
 
 ## Application Functionality
 
+The main pages of the website remain the same; the only significant change has been the header, which has been modified to distinguish between the different types of users, which have also been implemented.
+
 ### Website
 
+- **Sign up**
+![Sign up](/images/Navigation%20Diagram/UserRegistration.png)
+On this page, we can register a new user.
+
+- **Login**
+![Login](/images/Navigation%20Diagram/login2.png)
+On this page, we will be able to log in.
+
+- **Admin Dashboard**
+![Admin Dashboard](/images/Navigation%20Diagram/dashboard.png)
+On this page, the administrator can access and create all types of records.
+
+- **Profile**
+![Profile](/images/Navigation%20Diagram/profile.png)
+On this page, we can view a user's private profile.
 
 
 ## Navigation Diagram
