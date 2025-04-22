@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/DetailsStyle.css" />
+    <style>
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 30%;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 20%;
+      }
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 20%;
+      }
+    </style>
+  </head>
+  {{> header}}
+  <body>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Entity</th>
+            <th>List</th>
+            <th>Create</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Players</td>
+            <td><a href="/players/list">List</a></td>
+            <td><a href="/players/register">Create</a></td>
+          </tr>
+          <tr>
+            <td>Teams</td>
+            <td><a href="/teams/list">List</a></td>
+            <td><a href="/teams/register">Create</a></td>
+          </tr>
+          <tr>
+            <td>Matches</td>
+            <td><a href="/matches/list">List</a></td>
+            <td><a href="/matches/register">Create</a></td>
+          </tr>
+          <tr>
+            <td>Tournaments</td>
+            <td><a href="/tournaments/list">List</a></td>
+            <td><a href="/tournaments/register">Create</a></td>
+          </tr>
+          <tr>
+            <td>Users</td>
+            <td><a href="/users/list">List</a></td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

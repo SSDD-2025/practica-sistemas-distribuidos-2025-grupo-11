@@ -53,6 +53,20 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/home",
+                                                                "/players/list",
+                                                                "/teams/list",
+                                                                "/matches/list",
+                                                                "/tournaments/list",
+                                                                "/api/players/paged")
+                                                .permitAll()
+                                                .requestMatchers(
+                                                                "/profile",
+                                                                "/players/**",
+                                                                "/teams/**")
+                                                .hasRole("USER")
+                                                .requestMatchers("/tournaments/register").hasRole("ADMIN")
                                                 .anyRequest().permitAll())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
@@ -61,9 +75,12 @@ public class SecurityConfig {
                                 .logout(logout -> logout
                                                 .logoutUrl("/logout")
                                                 .logoutSuccessUrl("/home")
-                                                .permitAll());
-
-                return http.build();
+                                                .permitAll())
+                                            .exceptionHandling(ex -> ex
+                                                .accessDeniedPage("/error") // <- Aquí
+                                            );
+                                    
+                                        return http.build();
         }
 
         // Codificador de contraseñas (BCrypt)
