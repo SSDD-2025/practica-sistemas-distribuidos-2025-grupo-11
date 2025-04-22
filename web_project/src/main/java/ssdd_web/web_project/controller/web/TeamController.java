@@ -42,7 +42,7 @@ public class TeamController {
     @PostMapping("/add")
     public String createTeam(@RequestParam String name, @RequestParam("player1Id") Long player1Id,
             @RequestParam("player2Id") Long player2Id) {
-        UserDTO manager = userService.getLoggedUser();
+        User manager = userService.getUser().orElse(null);
         teamService.createTeam(name, player1Id, player2Id, manager);
         return "redirect:/home";
     }
@@ -66,11 +66,13 @@ public class TeamController {
     // delete team by id
     @PostMapping("/delete/{id}")
     public String deleteTeamById(@PathVariable Long id) {
-        UserDTO loggedUser = userService.getLoggedUser();
-        TeamDTO team = teamService.getTeamById(id).orElseThrow(() -> new RuntimeException("Team not found"));
-        if (!team.manager().id().equals(loggedUser.id())) {
+        User loggedUser = userService.getUser().orElse(null);
+        Team team = teamService.getTeamByIdEntity(id).orElseThrow(() -> new RuntimeException("Team not found"));
+        if (!team.getManager().getId().equals(loggedUser.getId())) {
             return "redirect:/error";
         }
+        loggedUser.setTeam(null);
+        team.setManager(null);
         teamService.deleteTeamById(id);
         return "redirect:/teams/list";
     }

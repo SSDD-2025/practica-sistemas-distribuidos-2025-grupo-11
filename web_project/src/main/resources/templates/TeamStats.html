@@ -31,8 +31,11 @@
             <td>{{team.id}}</td>
           </tr>
           <tr>
-            <td>ID</td>
-            <td>{{team.manager.name}}</td>
+            <td>Manager</td>
+            <td>
+              {{#team.manager}} {{team.manager.name}} {{/team.manager}} {{^team.manager}} None
+              {{/team.manager}}
+            </td>
           </tr>
           <tr>
             <td>Player 1</td>

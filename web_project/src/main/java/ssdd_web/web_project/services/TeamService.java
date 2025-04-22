@@ -67,12 +67,12 @@ public class TeamService {
         return teamMapper.toDTOs(teamRepository.findByAvailableTrue());
     }
 
-    public TeamDTO createTeam(String name, Long player1Id, Long player2Id, UserDTO manager) {
+    public TeamDTO createTeam(String name, Long player1Id, Long player2Id, User manager) {
         Optional<Player> player1 = playerRepository.findById(player1Id);
         Optional<Player> player2 = playerRepository.findById(player2Id);
 
         if (player1.isPresent() && player2.isPresent() && player1Id != player2Id) {
-            Team team = new Team(name, player1.get(), player2.get(), userMapper.toDomain(manager));
+            Team team = new Team(name, player1.get(), player2.get(), manager);
             player1.get().setTeam(team);
             player2.get().setTeam(team);
             return teamMapper.toDTO(teamRepository.save(team));
@@ -98,21 +98,29 @@ public class TeamService {
         return teamRepository.findById(id).map(teamMapper::toDTO);
     }
 
+    public Optional<Team> getTeamByIdEntity(Long id) {
+        return teamRepository.findById(id);
+    }
+
     // delete team by id
     public void deleteTeamById(Long id) {
-        Team team = teamRepository.findById(id).orElse(null);
+        Optional<Team> team = teamRepository.findById(id);
+        if (team.isPresent()) {
+            Team existTeam = team.get();
 
-        if (team.getPlayer1() != null) {
-            team.getPlayer1().setTeam(null);
-            playerRepository.save(team.getPlayer1());
+            if (existTeam.getPlayer1() != null) {
+                existTeam.getPlayer1().setTeam(null);
+                playerRepository.save(existTeam.getPlayer1());
+            }
+            if (existTeam.getPlayer2() != null) {
+                existTeam.getPlayer2().setTeam(null);
+                playerRepository.save(existTeam.getPlayer2());
+            }
+            existTeam.setManager(null);
+            teamRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Team not found");
         }
-        if (team.getPlayer2() != null) {
-            team.getPlayer2().setTeam(null);
-            playerRepository.save(team.getPlayer2());
-        }
-
-        team.setManager(null);
-        teamRepository.deleteById(id);
     }
 
     public Page<TeamDTO> getAllTeamsPaged(Pageable pageable) {

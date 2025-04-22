@@ -55,7 +55,6 @@ public class UserController {
 
         User user = new User(email, name, password);
         user.setRoles(List.of("USER"));
-
         userService.saveUser(user);
 
         return "redirect:/users/login";
@@ -64,7 +63,12 @@ public class UserController {
     @PostMapping("/delete")
     public String deleteUser() {
         User user = userService.getUser().orElse(null);
-        user.setTeam(null);
+
+        if (user.getTeam() != null) {
+            Team team = user.getTeam();
+            user.setTeam(null);
+            teamService.deleteTeamById(team.getId());
+        }
         userService.deleteUserbyId(user.getId());
         return "redirect:/home";
     }
