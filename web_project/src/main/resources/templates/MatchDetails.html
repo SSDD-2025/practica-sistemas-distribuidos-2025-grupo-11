@@ -59,6 +59,7 @@
           action="/matches/delete/{{match.id}} "
           method="post"
         >
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
           <button
             type="button"
             onclick="confirmDelete()"

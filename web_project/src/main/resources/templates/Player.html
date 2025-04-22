@@ -90,6 +90,7 @@
       </table>
 
       <form action="/players/edit/{{player.id}}" method="get">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button
           type="submit"
           style="
@@ -106,11 +107,12 @@
       </form>
 
       <form
+      
         id="deleteForm"
         action="/players/delete/{{player.id}}"
         method="post"
       >
-
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button
           type="button"
           onclick="confirmDelete()"
