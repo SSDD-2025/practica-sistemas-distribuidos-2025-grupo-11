@@ -1,5 +1,7 @@
 # Tennis Tour
 
+## Phase 1
+
 ## Colaborators
 | Name | Email | Github account |
 |-----------|-----------|-----------|
@@ -111,11 +113,11 @@ This error page specifically appears when someone registers a new player and lea
   - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/17b9d3a6125d51c2c842a47e19d8f51057ee1e67)
   - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/5e3ed45ca8463a28dda54a74c2029978ae50315d)
 - **5 files with the most contributions**
-  - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TournamentController.java)
-  - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TeamController.java)
-  - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TournamentService.java)
-  - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/MatchService.java)
-  - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
+  - [File 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TournamentController.java)
+  - [File 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/TeamController.java)
+  - [File 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TournamentService.java)
+  - [File 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/MatchService.java)
+  - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
 
 ### Iker Morante Aceituno
 - **Tasks:** Creation of HTML templates, some stylesheets. Management of the web controller, and architecture related with the user. Working with the MySQL Workbench to store data. 
@@ -127,8 +129,65 @@ This error page specifically appears when someone registers a new player and lea
   - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/fc34cb4717a4d9c57bac80d498a840e7e6ec25ac)
   - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/tree/232e9b0987961230836e5f936fadf7fc071154b7)
 - **5 files with the most contributions**
-  - [Fichero 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerRegistration.html)
-  - [Fichero 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
-  - [Fichero 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/error.html)
-  - [Fichero 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/Player.html)
-  - [Fichero 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/WebController.java)
+  - [File 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerRegistration.html)
+  - [File 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
+  - [File 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/error.html)
+  - [File 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/Player.html)
+  - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/WebController.java)
+
+
+## Phase 2
+
+## Execution Instructions
+
+
+
+## Application Functionality
+
+### Website
+
+
+
+## Navigation Diagram
+- Blue: Accessible for all users
+- Orange: Accessible for registered users and admins
+- Red: Accessible only for admins
+![](/images/Navigation%20Diagram/Navigation_Diagram2.png)
+
+## Classes and Templates Diagram
+![](/images/classDiagram2.png)
+
+## Team Members Participation
+
+### Ignacio Carnal Bernal
+- **Tasks:** 
+- **5 most important commits**
+  - [Commit 1]()
+  - [Commit 2]()
+  - [Commit 3]()
+  - [Commit 4]()
+  - [Commit 5]()
+- **5 files with the most contributions**
+  - [File 1]()
+  - [File 2]()
+  - [File 3]()
+  - [File 4]()
+  - [File 5]()
+
+### Iker Morante Aceituno
+- **Tasks:** 
+
+- **5 most important commits**
+  - [Commit 1]()
+  - [Commit 2]()
+  - [Commit 3]()
+  - [Commit 4]()
+  - [Commit 5]()
+- **5 files with the most contributions**
+  - [File 1]()
+  - [File 2]()
+  - [File 3]()
+  - [File 4]()
+  - [File 5]()
+
+
