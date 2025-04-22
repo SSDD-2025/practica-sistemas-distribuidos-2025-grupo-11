@@ -16,4 +16,18 @@ import ssdd_web.web_project.services.UserService;
 @RequestMapping("/api/users")
 public class UserRestController {
 
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/me")
+    public UserDTO me(HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+            return userService.getUser(principal.getName());
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
 }

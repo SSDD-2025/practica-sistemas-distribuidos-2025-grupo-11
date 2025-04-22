@@ -53,6 +53,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public UserDTO getUser(String name) {
+        return mapper.toDTO(userRepository.findByName(name).orElseThrow());
+    }
+
     public UserDTO getLoggedUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return mapper.toDTO(userRepository.findByName(username).get());
