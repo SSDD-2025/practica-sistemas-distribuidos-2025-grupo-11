@@ -22,6 +22,10 @@
       <table>
         <tbody>
           <tr>
+            <td>ID</td>
+            <td>{{user.id}}</td>
+          </tr>
+          <tr>
             <td>Name</td>
             <td>{{user.name}}</td>
           </tr>
@@ -55,7 +59,7 @@
           Create Team
         </button>
       </form>
-      <form id="deleteForm" action="/users/delete" method="post">
+      <form id="deleteForm" action="/users/delete/{{user.id}}" method="post">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button
           type="button"

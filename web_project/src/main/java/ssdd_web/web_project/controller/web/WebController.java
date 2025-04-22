@@ -58,7 +58,8 @@ public class WebController {
 
     // get home
     @GetMapping("/home")
-    public String webString(Model model) {
+    public String webString(Model model, HttpServletRequest request) {
+
         List<MatchDTO> matches = matchService.getAllMatchesDateOrder();
         List<TeamDTO> teams = teamService.getAllTeamsByRanking();
         List<TournamentDTO> tournaments = tournamentService.getAllTournaments();
@@ -71,16 +72,19 @@ public class WebController {
         model.addAttribute("teams", bestTeams);
         model.addAttribute("tournaments", recentTournaments);
         model.addAttribute("name", "Home");
+
+        if (request.isUserInRole("ADMIN")) {
+            return "dashboard";
+        }
+
         return "index";
     }
 
     // Show the user
     @GetMapping("/profile")
-    public String getUserInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        String username = userDetails.getUsername();
+    public String getUserInfo(Model model) {
         User user = userService.getUser().orElse(null);
         model.addAttribute("user", user);
-
         return "UserProfile";
     }
 }

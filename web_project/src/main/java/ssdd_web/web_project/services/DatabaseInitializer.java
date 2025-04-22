@@ -23,8 +23,10 @@ public class DatabaseInitializer {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostConstruct
+    // @PostConstruct
     public void init() throws IOException, URISyntaxException {
-        userRepository.save(new User("admin", "admin", passwordEncoder.encode("admin"), "USER", "ADMIN"));
+        userRepository.save(new User("admin", "admin",
+                passwordEncoder.encode("admin"), "USER", "ADMIN"));
     }
+
 }

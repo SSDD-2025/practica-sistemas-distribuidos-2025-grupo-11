@@ -53,21 +53,23 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers(
-                                                                "/home",
-                                                                "/players/list",
-                                                                "/teams/list",
-                                                                "/matches/list",
-                                                                "/tournaments/list",
-                                                                "/api/players/paged")
+                                                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**",
+                                                                "/pictures/**")
+                                                .permitAll()
+                                                .requestMatchers("/home", "/users/register", "/users/add",
+                                                                "/players/list", "/teams/list", "/matches/list",
+                                                                "/tournaments/list")
                                                 .permitAll()
                                                 .requestMatchers(
-                                                                "/profile",
-                                                                "/players/**",
-                                                                "/teams/**")
+                                                                "/profile", "/players/{id}", "/teams/{id}",
+                                                                "/matches/{id}", "/tournaments/{id}", "/teams/add",
+                                                                "/teams/register", "/users/delete/{id}",
+                                                                "/teams/delete/{id}")
                                                 .hasRole("USER")
-                                                .requestMatchers("/tournaments/register").hasRole("ADMIN")
-                                                .anyRequest().permitAll())
+                                                .requestMatchers("/players/**", "/teams/**", "/users/**", "/matches/**",
+                                                                "/tournaments/**")
+                                                .hasRole("ADMIN")
+                                                .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/users/login")
                                                 .defaultSuccessUrl("/home", true)
@@ -76,11 +78,10 @@ public class SecurityConfig {
                                                 .logoutUrl("/logout")
                                                 .logoutSuccessUrl("/home")
                                                 .permitAll())
-                                            .exceptionHandling(ex -> ex
-                                                .accessDeniedPage("/error") // <- Aquí
-                                            );
-                                    
-                                        return http.build();
+                                .exceptionHandling(ex -> ex
+                                                .accessDeniedPage("/error"));
+
+                return http.build();
         }
 
         // Codificador de contraseñas (BCrypt)

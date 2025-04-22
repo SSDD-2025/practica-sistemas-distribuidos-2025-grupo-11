@@ -1,6 +1,7 @@
 package ssdd_web.web_project.controller.web;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.servlet.http.HttpServletRequest;
 import ssdd_web.web_project.DTO.PlayerDTO;
 
 @Controller
@@ -30,6 +33,22 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     // new player
     @GetMapping("/register")
@@ -56,7 +75,7 @@ public class PlayerController {
 
     // show all players
     @GetMapping("/list")
-    public String listPlayers(Model model, @RequestParam(required = false) PlayerDTO playerDTO) {
+    public String listPlayers(Model model) {
         List<PlayerDTO> playersDTO = playerService.getAllPlayers();
         model.addAttribute("players", playersDTO);
         return "PlayerList";

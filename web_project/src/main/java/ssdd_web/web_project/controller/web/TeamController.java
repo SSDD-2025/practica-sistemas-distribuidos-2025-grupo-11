@@ -1,15 +1,18 @@
 package ssdd_web.web_project.controller.web;
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.TeamDTO;
 import ssdd_web.web_project.DTO.TeamMapper;
@@ -29,6 +32,22 @@ public class TeamController {
 
     @Autowired
     private UserService userService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     // see all players and select 2
     @GetMapping("/register")
@@ -65,12 +84,17 @@ public class TeamController {
 
     // delete team by id
     @PostMapping("/delete/{id}")
-    public String deleteTeamById(@PathVariable Long id) {
+    public String deleteTeamById(@PathVariable Long id, HttpServletRequest request) {
         User loggedUser = userService.getUser().orElse(null);
         Team team = teamService.getTeamByIdEntity(id).orElseThrow(() -> new RuntimeException("Team not found"));
-        if (!team.getManager().getId().equals(loggedUser.getId())) {
+
+        boolean isAdmin = request.isUserInRole("ADMIN");
+        boolean isOwner = team.getManager() != null && team.getManager().getId().equals(loggedUser.getId());
+
+        if (!isAdmin && !isOwner) {
             return "redirect:/error";
         }
+
         loggedUser.setTeam(null);
         team.setManager(null);
         teamService.deleteTeamById(id);

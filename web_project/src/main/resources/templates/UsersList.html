@@ -27,7 +27,6 @@
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Roles</th>
           </tr>
         </thead>
         <tbody id="users-table-body">
@@ -35,9 +34,9 @@
         </tbody>
       </table>
 
-      <div style="margin-top: 10px; text-align: center;">
+      <div style="margin-top: 10px; text-align: center">
         <button id="load-more-btn">More users</button>
-        <div id="spinner" style="display: none;">Loading...</div>
+        <div id="spinner" style="display: none">Loading...</div>
       </div>
     </div>
 
@@ -45,23 +44,24 @@
       let currentPage = 0;
       const size = 10;
 
-      document.getElementById("load-more-btn").addEventListener("click", loadUsers);
+      document
+        .getElementById("load-more-btn")
+        .addEventListener("click", loadUsers);
 
       function loadUsers() {
         document.getElementById("spinner").style.display = "block";
 
         fetch(`/api/users/paged?page=${currentPage}&size=${size}`)
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             const tbody = document.getElementById("users-table-body");
 
-            data.content.forEach(user => {
+            data.content.forEach((user) => {
               const row = document.createElement("tr");
               row.innerHTML = `
                 <td>${user.id}</td>
                 <td>${user.username}</td>
                 <td>${user.email}</td>
-                <td>${user.roles.join(', ')}</td>
               `;
               tbody.appendChild(row);
             });
@@ -72,7 +72,7 @@
 
             currentPage++;
           })
-          .catch(err => {
+          .catch((err) => {
             console.error("Error cargando usuarios:", err);
           })
           .finally(() => {

@@ -1,6 +1,7 @@
 package ssdd_web.web_project.controller.web;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -8,7 +9,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -39,10 +42,23 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private TeamService teamService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     @GetMapping("/register")
     public String showSignupForm() {
@@ -61,12 +77,17 @@ public class UserController {
         return "redirect:/users/login";
     }
 
-    @PostMapping("/delete")
-    public String deleteUser() {
-        User user = userService.getUser().orElse(null);
+    @GetMapping("/list")
+    public String getUsersList(Model model) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "UsersList1";
+    }
 
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        User user = userService.getUserById(id);
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
         boolean isAdmin = userService.isCurrentUserAdmin();
 
         if (!isAdmin && !currentUsername.equals(user.getName())) {

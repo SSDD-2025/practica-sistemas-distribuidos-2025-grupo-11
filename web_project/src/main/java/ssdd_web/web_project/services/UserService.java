@@ -1,7 +1,11 @@
 package ssdd_web.web_project.services;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +16,7 @@ import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.TeamRepository;
 import ssdd_web.web_project.repository.UserRepository;
+import ssdd_web.web_project.DTO.PlayerDTO;
 import ssdd_web.web_project.DTO.UserDTO;
 import ssdd_web.web_project.DTO.UserMapper;
 
@@ -49,6 +54,10 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
@@ -77,5 +86,9 @@ public class UserService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getAuthorities().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+    }
+
+    public Page<UserDTO> getAllUsersPaged(Pageable pageable) {
+        return userRepository.findAll(pageable).map(mapper::toDTO);
     }
 }

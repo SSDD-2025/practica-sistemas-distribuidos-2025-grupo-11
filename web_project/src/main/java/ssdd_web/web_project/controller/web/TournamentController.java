@@ -1,5 +1,6 @@
 package ssdd_web.web_project.controller.web;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -14,8 +15,12 @@ import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.model.Tournament;
 import ssdd_web.web_project.services.TournamentService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -24,6 +29,22 @@ public class TournamentController {
 
     @Autowired
     private TournamentService tournamentService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     // create tournament
     @GetMapping("/register")
