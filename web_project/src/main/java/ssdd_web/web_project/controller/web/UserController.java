@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,6 +65,13 @@ public class UserController {
     public String deleteUser() {
         User user = userService.getUser().orElse(null);
 
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        boolean isAdmin = userService.isCurrentUserAdmin();
+
+        if (!isAdmin && !currentUsername.equals(user.getName())) {
+            throw new AccessDeniedException("You are not authorized to delete this account");
+        }
         if (user.getTeam() != null) {
             Team team = user.getTeam();
             user.setTeam(null);

@@ -126,15 +126,4 @@ public class TeamService {
     public Page<TeamDTO> getAllTeamsPaged(Pageable pageable) {
         return teamRepository.findAll(pageable).map(teamMapper::toDTO);
     }
-
-    private String getCurrentUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
-    }
-
-    private boolean isCurrentUserAdmin() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
-    }
 }
