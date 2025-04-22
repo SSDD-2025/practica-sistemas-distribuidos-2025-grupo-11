@@ -48,7 +48,10 @@ public class TournamentController {
 
     // create tournament
     @GetMapping("/register")
-    public String showTournCreateForm(Model model) {
+    public String showTournCreateForm(Model model, HttpServletRequest request) {
+        if (!request.isUserInRole("ADMIN")) {
+            return "redirect:/error";
+        }
         model.addAttribute("matches", tournamentService.getAllMatches());
         return "CreateTournament"; // html where user picks tournament data
     }
@@ -85,7 +88,10 @@ public class TournamentController {
 
     // delete team by id
     @PostMapping("/delete/{id}")
-    public String deleteTeamById(@PathVariable Long id) {
+    public String deleteTeamById(@PathVariable Long id, HttpServletRequest request) {
+        if (!request.isUserInRole("ADMIN")) {
+            return "redirect:/error";
+        }
         tournamentService.deleteTournamentById(id);
         return "redirect:/tournaments/list";
     }

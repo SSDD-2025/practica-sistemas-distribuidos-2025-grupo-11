@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**",
+                                                .requestMatchers("/css/**", "/js/**", "/images/**",
                                                                 "/pictures/**")
                                                 .permitAll()
                                                 .requestMatchers("/home", "/users/register", "/users/add",

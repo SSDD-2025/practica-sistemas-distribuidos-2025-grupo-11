@@ -18,6 +18,7 @@ import ssdd_web.web_project.model.Match;
 import ssdd_web.web_project.model.Surface;
 import ssdd_web.web_project.services.MatchService;
 import ssdd_web.web_project.services.TeamService;
+import ssdd_web.web_project.services.UserService;
 
 @Controller
 @RequestMapping("/matches")
@@ -46,7 +47,10 @@ public class MatchController {
     }
 
     @GetMapping("/register")
-    public String showMatchCreate(Model model) {
+    public String showMatchCreate(Model model, HttpServletRequest request) {
+        if (!request.isUserInRole("ADMIN")) {
+            return "redirect:/error";
+        }
         model.addAttribute("teams", teamService.getAllAvailableTeams());
         return "CreateMatch"; // html where we create a match
     }
@@ -75,7 +79,10 @@ public class MatchController {
 
     // delete match by id
     @PostMapping("/delete/{id}")
-    public String deleteMatchById(@PathVariable Long id) {
+    public String deleteMatchById(@PathVariable Long id, HttpServletRequest request) {
+        if (!request.isUserInRole("ADMIN")) {
+            return "redirect:/error";
+        }
         matchService.deleteMatchById(id);
         return "redirect:/matches/list";
     }
