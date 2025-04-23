@@ -1,5 +1,6 @@
 package ssdd_web.web_project.services;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.Player;
@@ -56,6 +58,28 @@ public class PlayerService {
 
         Player player = playerMapper.toDomain(playerDTO);
         player.setId(existingPlayer.getId());
+
+        if (player.getTeam() == null) {
+            player.setTeam(existingPlayer.getTeam());
+        }
+
+        Player savedPlayer = playerRepository.save(player);
+        return playerMapper.toDTO(savedPlayer);
+    }
+
+    // save edited player with image
+    public PlayerDTO saveEditPlayerImage(PlayerDTO playerDTO, MultipartFile imageFile) throws IOException {
+        Player existingPlayer = playerRepository.findById(playerDTO.id())
+                .orElseThrow(() -> new RuntimeException("Player not found"));
+
+        Player player = playerMapper.toDomain(playerDTO);
+        player.setId(existingPlayer.getId());
+
+        if (imageFile == null || imageFile.isEmpty()) {
+            player.setPlayerImage(existingPlayer.getPlayerImage());
+        } else {
+            player.setPlayerImage(BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize()));
+        }
 
         if (player.getTeam() == null) {
             player.setTeam(existingPlayer.getTeam());

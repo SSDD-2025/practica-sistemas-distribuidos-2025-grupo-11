@@ -9,7 +9,7 @@
 </head>
 {{> header}}
 <body>
-     <form action="/players/update" method="post">
+    <form action="/players/update" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <input type="hidden" name="id" value="{{player.id}}">
         <div style="margin-left: 10px">
@@ -18,6 +18,10 @@
         <input type='text' name='name' value="{{player.name}}" required/>
         <p>Surnames</p>
         <input type='text' name='surname' value="{{player.surname}}"/>
+        <p>Current image:</p>
+        <img src="/players/{{player.id}}/image" alt="Player image" width="150" height="150">
+        <p>Image</p>
+        <input type="file" name="imageFile" accept="image/*" />
         <br>
         <label for "country">Country</label>
         <br>

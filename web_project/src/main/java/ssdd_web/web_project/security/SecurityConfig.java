@@ -60,7 +60,7 @@ public class SecurityConfig {
                                                                 "/profile", "/players/{id}", "/teams/{id}",
                                                                 "/matches/{id}", "/tournaments/{id}", "/teams/add",
                                                                 "/teams/register", "/users/delete/{id}",
-                                                                "/teams/delete/{id}")
+                                                                "/teams/delete/{id}", "/players/{id}/image")
                                                 .hasRole("USER")
                                                 .requestMatchers("/players/**", "/teams/**", "/users/**", "/matches/**",
                                                                 "/tournaments/**")

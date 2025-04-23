@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,13 +61,14 @@ public class PlayerController {
 
     // save player in database
     @PostMapping("/add")
-    public String savePlayerDatabase(@ModelAttribute PlayerDTO playerDTO, MultipartFile imageFile)
+    public String savePlayerDatabase(@ModelAttribute PlayerDTO playerDTO,
+            @RequestParam(required = false) MultipartFile imageFile)
             throws IOException, SQLException {
-        if (!imageFile.isEmpty()) {
-
-        }
         try {
-            playerService.savePlayer(playerDTO); // Save player to database
+            PlayerDTO savedPlayer = playerService.savePlayer(playerDTO); // Save player to database
+            if (!imageFile.isEmpty()) {
+                playerService.uploadPlayerImage(savedPlayer.id(), imageFile.getInputStream(), imageFile.getSize());
+            }
             return "redirect:/home";
         } catch (IllegalArgumentException ex) {
             return "redirect:errorPlayer"; // Redirect to the page with the error message
@@ -105,25 +108,20 @@ public class PlayerController {
 
     // update player
     @PostMapping("/update")
-    public String updatePlayer(@ModelAttribute PlayerDTO playerDTO) {
-        playerService.saveEditPlayer(playerDTO);
+    public String updatePlayer(@ModelAttribute PlayerDTO playerDTO,
+            @RequestParam(required = false) MultipartFile imageFile) throws IOException {
+        playerService.saveEditPlayerImage(playerDTO, imageFile);
         return "redirect:/players/" + playerDTO.id();
     }
 
-    /*
-     * @GetMapping("/{id}/image")
-     * public ResponseEntity<Object> downloadImage(@PathVariable long id) throws
-     * SQLException {
-     * Optional<Player> player = playerService.findById(id);
-     * if (player.isPresent() && player.get().getPlayerImage() != null) {
-     * Blob image = player.get().getPlayerImage();
-     * Resource file = new InputStreamResource(image.getBinaryStream());
-     * return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-     * .contentLength(image.length()).body(file);
-     * } else {
-     * return ResponseEntity.notFound().build();
-     * }
-     * }
-     */
+    @GetMapping("/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
+        try {
+            Resource image = playerService.getPlayerImage(id);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(image);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
