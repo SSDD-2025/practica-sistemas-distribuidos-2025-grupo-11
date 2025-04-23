@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.transaction.Transactional;
 import ssdd_web.web_project.model.Player;
 import ssdd_web.web_project.model.Team;
+import ssdd_web.web_project.model.User;
 import ssdd_web.web_project.repository.PlayerRepository;
 import ssdd_web.web_project.repository.TeamRepository;
 import ssdd_web.web_project.DTO.PlayerDTO;
@@ -116,6 +117,9 @@ public class PlayerService {
             }
 
             if (team.getPlayer1() == null || team.getPlayer2() == null) {
+                User manager = team.getManager();
+                team.setManager(null);
+                manager.setTeam(null);
                 teamRepository.delete(team);
             }
         }
