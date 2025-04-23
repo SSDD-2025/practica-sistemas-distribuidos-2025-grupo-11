@@ -140,7 +140,7 @@ This error page specifically appears when someone registers a new player and lea
 
 ## Execution Instructions
 
-To run the application, we must follow the same steps as in phase 1. The only thing that will change is that the URL we need to access is https://localhost:8443
+To run the application, we must follow the same steps as in phase 1. The only thing that will change is that the URL we need to access is https://localhost:8443. To log in as an administrator, you must log in with username = admin and password = admin.
 
 ## Application Functionality
 
@@ -192,19 +192,19 @@ On this page, we can view a user's private profile.
   - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
 
 ### Iker Morante Aceituno
-- **Tasks:** 
+- **Tasks:** Creation of rest controllers, postman collection, HTTPS connection, CSRF Tokens, AJAX pagination. Some other security features
 
 - **5 most important commits**
-  - [Commit 1]()
-  - [Commit 2]()
-  - [Commit 3]()
-  - [Commit 4]()
-  - [Commit 5]()
+  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/cbd47c213d5f7a87165a40ca04b22e43e21a2371)
+  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/af84f20232987daa4f344f5d4ed0ceab23831dd7)
+  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/d1aca3141ab9591ec7cacf9eec39d50e653afc05)
+  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/a3a51256d3b8f7194bd2f70bf39ee851ca5d5ef1)
+  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/5eeb08600bac587beed16163eb7fe181ddeffedb)
 - **5 files with the most contributions**
-  - [File 1]()
-  - [File 2]()
-  - [File 3]()
-  - [File 4]()
-  - [File 5]()
+  - [File 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/rest/PlayerRestController.java)
+  - [File 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/security/SecurityConfig.java)
+  - [File 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
+  - [File 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blame/main/web_project/src/main/java/ssdd_web/web_project/controller/rest/TeamRestController.java)
+  - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/resources/templates/PlayerList.html)
 
 
