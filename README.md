@@ -171,6 +171,9 @@ On this page, we can view a user's private profile.
 - Red: Accessible only for admins
 ![](/images/Navigation%20Diagram/Navigation_Diagram2.png)
 
+## Database Entities Diagram
+![](/images/ER.png)
+
 ## Classes and Templates Diagram
 ![](/images/classDiagram2.png)
 
