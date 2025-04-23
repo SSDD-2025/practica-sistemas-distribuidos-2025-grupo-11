@@ -140,7 +140,7 @@ This error page specifically appears when someone registers a new player and lea
 
 ## Execution Instructions
 
-
+To run the application, we must follow the same steps as in phase 1. The only thing that will change is that the URL we need to access is https://localhost:8443
 
 ## Application Functionality
 
@@ -177,19 +177,19 @@ On this page, we can view a user's private profile.
 ## Team Members Participation
 
 ### Ignacio Carnal Bernal
-- **Tasks:** 
+- **Tasks:** Refactoring to DTOs, creation of the User entity and all its functionality (unregistered, registered, and admin), and some security implementation.
 - **5 most important commits**
-  - [Commit 1]()
-  - [Commit 2]()
-  - [Commit 3]()
-  - [Commit 4]()
-  - [Commit 5]()
+  - [Commit 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/fec38f2a096121f1351b3763507a8a19b5a0c557)
+  - [Commit 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/430570859ca59e17ea9dff42b901dec32bfd4011)
+  - [Commit 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/524e0b946f5c3b418ba864299e3b58ee58b47732)
+  - [Commit 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/4b69d12928bb3d681b247b4735a663b9a7ff6241)
+  - [Commit 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/commit/d810c47e6e46723636737545ecdcf6ed92f4d4aa)
 - **5 files with the most contributions**
-  - [File 1]()
-  - [File 2]()
-  - [File 3]()
-  - [File 4]()
-  - [File 5]()
+  - [File 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/PlayerService.java)
+  - [File 2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/UserService.java)
+  - [File 3](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/web/UserController.java)
+  - [File 4](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/controller/web/TeamController.java)
+  - [File 5](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-11/blob/main/web_project/src/main/java/ssdd_web/web_project/services/TeamService.java)
 
 ### Iker Morante Aceituno
 - **Tasks:** 
