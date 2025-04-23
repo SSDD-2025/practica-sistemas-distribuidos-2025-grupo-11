@@ -91,15 +91,39 @@ public class SecurityConfig {
         @Order(1)
         public SecurityFilterChain apiFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter)
                         throws Exception {
-                http
-                                .securityMatcher("/api/**") // Solo rutas bajo /api/
-                                .csrf(csrf -> csrf.disable()) // CSRF no necesario para JWT
+                                http
+                                .securityMatcher("/api/**") // only /api/ path
+                                .csrf(csrf -> csrf.disable()) // CSRF not necessary for JWT
                                 .authorizeHttpRequests(auth -> auth
                                                 // Rutas públicas
-                                                .anyRequest().permitAll())
+                                                .requestMatchers("/api/auth/**").permitAll() // Login / refresh / logout
+                                                .requestMatchers("/api/players/paged", // Páginas de jugadores
+                                                                "/api/teams/paged", // Páginas de equipos
+                                                                "/api/matches/paged", // Páginas de partidos
+                                                                "/api/tournaments/paged", // Páginas de torneos
+                                                                "/api/users/paged") // Páginas de usuarios
+                                                .permitAll()
+                                                .requestMatchers("/api/players/{id}", 
+                                                                "/api/teams/{id}", 
+                                                                "/api/matches/{id}", 
+                                                                "/api/tournaments/{id}", 
+                                                                "/api/users/{id}",
+                                                                "/api/players/",
+                                                                "/api/matches",
+                                                                "/api/teams/",
+                                                                "/api/tournaments") 
+                                                .hasRole("USER")
+                                                .requestMatchers("/api/players/**", 
+                                                                "/api/teams/**",
+                                                                "/api/matches", 
+                                                                "/api/matches/**", 
+                                                                "/api/tournaments/**", 
+                                                                "/api/users/**") 
+                                                                .hasRole("ADMIN")
+                                                .anyRequest().authenticated())
                                 .sessionManagement(session -> session
-                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No se usa
-                                                                                                        // sesión
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No session
+                                               
                                 )
                                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Filtro
                                                                                                                 // JWT

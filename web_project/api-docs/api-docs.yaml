@@ -1,42 +1,921 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In</title>
-    <link rel="stylesheet" href="/css/FormsStyle.css" />
-  </head>
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>Tennis Tour</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="stylesheet" href="/css/HeaderStyle.css" />
-    </head>
-    <body>
-      <div class="header">
-        <a href="/home">Tennis Tour</a>
-        <div class="links">
-           
-          <a href="/home">Home</a>
-          <a href="/players/list">Players</a>
-          <a href="/users/login">Log in</a>
-          <a href="/users/register">Sign up</a>
-        </div>
-      </div>
-    </body>
-  </html>
-  <body>
-    <form action="/users/login" method="POST">
-      <input type="hidden" name="_csrf" value="fiuxHXDh2yPdpdUDlhRxznkWsIHzZQuIdt9MHwS-7HJ4f61LHE3UK0nUvkLwk7BnoDlF9h1ynbiVAGqlT-4vfmWG1UVJHch5">
-      <p>Username</p>
-      <input type="text" name="username" required />
-
-      <p>Password</p>
-      <input type="password" name="password" required />
-
-      <input type="submit" value="Login" />
-      <p>Don't have an account? <a href="/users/register">Sign Up</a></p>
-    </form>
-  </body>
-</html>
+openapi: 3.1.0
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: https://localhost:8443
+  description: Generated server url
+paths:
+  /api/players/{id}:
+    get:
+      tags:
+      - player-rest-controller
+      operationId: getPlayerById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+    put:
+      tags:
+      - player-rest-controller
+      operationId: updatePlayer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+    delete:
+      tags:
+      - player-rest-controller
+      operationId: deletePlayerById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/players/{id}/image:
+    get:
+      tags:
+      - player-rest-controller
+      operationId: getPlayerImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - player-rest-controller
+      operationId: replacePlayerImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - player-rest-controller
+      operationId: createPlayerImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - player-rest-controller
+      operationId: deletePlayerImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/teams/:
+    get:
+      tags:
+      - team-rest-controller
+      operationId: getAllTeams
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TeamDTO"
+    post:
+      tags:
+      - team-rest-controller
+      operationId: createTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TeamDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TeamDTO"
+  /api/players/:
+    get:
+      tags:
+      - player-rest-controller
+      operationId: getAllPlayers
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlayerDTO"
+    post:
+      tags:
+      - player-rest-controller
+      operationId: createPlayer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+  /api/matches:
+    get:
+      tags:
+      - match-rest-controller
+      operationId: getAllMatches
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MatchDTO"
+    post:
+      tags:
+      - match-rest-controller
+      operationId: createMatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MatchCreateDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MatchDTO"
+  /api/auth/path:
+    post:
+      tags:
+      - login-controller
+      operationId: refreshToken
+      parameters:
+      - name: RefreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/logout:
+    post:
+      tags:
+      - login-controller
+      operationId: logOut
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/auth/login:
+    post:
+      tags:
+      - login-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/users/paged:
+    get:
+      tags:
+      - user-rest-controller
+      operationId: getUsersPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageUserDTO"
+  /api/users/me:
+    get:
+      tags:
+      - user-rest-controller
+      operationId: me
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+  /api/tournaments:
+    get:
+      tags:
+      - tournament-rest-controller
+      operationId: getAllTournaments
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TournamentDTO"
+  /api/tournaments/{id}:
+    get:
+      tags:
+      - tournament-rest-controller
+      operationId: createTournament
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TournamentDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TournamentDTO"
+    delete:
+      tags:
+      - tournament-rest-controller
+      operationId: deleteTournamentById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/tournaments/paged:
+    get:
+      tags:
+      - tournament-rest-controller
+      operationId: getTournamentsPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageTournamentDTO"
+  /api/teams/{id}:
+    get:
+      tags:
+      - team-rest-controller
+      operationId: getTeamById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TeamDTO"
+    delete:
+      tags:
+      - team-rest-controller
+      operationId: deleteTeam
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/teams/paged:
+    get:
+      tags:
+      - team-rest-controller
+      operationId: getTeamsPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageTeamDTO"
+  /api/players/paged:
+    get:
+      tags:
+      - player-rest-controller
+      operationId: getPlayersPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagePlayerDTO"
+  /api/matches/{id}:
+    get:
+      tags:
+      - match-rest-controller
+      operationId: getMatchById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MatchDTO"
+    delete:
+      tags:
+      - match-rest-controller
+      operationId: deleteMatch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/matches/paged:
+    get:
+      tags:
+      - match-rest-controller
+      operationId: getMatchesPaged
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageMatchDTO"
+components:
+  schemas:
+    PlayerDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        citizenship:
+          type: string
+        height:
+          type: integer
+          format: int32
+        weight:
+          type: number
+          format: double
+        age:
+          type: integer
+          format: int32
+        bestHand:
+          type: string
+          enum:
+          - LEFT
+          - RIGHT
+          - BOTH
+        bestSurface:
+          type: string
+          enum:
+          - HARD
+          - CLAY
+          - GRASS
+          - INDOOR
+        team:
+          $ref: "#/components/schemas/TeamDTO"
+        winsPlayer:
+          type: integer
+          format: int32
+        lossesPlayer:
+          type: integer
+          format: int32
+        winratePlayer:
+          type: number
+          format: double
+        aces:
+          type: integer
+          format: int32
+        acespm:
+          type: number
+          format: double
+        doubleFaults:
+          type: integer
+          format: int32
+        doubleFaultspm:
+          type: number
+          format: double
+    TeamDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        player1:
+          $ref: "#/components/schemas/PlayerDTO"
+        player2:
+          $ref: "#/components/schemas/PlayerDTO"
+        manager:
+          $ref: "#/components/schemas/UserDTO"
+        winsTeam:
+          type: integer
+          format: int32
+        lossesTeam:
+          type: integer
+          format: int32
+        winrateTeam:
+          type: number
+          format: double
+        available:
+          type: boolean
+        ranking:
+          type: integer
+          format: int32
+        points:
+          type: integer
+          format: int32
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        winrate:
+          type: number
+          format: double
+        winsUser:
+          type: integer
+          format: int32
+        lossesUser:
+          type: integer
+          format: int32
+    MatchCreateDTO:
+      type: object
+      properties:
+        homeTeamId:
+          type: integer
+          format: int64
+        awayTeamId:
+          type: integer
+          format: int64
+        dateM:
+          type: string
+          format: date
+        surface:
+          type: string
+          enum:
+          - HARD
+          - CLAY
+          - GRASS
+          - INDOOR
+    MatchDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dateM:
+          type: string
+          format: date
+        surface:
+          type: string
+          enum:
+          - HARD
+          - CLAY
+          - GRASS
+          - INDOOR
+        homeTeam:
+          $ref: "#/components/schemas/TeamDTO"
+        awayTeam:
+          $ref: "#/components/schemas/TeamDTO"
+        winnerTeam:
+          $ref: "#/components/schemas/TeamDTO"
+        score:
+          type: string
+        tournament:
+          $ref: "#/components/schemas/TournamentDTO"
+    TournamentDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        location:
+          type: string
+        dateT:
+          type: string
+          format: date
+        givenPoints:
+          type: integer
+          format: int32
+        prizeMoney:
+          type: number
+          format: double
+        surface:
+          type: string
+          enum:
+          - HARD
+          - CLAY
+          - GRASS
+          - INDOOR
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+        sort:
+          type: array
+          items:
+            type: string
+    PageUserDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    PageTournamentDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/TournamentDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageTeamDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/TeamDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PagePlayerDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlayerDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageMatchDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/MatchDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
